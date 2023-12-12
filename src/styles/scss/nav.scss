@@ -1,0 +1,185 @@
+@use "./custom" as *;
+@use "./components/mixins" as *;
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0px 0px 0px 0.5px rgba($color: $g-800, $alpha: 0.15);
+
+  .nav-brand {
+    min-width: 63px;
+  }
+
+  .search-input--form {
+    position: relative;
+    display: flex;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 5px auto;
+    border-radius: 30px;
+    box-shadow: 0px 0px 0px 0.25px rgba($color: $g-800, $alpha: 0.15),
+      0px 0px 5px rgba($color: $g-800, $alpha: 0.15);
+
+    .filter-btn {
+      margin-right: 15px;
+
+      @include responsive(mobile) {
+        display: none;
+      }
+    }
+
+    .search-input--text {
+      width: 150px;
+      border: none;
+      font-weight: 300;
+      font-size: 14px;
+      color: $g-50;
+
+      @include responsive(mobile) {
+        display: none;
+      }
+
+      &::placeholder {
+        color: rgba($color: $g-50, $alpha: 0.75);
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    .search-input--btn {
+      background-color: $primary;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      @include responsive(mobile) {
+        display: none;
+        padding: 0;
+      }
+    }
+  }
+
+  .nav-menu {
+    width: --webkit-fill-available;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .menu-item {
+      position: relative;
+      margin: 0 10px;
+
+      .nav-link {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .notify-btn {
+        position: relative;
+
+        .notified {
+          display: none;
+          position: absolute;
+          right: 5px;
+          top: 3px;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          box-shadow: 0px 0px 0px 1px $white;
+          background-color: $btn-active--red;
+
+          &.show {
+            display: block;
+          }
+        }
+      }
+
+      &.user-profiler {
+        border-radius: 30px;
+        box-shadow: 0px 0px 0px 0.5px rgba($color: $g-800, $alpha: 0.15);
+        padding: 0.4rem 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          outline: 1.5px solid $bg-color;
+          margin-left: 13px;
+
+          img {
+            width: inherit;
+            height: inherit;
+          }
+        }
+      }
+
+      .notification-panel {
+        position: absolute;
+        display: none;
+        z-index: 99;
+        top: 3.5rem;
+        right: 0;
+        width: 288px;
+        height: 360px;
+        max-height: 360px;
+        overflow: hidden;
+        background-color: $white;
+        box-shadow: 0px 0px 10px rgba($color: $g-800, $alpha: 0.25);
+
+        &.show {
+            display: block;
+        }
+
+        .header {
+            position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          width: initial;
+          padding: 6px 12px;
+          border-bottom: 1px solid rgba($color: $g-800, $alpha: 0.15);
+
+          h3 {
+            font-weight: 500;
+            font-size: 14px;
+                margin-block-start: .25em;
+    margin-block-end: .25em;
+          }
+
+          .notificatiion-link--more {
+            margin-left: auto;
+            font-size: 10px;
+            color: $primary;
+          }
+        }
+
+        .body {
+          width: auto;
+          height: 80%;
+          max-height: 80%;
+          padding: 12px;
+
+          .updated_msg {
+            width: inherit;
+            height: inherit;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}

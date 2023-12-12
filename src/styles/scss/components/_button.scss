@@ -1,0 +1,55 @@
+@use "../custom" as *;
+@use "./mixins" as *;
+
+.btn {
+  cursor: pointer;
+  width: 156px;
+  height: 60px;
+  padding: 11px 37px;
+  border-radius: 10px;
+  color: $white;
+  background-color: $primary;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.icon-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+
+  svg {
+    @include responsive(mobile) {
+      width: 13px !important;
+      height: 13px !important;
+    }
+  }
+
+  svg > path {
+    transition: fill 500ms linear;
+    fill: $btn-default;
+  }
+
+  &:hover,
+  &:focus {
+    svg > path {
+      fill: $btn-active--red;
+    }
+  }
+}
+
+
+.btn-borderless {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}

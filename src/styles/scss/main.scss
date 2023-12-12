@@ -1,0 +1,82 @@
+@use "./custom" as *;
+@use "./components/button" as *;
+@use "./components/mixins" as *;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap");
+
+* {
+  font-family: $default-font, $alt-font, sans-serif;
+  font-size: 13px;
+}
+
+:root {
+  img,
+  svg {
+    width: inherit;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  input:has([type="search"], [type="tel"], [type="email"], [type="number"]) {
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+    transition: color 500ms linear;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &:focus,
+    &:hover {
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
+  ul {
+    margin-inline-start: 0px;
+    list-style-type: none;
+    padding-inline-start: 0px;
+  }
+
+  .info-banner {
+    position: relative;
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem 1rem;
+
+    @include responsive(mobile) {
+      padding: 0.5rem;
+    }
+
+    &.show {
+      display: flex;
+    }
+
+    .info-text {
+      margin: 0 auto;
+      font-size: 16px;
+      font-weight: 600;
+      @include responsive(mobile) {
+        font-size: 13px;
+      }
+    }
+
+    .icon-btn {
+      position: absolute;
+      right: 1rem;
+      @include responsive(mobile) {
+        right: 0.75rem;
+      }
+    }
+  }
+}

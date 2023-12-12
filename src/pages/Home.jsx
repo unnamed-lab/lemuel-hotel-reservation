@@ -1,9 +1,9 @@
 import { useOutletContext } from "react-router-dom";
 
 function Home() {
-  const [setNavType, setFooterType] = useOutletContext();
-  setNavType(true); //  Top navigation bar used.
-  setFooterType(true); // Short form footer used
+  const [setFooterType] = useOutletContext();
+  setFooterType(true);
+  // Short form footer used when true, long form footer is used when false.
 
   return (
     <>
