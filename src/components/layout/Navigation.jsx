@@ -20,7 +20,13 @@ function Navbar() {
 function NavMenu() {
   const [userProfileImg, setProfileImg] = useState(userImg);
   const [isNotified, setNotified] = useState(true);
+  const [showNotificationPanel, setNotificationPnanel] = useState(false);
   const hasNotification = isNotified ? "show" : "";
+  const showNotification = showNotificationPanel ? "show" : "";
+
+  const notifyBtn = () => {
+    setNotificationPnanel(!showNotificationPanel);
+  };
 
   return (
     <>
@@ -31,7 +37,11 @@ function NavMenu() {
           </a>
         </div>
         <div className="menu-item">
-          <button type="button" className="btn-borderless notify-btn">
+          <button
+            type="button"
+            className="btn-borderless notify-btn"
+            onClick={notifyBtn}
+          >
             <svg
               width="16"
               height="20"
@@ -50,6 +60,20 @@ function NavMenu() {
             </svg>
             <div className={`notified ${hasNotification}`}></div>
           </button>
+
+          <div className={`notification-panel ${showNotification}`}>
+            <div className="header">
+              <h3>Notification</h3>
+              <a href="#" className="notificatiion-link--more">
+                See more
+              </a>
+            </div>
+            <div className="body">
+              <div className="updated_msg">
+                <p>You’re all caught up</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="menu-item user-profiler">
           <button type="button" className="btn-borderless">
