@@ -54,8 +54,14 @@
 :root svg {
   width: inherit;
 }
+:root #root {
+  width: 100dvw;
+  min-height: 100dvh;
+}
 :root body {
   margin: 0;
+  width: 100dvw;
+  min-height: 100dvh;
 }
 :root input:has([type=search], [type=tel], [type=email], [type=number]):focus-visible {
   outline: none;
@@ -83,9 +89,15 @@
   flex-wrap: wrap;
   align-items: center;
   padding: 0.75rem 1rem;
+  width: 100%;
+  text-align: center;
 }
 @media (max-width: 767px) {
   :root .info-banner {
+    position: absolute;
+    left: 6rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
     padding: 0.5rem;
   }
 }
@@ -99,7 +111,7 @@
 }
 @media (max-width: 767px) {
   :root .info-banner .info-text {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 :root .info-banner .icon-btn {
@@ -108,8 +120,40 @@
 }
 @media (max-width: 767px) {
   :root .info-banner .icon-btn {
-    right: 0.75rem;
+    display: none !important;
   }
+}
+:root .panel {
+  position: absolute;
+  z-index: 99;
+  top: 3.5rem;
+  right: 0;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(34, 34, 34, 0.25);
+}
+:root .panel.show {
+  display: block !important;
+}
+@media (max-width: 767px) {
+  :root .panel.show {
+    display: none !important;
+  }
+}
+:root .panel .header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  width: initial;
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.15);
+}
+:root .panel .body {
+  width: auto;
+  height: 80%;
+  max-height: 80%;
+  padding: 12px;
 }
 
 /*# sourceMappingURL=main.css.map */

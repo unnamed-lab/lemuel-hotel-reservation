@@ -15,8 +15,14 @@
     width: inherit;
   }
 
+  #root {
+    width: 100dvw;
+    min-height: 100dvh;
+  }
   body {
     margin: 0;
+    width: 100dvw;
+    min-height: 100dvh;
   }
 
   input:has([type="search"], [type="tel"], [type="email"], [type="number"]) {
@@ -53,8 +59,14 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
 
     @include responsive(mobile) {
+      position: absolute;
+      left: 6rem;
+      left: 50%;
+      transform: translate(-50%, 0%);
       padding: 0.5rem;
     }
 
@@ -67,16 +79,51 @@
       font-size: 16px;
       font-weight: 600;
       @include responsive(mobile) {
-        font-size: 13px;
+        font-size: 12px;
       }
     }
 
     .icon-btn {
       position: absolute;
       right: 1rem;
+
       @include responsive(mobile) {
-        right: 0.75rem;
+        display: none !important;
       }
+    }
+  }
+
+  .panel {
+    position: absolute;
+    z-index: 99;
+    top: 3.5rem;
+    right: 0;
+    overflow: hidden;
+    background-color: $white;
+    box-shadow: 0px 0px 10px rgba($color: $g-800, $alpha: 0.25);
+
+    &.show {
+      display: block !important;
+      @include responsive(mobile) {
+        display: none !important;
+      }
+    }
+
+    .header {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      width: initial;
+      padding: 6px 12px;
+      border-bottom: 1px solid rgba($color: $g-800, $alpha: 0.15);
+    }
+
+    .body {
+      width: auto;
+      height: 80%;
+      max-height: 80%;
+      padding: 12px;
     }
   }
 }
