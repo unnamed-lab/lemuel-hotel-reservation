@@ -2,32 +2,31 @@
 @use "./components/mixins" as *;
 
 .navbar {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding: 0.75rem 1.5rem;
   box-shadow: 0px 0px 0px 0.5px rgba($color: $g-800, $alpha: 0.15);
 
-  @include responsive(mobile) {
+  @include responsive(mediadown) {
     display: block;
     box-shadow: none;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0 0 0;
     margin-top: 0.5rem;
   }
 
   .nav-brand {
     width: 63px;
 
-    @include responsive(mobile) {
+    @include responsive(mediadown) {
       width: 46px;
+      margin-left: 1rem;
     }
   }
 
   .search-input--form {
     position: absolute;
-    bottom: 50%;
-    right: 50%;
-    transform: translate(50%, 50%);
     display: flex;
     padding-left: 20px;
     padding-right: 10px;
@@ -37,19 +36,29 @@
     box-shadow: 0px 0px 0px 0.25px rgba($color: $g-800, $alpha: 0.15),
       0px 0px 5px rgba($color: $g-800, $alpha: 0.15);
 
-    @include responsive(mobile) {
+    @include responsive(mediaup) {
+      bottom: 50%;
+      right: 50%;
+      transform: translate(50%, 50%);
+    }
+
+    @include responsive(mediadown) {
       position: relative !important;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-bottom: 2rem;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 2rem;
-      max-width: 394px;
+      margin-top: 1.5rem;
+      max-width: 250px;
     }
 
     .filter-btn {
       margin-right: 15px;
 
-      @include responsive(mobile) {
+      @include responsive(mediadown) {
         display: block;
+        margin-right: 6px;
       }
     }
 
@@ -60,7 +69,7 @@
       color: $g-50;
       margin: 0 3px;
       padding-bottom: 2px;
-      @include responsive(mobile) {
+      @include responsive(mediadown) {
         // display: none;
       }
 
@@ -70,15 +79,15 @@
 
       &#search_input_address {
         width: 9rem;
-        @include responsive(mobile) {
-          width: 11rem;
+        @include responsive(mediadown) {
+          width: 8.75rem;
         }
       }
       &#search_input_town {
         width: 4.5rem;
-        @include responsive(mobile) {
-          width: 5.5rem;
+        @include responsive(mediadown) {
           margin-left: 0.5rem;
+          width: 4.25rem;
         }
       }
 
@@ -97,7 +106,7 @@
       margin-left: 12px;
       width: 30px;
       height: 30px;
-      @include responsive(mobile) {
+      @include responsive(mediadown) {
         // display: none;
         padding: 0;
         margin-left: auto;
@@ -112,7 +121,7 @@
     align-items: center;
     margin-left: auto;
 
-    @include responsive(mobile) {
+    @include responsive(mediadown) {
       display: none !important;
     }
 
@@ -241,18 +250,27 @@
       }
     }
   }
-
 }
 
 .nav-menu--mobile {
-  display: flex;
-  width: 100dvw;
-  padding: 20px;
-  background-color: $white;
-  position: absolute;
+  position: fixed;
   z-index: 99;
   left: 0;
   bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  width: -webkit-fill-available;
+  padding: 10px 20px;
+  background-color: $white;
+  transition: bottom 1s ease 200ms;
+
+  @include responsive(desktop) {
+    display: none;
+  }
+
+  &.hidden {
+    bottom: -20%;
+  }
 
   .menu-list {
     display: flex;
@@ -264,16 +282,29 @@
 
     .menu-item {
       width: 2rem;
-      
+
       a {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         font-size: 8px;
+        transition: all 1s ease;
+        text-decoration: none;
+        &:hover {
+          color: $primary;
+        }
+
+        &:hover > svg > path,
+        &:focus > svg > path {
+          fill: $primary;
+        }
 
         svg {
           width: 22px !important;
           margin: 6px;
+          path {
+            fill: $dark;
+          }
         }
       }
     }

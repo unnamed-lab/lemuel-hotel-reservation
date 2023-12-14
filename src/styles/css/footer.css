@@ -1,3 +1,89 @@
-
+.footer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0px 0px 0px 0.5px rgba(34, 34, 34, 0.15);
+}
+.footer .footer-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .footer .footer-section {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0 auto !important;
+  }
+}
+.footer .footer-section.footer-section--left {
+  margin-right: auto;
+}
+@media (max-width: 767px) {
+  .footer .footer-section.footer-section--left {
+    margin-right: 0;
+  }
+}
+.footer .footer-section.footer-section--right {
+  margin-left: auto;
+}
+@media (max-width: 767px) {
+  .footer .footer-section.footer-section--right {
+    margin-left: 0;
+  }
+}
+.footer .footer-section .trademark {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: fit-content;
+  margin-right: 1rem;
+}
+@media (max-width: 767px) {
+  .footer .footer-section .trademark {
+    margin-block-end: 6px;
+    margin-block-start: 6px;
+    font-size: 12px;
+  }
+}
+.footer .footer-section .trademark time {
+  margin-right: 6px;
+  font-size: 12px;
+}
+.footer .footer-section.list-style-none > .footer-redirect-list > .footer-redirect-item {
+  list-style: none !important;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.footer .footer-section .footer-redirect-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: disc;
+  justify-content: space-between;
+  font-size: 14px;
+}
+@media (max-width: 767px) {
+  .footer .footer-section .footer-redirect-list {
+    justify-content: space-evenly;
+    margin-block-end: 6px;
+    margin-block-start: 6px;
+  }
+}
+.footer .footer-section .footer-redirect-list .footer-redirect-item {
+  margin-left: 0.6rem;
+  margin-right: 1.2rem;
+  color: #B8B8B8;
+}
+.footer .footer-section .footer-redirect-list .footer-redirect-item .footer-redirect-link {
+  font-size: 13px;
+  font-weight: 300;
+}
+@media (max-width: 767px) {
+  .footer .footer-section .footer-redirect-list .footer-redirect-item .footer-redirect-link {
+    font-size: 11px;
+  }
+}
 
 /*# sourceMappingURL=footer.css.map */

@@ -7,7 +7,10 @@ function Home() {
 
   return (
     <>
-      <h2>Home page section!</h2>
+      
+      <main>
+        <h1>Main content here!</h1>
+      </main>
     </>
   );
 }
