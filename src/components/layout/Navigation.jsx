@@ -25,8 +25,7 @@ function MobileNavMenu() {
     const navBar = document.querySelector(".nav-menu--mobile");
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const screenWidth = window.screen.availWidth;
-    if (screenWidth <= 768) {
-    if (scrollTop > lastScrollTop) {
+    if (scrollTop > lastScrollTop && screenWidth <= 768) {
       navBar.classList.contains("hidden")
         ? null
         : navBar.classList.add("hidden");
@@ -35,8 +34,8 @@ function MobileNavMenu() {
         ? navBar.classList.remove("hidden")
         : null;
     }
-    console.log("I did the thing!")
-    lastScrollTop = scrollTop;}
+    console.log("I did the thing!");
+    lastScrollTop = scrollTop;
   });
 
   return (
