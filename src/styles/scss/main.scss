@@ -19,10 +19,21 @@
     width: 100dvw;
     min-height: 100dvh;
   }
+  html {
+    overflow: hidden;
+  }
+  main,
   body {
+    position: relative;
     margin: 0;
-    width: 100dvw;
-    min-height: 100dvh;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  header {
+    position: relative;
   }
 
   input:has([type="search"], [type="tel"], [type="email"], [type="number"]) {
@@ -58,15 +69,14 @@
     display: none;
     flex-wrap: wrap;
     align-items: center;
-    padding: 0.75rem 1rem;
-    width: 100%;
+    padding: 0.75rem 1.5rem;
     text-align: center;
-
+    
     @include responsive(mobile) {
+      width: max-content;
       position: absolute;
-      left: 6rem;
       left: 50%;
-      transform: translate(-50%, 0%);
+      transform: translate(-50%, 5%);
       padding: 0.5rem;
     }
 

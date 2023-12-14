@@ -1,0 +1,90 @@
+@use "./custom" as *;
+@use "./components/mixins" as *;
+
+.footer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0px 0px 0px 0.5px rgba($color: $g-800, $alpha: 0.15);
+
+  .footer-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @include responsive(mobile) {
+      font-size: 14px;
+      font-weight: 300;
+      margin: 0 auto !important;
+    }
+
+    &.footer-section--left {
+      margin-right: auto;
+
+      @include responsive(mobile) {
+        margin-right: 0;
+      }
+    }
+
+    &.footer-section--right {
+      margin-left: auto;
+      @include responsive(mobile) {
+        margin-left: 0;
+      }
+    }
+
+    .trademark {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: fit-content;
+      margin-right: 1rem;
+
+      @include responsive(mobile) {
+        margin-block-end: 6px;
+        margin-block-start: 6px;
+        font-size: 12px;
+      }
+
+      time {
+        margin-right: 6px;
+        font-size: 12px;
+      }
+    }
+    &.list-style-none > .footer-redirect-list > .footer-redirect-item {
+      list-style: none !important;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .footer-redirect-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: disc;
+      justify-content: space-between;
+      font-size: 14px;
+
+      @include responsive(mobile) {
+        justify-content: space-evenly;
+        margin-block-end: 6px;
+        margin-block-start: 6px;
+      }
+
+      .footer-redirect-item {
+        margin-left: 0.6rem;
+        margin-right: 1.2rem;
+        color: $g-50;
+
+        .footer-redirect-link {
+          font-size: 13px;
+          font-weight: 300;
+          @include responsive(mobile) {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}
