@@ -1,0 +1,157 @@
+@use "./custom" as *;
+@use "./components/mixins" as *;
+
+.category-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-height: 80px;
+  padding: 6px 3rem;
+  background-color: $white;
+  margin-bottom: 1.5rem;
+
+  @include responsive(mobile) {
+    padding: 4px 1.5rem;
+  }
+
+  .category-carousel-btn {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    margin: auto 0;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    box-shadow: 0px 0px 5px rgba($color: $dark, $alpha: 0.15);
+    transition: background-color 1s ease;
+
+    &:hover {
+      background-color: $g-50;
+      svg > path {
+        fill: $white;
+      }
+    }
+    @include responsive(mobile) {
+      width: 15px;
+      height: 15px;
+      padding: 2px;
+    }
+
+    svg {
+      width: 7px;
+      margin: auto;
+
+      @include responsive(mobile) {
+        width: 5px;
+      }
+      path {
+        transition: fill 1s ease;
+      }
+    }
+
+    &.disable {
+      svg > path {
+        fill: $g-100;
+      }
+    }
+
+    &.category-carousel-btn--left {
+      margin-right: auto;
+    }
+
+    &.category-carousel-btn--right {
+      margin-left: auto;
+    }
+  }
+
+  .category-carousel-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 90%;
+    padding: 0 4px;
+    margin: 0.3rem auto;
+    
+    @include responsive(mobile) {
+      width: 80%;
+    }
+
+    .carousel-box-list {
+        overflow: hidden;
+      display: flex;
+      margin-block-end: 0.2em;
+      margin-block-start: 0.2em;
+
+      .box-item {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        color: $g-50;
+        font-size: 9px;
+        font-weight: 400;
+        padding: 4px 3px;
+        margin: 0 1rem;
+        text-transform: capitalize;
+        width: 120px;
+        height: 80px;
+        text-align: center;
+        transition: all 1s ease;
+
+        &:hover {
+          color: $primary;
+          svg > path {
+            fill: $primary;
+          }
+          .active-item {
+            background-color: rgba($color: $primary, $alpha: 0.5);
+          }
+        }
+
+        &:focus {
+          svg > path {
+            fill: $dark;
+          }
+
+          .active-item {
+            background-color: $dark;
+          }
+        }
+        @include responsive(mobile) {
+          font-size: 7px;
+        }
+
+        svg {
+          width: 40px;
+          height: 40px;
+          fill: none;
+          margin-bottom: 6px;
+
+          @include responsive(mobile) {
+            width: 25px;
+            height: 25px;
+          }
+
+          path {
+            fill: $g-50;
+            transition: all 1s ease;
+          }
+        }
+
+        .active-item {
+          border-radius: 5px;
+          width: 1.66rem;
+          height: 3px;
+          margin-top: auto;
+          background-color: transparent;
+          transition: all 1s ease;
+        }
+      }
+    }
+  }
+}

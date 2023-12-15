@@ -1,7 +1,6 @@
 import "../../styles/css/footer.css";
 
 function Footer({ footerState }) {
-  footerState = false;
   const year = new Date().getFullYear();
   const footer = footerState ? (
     <FooterShort date={year} />
