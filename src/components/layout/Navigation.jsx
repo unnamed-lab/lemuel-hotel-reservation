@@ -34,7 +34,6 @@ function MobileNavMenu() {
         ? navBar.classList.remove("hidden")
         : null;
     }
-    console.log("I did the thing!");
     lastScrollTop = scrollTop;
   });
 
