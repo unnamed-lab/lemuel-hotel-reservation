@@ -472,10 +472,10 @@ function Catalogue() {
     {
       title: "Jorgan beach",
       img: [
-        "/public/beach-01.png",
-        "/public/beach-02.png",
-        "/public/beach-03.png",
-        "/public/beach-04.png",
+        "/beach-01.png",
+        "/beach-02.png",
+        "/beach-03.png",
+        "/beach-04.png",
       ],
       distance: 43,
       available: "Apr 7 - 12",
@@ -486,10 +486,10 @@ function Catalogue() {
     {
       title: "Della beach Hotel",
       img: [
-        "/public/resort-01.png",
-        "/public/resort-02.png",
-        "/public/resort-03.png",
-        "/public/resort-04.png",
+        "/resort-01.png",
+        "/resort-02.png",
+        "/resort-03.png",
+        "/resort-04.png",
       ],
       distance: 53,
       available: "May 6 - 11",
@@ -500,10 +500,10 @@ function Catalogue() {
     {
       title: "Jorgan beach",
       img: [
-        "/public/beach-01.png",
-        "/public/beach-02.png",
-        "/public/beach-03.png",
-        "/public/beach-04.png",
+        "/beach-01.png",
+        "/beach-02.png",
+        "/beach-03.png",
+        "/beach-04.png",
       ],
       distance: 43,
       available: "Apr 7 - 12",
@@ -514,10 +514,10 @@ function Catalogue() {
     {
       title: "Della beach Hotel",
       img: [
-        "/public/resort-01.png",
-        "/public/resort-02.png",
-        "/public/resort-03.png",
-        "/public/resort-04.png",
+        "/resort-01.png",
+        "/resort-02.png",
+        "/resort-03.png",
+        "/resort-04.png",
       ],
       distance: 53,
       available: "May 6 - 11",
@@ -528,10 +528,10 @@ function Catalogue() {
     {
       title: "Jorgan beach",
       img: [
-        "/public/beach-01.png",
-        "/public/beach-02.png",
-        "/public/beach-03.png",
-        "/public/beach-04.png",
+        "/beach-01.png",
+        "/beach-02.png",
+        "/beach-03.png",
+        "/beach-04.png",
       ],
       distance: 43,
       available: "Apr 7 - 12",
@@ -542,10 +542,10 @@ function Catalogue() {
     {
       title: "Della beach Hotel",
       img: [
-        "/public/resort-01.png",
-        "/public/resort-02.png",
-        "/public/resort-03.png",
-        "/public/resort-04.png",
+        "/resort-01.png",
+        "/resort-02.png",
+        "/resort-03.png",
+        "/resort-04.png",
       ],
       distance: 53,
       available: "May 6 - 11",
@@ -556,10 +556,10 @@ function Catalogue() {
     {
       title: "Jorgan beach",
       img: [
-        "/public/beach-01.png",
-        "/public/beach-02.png",
-        "/public/beach-03.png",
-        "/public/beach-04.png",
+        "/beach-01.png",
+        "/beach-02.png",
+        "/beach-03.png",
+        "/beach-04.png",
       ],
       distance: 43,
       available: "Apr 7 - 12",
@@ -570,10 +570,10 @@ function Catalogue() {
     {
       title: "Della beach Hotel",
       img: [
-        "/public/resort-01.png",
-        "/public/resort-02.png",
-        "/public/resort-03.png",
-        "/public/resort-04.png",
+        "/resort-01.png",
+        "/resort-02.png",
+        "/resort-03.png",
+        "/resort-04.png",
       ],
       distance: 53,
       available: "May 6 - 11",
@@ -584,10 +584,10 @@ function Catalogue() {
     {
       title: "Jorgan beach",
       img: [
-        "/public/beach-01.png",
-        "/public/beach-02.png",
-        "/public/beach-03.png",
-        "/public/beach-04.png",
+        "/beach-01.png",
+        "/beach-02.png",
+        "/beach-03.png",
+        "/beach-04.png",
       ],
       distance: 43,
       available: "Apr 7 - 12",
@@ -598,10 +598,10 @@ function Catalogue() {
     {
       title: "Della beach Hotel",
       img: [
-        "/public/resort-01.png",
-        "/public/resort-02.png",
-        "/public/resort-03.png",
-        "/public/resort-04.png",
+        "/resort-01.png",
+        "/resort-02.png",
+        "/resort-03.png",
+        "/resort-04.png",
       ],
       distance: 53,
       available: "May 6 - 11",
