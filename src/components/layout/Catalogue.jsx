@@ -1,6 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import "../../styles/css/app.css";
 
 function CatalogueItem({
+  id,
   img,
   title,
   distance,
@@ -9,9 +11,79 @@ function CatalogueItem({
   rating,
   url,
 }) {
+  let currentIndex = 0;
+  let prevIndex= null;
+  const [curIndex, setIndex] = useState(currentIndex);
+  const carouselBody = useRef(null);
+  const carouselItems = useRef(null);
+  const carouselItemButton = useRef(null);
+  const carouselPrevBtn = useRef(null);
+  const carouselNextBtn = useRef(null);
+
+  useEffect(() => {
+    carouselBody.current = document.querySelector(
+      `.card-thumbnail.carousel-key--${id}`
+    );
+    carouselItems.current = document.querySelectorAll(
+      `.card-thumbnail--image.container-key--${id}`
+    );
+    carouselItemButton.current = document.querySelectorAll(
+      `.card-thumbnail-switch--btn.card-switch-key-${id}`
+    );
+    carouselItemButton.current[0].classList.add("active");
+    carouselPrevBtn.current = document.querySelector(
+      `.card-thumbnail--swipe_btn.btn-left.swipe-btn-${id}`
+    );
+    carouselNextBtn.current = document.querySelector(
+      `.card-thumbnail--swipe_btn.btn-right.swipe-btn-${id}`
+    );
+  }, [id]);
+
+//   useEffect(() => {
+//     curIndex === 0
+//       ? carouselPrevBtn.current.classList.add("hide")
+//       : carouselPrevBtn.current.classList.contains("hide") === true
+//       ? carouselPrevBtn.current.classList.remove("hide")
+//       : null;
+
+//     curIndex === carouselItems.current.length 
+//       ? carouselNextBtn.current.classList.add("hide")
+//       : carouselNextBtn.current.classList.contains("hide") === true
+//       ? carouselNextBtn.current.classList.remove("hide")
+//       : null;
+//   }, [curIndex]);
+
+  function updateCarousel() {
+    const itemWidth = carouselItems.current[0].clientWidth;
+    // carouselItemButton.current[
+    //   (currentIndex - 1 + carouselItems.current.length) %
+    //     carouselItems.current.length
+    // ].classList.remove("active");
+    carouselItemButton.current[prevIndex].classList.remove("active");
+    carouselItemButton.current[currentIndex].classList.add("active");
+    carouselBody.current.style.transform = `translateX(${
+      -currentIndex * itemWidth
+    }px)`;
+  }
+
+  function nextSlide() {
+    prevIndex = currentIndex;
+    currentIndex = (currentIndex + 1) % carouselItems.current.length; 
+    // Get the index of the next item.
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    prevIndex = currentIndex;
+    currentIndex =
+      (currentIndex - 1 + carouselItems.current.length) %
+      carouselItems.current.length;
+    updateCarousel();
+  }
+
   return (
     <>
-      <div className="catalogue-item--card">
+      <div key={id} className="catalogue-item--card">
         <button type="button" className="card-favourite btn-borderless">
           <svg
             width="18"
@@ -28,69 +100,72 @@ function CatalogueItem({
             />
           </svg>
         </button>
-        <div className="card-thumbnail--carousel">
-          <div className="card-thumnail">
-            {img.map((el, key) => {
-              return (
-                <img
-                  key={key}
-                  src={el}
-                  alt={`${title}: Preview image ${key}`}
-                  title={`${title}: Preview image ${key}`}
-                  className="card-thumbnail--image"
-                />
-              );
-            })}
-          </div>
-          <div className="card-thumbnail--swipe">
-            <button
-              type="button"
-              className="card-thumbnail--swipe_btn btn-left"
-            >
-              <svg
-                width="7"
-                height="12"
-                viewBox="0 0 7 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+        <div className={`card-thumbnail--carousel`}>
+          <div className="card-thumbnail--carousel_container">
+            <div className={`card-thumbnail carousel-key--${id}`}>
+              {img.map((el, key) => {
+                return (
+                  <img
+                    key={key}
+                    src={el}
+                    alt={`${title}: Preview image ${key}`}
+                    title={`${title}: Preview image ${key}`}
+                    className={`card-thumbnail--image container-key--${id}`}
+                  />
+                );
+              })}
+            </div>
+            <div className="card-thumbnail--swipe">
+              <button
+                type="button"
+                className={`card-thumbnail--swipe_btn btn-left swipe-btn-${id}`}
+                onClick={prevSlide}
               >
-                <path
-                  d="M7 10.59L2.67341 6L7 1.41L5.66802 0L0 6L5.66802 12L7 10.59Z"
-                  fill="#3E3E3E"
-                />
-              </svg>
-            </button>
-            <button
-              type="button"
-              className="card-thumbnail--swipe_btn btn-right"
-            >
-              <svg
-                width="7"
-                height="12"
-                viewBox="0 0 7 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 10.59L2.67341 6L7 1.41L5.66802 0L0 6L5.66802 12L7 10.59Z"
+                    fill="#3E3E3E"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className={`card-thumbnail--swipe_btn btn-right swipe-btn-${id}`}
+                onClick={nextSlide}
               >
-                <path
-                  d="M0 10.59L4.32659 6L0 1.41L1.33198 0L7 6L1.33198 12L0 10.59Z"
-                  fill="#3E3E3E"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="card-thumbnail-switch">
-            <button
-              type="button"
-              className="card-thumbnail-switch--btn btn-borderless active"
-            ></button>
-            <button
-              type="button"
-              className="card-thumbnail-switch--btn btn-borderless"
-            ></button>
-            <button
-              type="button"
-              className="card-thumbnail-switch--btn btn-borderless"
-            ></button>
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 10.59L4.32659 6L0 1.41L1.33198 0L7 6L1.33198 12L0 10.59Z"
+                    fill="#3E3E3E"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="card-thumbnail-switch">
+              {img.map((el, key) => {
+                return (
+                  <>
+                    <button
+                      key={key}
+                      type="button"
+                      className={`card-thumbnail-switch--btn btn-borderless card-switch-key-${id}`}
+                    ></button>
+                  </>
+                );
+              })}
+            </div>
           </div>
         </div>
         <a href={url} className="card-redirect">

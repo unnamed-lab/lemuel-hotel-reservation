@@ -209,17 +209,21 @@
   position: relative;
   margin-bottom: 1rem;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumnail {
-  display: flex;
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container {
+  position: relative;
   overflow: hidden;
   border-radius: 15px;
+}
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail {
+  display: flex;
   width: 100%;
   aspect-ratio: 1/1.015;
+  transition: all 2s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumnail .card-thumbnail--image {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image {
   width: 100%;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe {
   position: absolute;
   display: flex;
   width: 100%;
@@ -227,7 +231,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn {
   cursor: pointer;
   display: flex;
   width: 20px;
@@ -240,22 +244,25 @@
   opacity: 0.45;
   transition: opacity 1s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn:hover {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.hide {
+  display: none;
+}
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn:hover {
   opacity: 0.8;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-left {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-left {
   margin-right: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-right {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-right {
   margin-left: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn svg {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg {
   margin: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--swipe .card-thumbnail--swipe_btn svg > path {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg > path {
   fill: #3E3E3E;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail-switch {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
@@ -267,7 +274,7 @@
   left: 50%;
   transform: translate(-50%, 0);
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail-switch .card-thumbnail-switch--btn {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn {
   padding-block: 0;
   padding-inline: 0;
   width: 6px;
@@ -278,10 +285,10 @@
   opacity: 0.45;
   transition: all 1s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail-switch .card-thumbnail-switch--btn:hover {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn:hover {
   opacity: 0.7;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail-switch .card-thumbnail-switch--btn.active {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn.active {
   opacity: 1;
   width: 8px;
   height: 8px;

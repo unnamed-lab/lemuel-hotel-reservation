@@ -468,23 +468,170 @@ function CategoryCarousel() {
 }
 
 function Catalogue() {
+  const catalogue = [
+    {
+      title: "Jorgan beach",
+      img: [
+        "/public/beach-01.png",
+        "/public/beach-02.png",
+        "/public/beach-03.png",
+        "/public/beach-04.png",
+      ],
+      distance: 43,
+      available: "Apr 7 - 12",
+      price: "10,000",
+      rating: 4.83,
+      url: "#",
+    },
+    {
+      title: "Della beach Hotel",
+      img: [
+        "/public/resort-01.png",
+        "/public/resort-02.png",
+        "/public/resort-03.png",
+        "/public/resort-04.png",
+      ],
+      distance: 53,
+      available: "May 6 - 11",
+      price: "25,000",
+      rating: 4.95,
+      url: "#",
+    },
+    {
+      title: "Jorgan beach",
+      img: [
+        "/public/beach-01.png",
+        "/public/beach-02.png",
+        "/public/beach-03.png",
+        "/public/beach-04.png",
+      ],
+      distance: 43,
+      available: "Apr 7 - 12",
+      price: "10,000",
+      rating: 4.83,
+      url: "#",
+    },
+    {
+      title: "Della beach Hotel",
+      img: [
+        "/public/resort-01.png",
+        "/public/resort-02.png",
+        "/public/resort-03.png",
+        "/public/resort-04.png",
+      ],
+      distance: 53,
+      available: "May 6 - 11",
+      price: "25,000",
+      rating: 4.95,
+      url: "#",
+    },
+    {
+      title: "Jorgan beach",
+      img: [
+        "/public/beach-01.png",
+        "/public/beach-02.png",
+        "/public/beach-03.png",
+        "/public/beach-04.png",
+      ],
+      distance: 43,
+      available: "Apr 7 - 12",
+      price: "10,000",
+      rating: 4.83,
+      url: "#",
+    },
+    {
+      title: "Della beach Hotel",
+      img: [
+        "/public/resort-01.png",
+        "/public/resort-02.png",
+        "/public/resort-03.png",
+        "/public/resort-04.png",
+      ],
+      distance: 53,
+      available: "May 6 - 11",
+      price: "25,000",
+      rating: 4.95,
+      url: "#",
+    },
+    {
+      title: "Jorgan beach",
+      img: [
+        "/public/beach-01.png",
+        "/public/beach-02.png",
+        "/public/beach-03.png",
+        "/public/beach-04.png",
+      ],
+      distance: 43,
+      available: "Apr 7 - 12",
+      price: "10,000",
+      rating: 4.83,
+      url: "#",
+    },
+    {
+      title: "Della beach Hotel",
+      img: [
+        "/public/resort-01.png",
+        "/public/resort-02.png",
+        "/public/resort-03.png",
+        "/public/resort-04.png",
+      ],
+      distance: 53,
+      available: "May 6 - 11",
+      price: "25,000",
+      rating: 4.95,
+      url: "#",
+    },
+    {
+      title: "Jorgan beach",
+      img: [
+        "/public/beach-01.png",
+        "/public/beach-02.png",
+        "/public/beach-03.png",
+        "/public/beach-04.png",
+      ],
+      distance: 43,
+      available: "Apr 7 - 12",
+      price: "10,000",
+      rating: 4.83,
+      url: "#",
+    },
+    {
+      title: "Della beach Hotel",
+      img: [
+        "/public/resort-01.png",
+        "/public/resort-02.png",
+        "/public/resort-03.png",
+        "/public/resort-04.png",
+      ],
+      distance: 53,
+      available: "May 6 - 11",
+      price: "25,000",
+      rating: 4.95,
+      url: "#",
+    },
+  ];
   return (
     <>
       <section className="catalogue-section">
-        <CatalogueItem
-          title={"Jorgan beach"}
-          img={[
-            "/public/beach-01.png",
-            "/public/beach-02.png",
-            "/public/beach-03.png",
-            "/public/beach-04.png",
-          ]}
-          distance={43}
-          available={"Apr 7 - 12"}
-          price={"10,000"}
-          rating={4.83}
-          url={"#"}
-        />
+        {catalogue
+          .filter((x, key) => key <= 11)
+          .map((el, key) => {
+            return (
+              <>
+                <CatalogueItem
+                  key={key}
+                  id={key}
+                  title={el.title}
+                  img={el.img}
+                  distance={el.distance}
+                  available={el.available}
+                  price={el.price}
+                  rating={el.rating}
+                  url={el.url}
+                />
+              </>
+            );
+          })}
       </section>
     </>
   );
