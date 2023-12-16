@@ -1,0 +1,11 @@
+@use '../custom' as *;
+
+@keyframes fave_click {
+    0% {
+        scale: 70%;
+    }
+
+    100% {
+        scale: 100%;
+    }
+}
