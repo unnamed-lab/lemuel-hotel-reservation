@@ -331,6 +331,11 @@
     .card-redirect {
       position: relative;
       width: 100%;
+      text-decoration: none;
+
+      &:hover {
+        color: $black;
+      }
       .card-details {
         display: block;
         width: 100%;
@@ -341,6 +346,7 @@
           margin-block-start: 0.25em;
           margin-block-end: 0.25em;
           width: 80%;
+          color: $black;
         }
 
         .card-details--availability,
@@ -357,6 +363,7 @@
           font-weight: 300;
           margin-block-start: 0.5em;
           margin-block-end: 0.5em;
+          color: $black;
 
           .pricing-amount {
             font-size: 16px;

@@ -296,6 +296,10 @@
 .catalogue-section .catalogue-item--card .card-redirect {
   position: relative;
   width: 100%;
+  text-decoration: none;
+}
+.catalogue-section .catalogue-item--card .card-redirect:hover {
+  color: #000;
 }
 .catalogue-section .catalogue-item--card .card-redirect .card-details {
   display: block;
@@ -307,6 +311,7 @@
   margin-block-start: 0.25em;
   margin-block-end: 0.25em;
   width: 80%;
+  color: #000;
 }
 .catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--availability,
 .catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--distance {
@@ -321,6 +326,7 @@
   font-weight: 300;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
+  color: #000;
 }
 .catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--pricing .pricing-amount {
   font-size: 16px;
