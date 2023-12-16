@@ -1,5 +1,6 @@
 @use "./custom" as *;
 @use "./components/mixins" as *;
+@use "./components/animation" as *;
 
 .category-carousel {
   display: flex;
@@ -76,16 +77,18 @@
     width: 90%;
     padding: 0 4px;
     margin: 0.3rem auto;
-    
+    overflow: hidden;
+
     @include responsive(mobile) {
       width: 80%;
     }
 
     .carousel-box-list {
-        overflow: hidden;
+      overflow: hidden;
       display: flex;
       margin-block-end: 0.2em;
       margin-block-start: 0.2em;
+      transition: transform 1s ease;
 
       .box-item {
         display: flex;
@@ -150,6 +153,221 @@
           margin-top: auto;
           background-color: transparent;
           transition: all 1s ease;
+        }
+      }
+    }
+  }
+}
+
+.catalogue-section {
+  position: relative;
+  padding: 0.5rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+
+  @include responsive(mobile) {
+    grid-template-columns: 1fr;
+    padding: .5rem 3rem;
+  }
+
+  .catalogue-item--card {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    .card-favourite {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+
+      &:hover {
+        svg > path {
+          fill: $btn-active--red;
+          fill-opacity: 60%;
+        }
+      }
+
+      &:focus {
+        svg > path {
+          fill: $btn-active--red;
+          fill-opacity: 80%;
+        }
+      }
+
+      &:active {
+        svg > path {
+          fill: $btn-active--red;
+          stroke: $btn-active--red;
+          fill-opacity: 100%;
+        }
+      }
+
+      &.active {
+        svg > path {
+          fill: $btn-active--red;
+          stroke: $btn-active--red;
+          fill-opacity: 100%;
+        }
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+
+        &:active {
+          animation: fave_click 2s ease;
+        }
+      }
+
+      svg > path {
+        fill: $g-800;
+        transition: all 1s ease;
+      }
+    }
+
+    .card-thumbnail--carousel {
+      position: relative;
+      margin-bottom: 1rem;
+
+      .card-thumnail {
+        display: flex;
+        overflow: hidden;
+        border-radius: 15px;
+        width: 100%;
+        aspect-ratio: 1/1.015;
+
+        .card-thumbnail--image {
+          width: 100%;
+        }
+      }
+
+      .card-thumbnail--swipe {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .card-thumbnail--swipe_btn {
+          cursor: pointer;
+          display: flex;
+          width: 20px;
+          height: 20px;
+          border: none;
+          border-radius: 50%;
+          margin: 0 1rem;
+          padding: 4px;
+          background-color: $white;
+          opacity: 0.45;
+          transition: opacity 1s ease;
+
+          &:hover {
+            opacity: 0.8;
+          }
+
+          &.btn-left {
+            margin-right: auto;
+          }
+
+          &.btn-right {
+            margin-left: auto;
+          }
+
+          svg {
+            margin: auto;
+          }
+          svg > path {
+            fill: $dark;
+          }
+        }
+      }
+      .card-thumbnail-switch {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 10px;
+        bottom: 1rem;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        .card-thumbnail-switch--btn {
+          padding-block: 0;
+          padding-inline: 0;
+          width: 6px;
+          height: 6px;
+          margin: 0 0.2rem;
+          border-radius: 50%;
+          background-color: $white;
+          opacity: 0.45;
+          transition: all 1s ease;
+
+          &:hover {
+            opacity: 0.7;
+          }
+
+          &.active {
+            opacity: 1;
+            width: 8px;
+            height: 8px;
+          }
+        }
+      }
+    }
+    .card-redirect {
+      position: relative;
+      width: 100%;
+      .card-details {
+        display: block;
+        width: 100%;
+
+        .card-details--title {
+          font-size: 16px;
+          font-weight: 500;
+          margin-block-start: 0.25em;
+          margin-block-end: 0.25em;
+          width: 80%;
+        }
+
+        .card-details--availability,
+        .card-details--distance {
+          font-size: 14px;
+          font-weight: 300;
+          color: $btn-default;
+          margin-block-start: 0.1em;
+          margin-block-end: 0.1em;
+        }
+
+        .card-details--pricing {
+          font-size: 14px;
+          font-weight: 300;
+          margin-block-start: 0.5em;
+          margin-block-end: 0.5em;
+
+          .pricing-amount {
+            font-size: 16px;
+            font-weight: 500;
+            font-variant: tabular-nums;
+          }
+        }
+
+        .card-details--rating {
+          position: absolute;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          top: 0;
+          right: 0;
+          font-variant: tabular-nums;
+
+          svg {
+            margin-right: .25rem;
+          }
         }
       }
     }
