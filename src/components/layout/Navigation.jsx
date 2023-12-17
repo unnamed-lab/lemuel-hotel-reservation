@@ -1,15 +1,16 @@
 import "../../styles/css/nav.css";
 import logoImg from "../../assets/logo.svg";
 import userImg from "../../assets/user.svg";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { catalogue } from "../../utils/catalog";
 
-function Navbar() {
+function Navbar({ setData }) {
   return (
     <>
       <header>
         <nav className="navbar">
           <BrandLogo logo={logoImg} />
-          <SearchBar />
+          <SearchBar setData={setData} />
           <NavMenu />
         </nav>
         <MobileNavMenu />
@@ -254,10 +255,58 @@ function NavMenu() {
   );
 }
 
-function SearchBar() {
+function SearchBar({ setData }) {
+  const [data, getData] = useState("");
+  const [searchedData, getSearchedData] = useState("");
+  const [searchAddress, getSearchAddress] = useState("");
+  const [searchCity, getSearchCity] = useState("");
+  const addressInputPlaceholder = searchAddress || "Nearby Hotel";
+  const cityInputPlaceholder = searchCity || "Delta";
+
+  useEffect(() => {
+    console.log(searchedData);
+    getData(catalogue);
+  }, [data]);
+  setData(searchedData || data);
+
+  const addressText = (e) => {
+    getSearchAddress(e.target.value);
+  };
+
+  const cityText = (e) => {
+    getSearchCity(e.target.value);
+  };
+
+  const searchData = (e) => {
+    e.preventDefault();
+
+    const searchedData = data
+      .filter((el) => {
+        const searchKeywords = searchAddress.split(/\s+/);
+        const similarKeywords = searchKeywords.some((words) =>
+          el.tags.includes(words)
+        );
+        if (searchCity === "" && searchAddress === "") {
+          return true;
+        } else if (searchCity !== "" && searchAddress === "") {
+          return el.city == searchCity;
+        } else if (searchCity !== "") {
+          return el.city == searchCity && similarKeywords;
+        } else {
+          return similarKeywords;
+        }
+      })
+      .map((el, key) => {
+        return el;
+      });
+
+    getSearchedData(searchedData);
+    console.log(searchedData);
+  };
+
   return (
     <>
-      <form action="" method="get" className="search-input--form">
+      <form onSubmit={searchData} className="search-input--form">
         <button className="btn-borderless filter-btn">
           <svg
             width="15"
@@ -309,16 +358,18 @@ function SearchBar() {
           name="search_address"
           id="search_input_address"
           className="search-input--text"
-          aria-placeholder="Nearby Hotel"
-          placeholder="Nearby Hotel"
+          aria-placeholder={addressInputPlaceholder}
+          placeholder={addressInputPlaceholder}
+          onChange={addressText}
         />
         <input
           type="search"
           name="search_town"
           id="search_input_town"
           className="search-input--text"
-          aria-placeholder="Delta"
-          placeholder="Delta"
+          aria-placeholder={cityInputPlaceholder}
+          placeholder={cityInputPlaceholder}
+          onChange={cityText}
         />
         <button type="submit" className="search-input--btn btn-borderless">
           <svg

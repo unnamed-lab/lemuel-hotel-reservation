@@ -3,15 +3,20 @@ import Navbar from "./Navigation";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
+import { catalogue } from "../../utils/catalog";
 
 function AppLayout() {
   const [footerType, setFooterType] = useState(true);
+  const [dataset, setDataCollection] = useState([])
+  
 
   return (
     <>
       <InfoBanner />
-      <Navbar />
-      <Outlet context={[setFooterType]} />
+      <Navbar 
+      setData={setDataCollection} 
+      />
+      <Outlet context={[setFooterType, dataset]} />
       <Footer footerState={footerType} />
     </>
   );
