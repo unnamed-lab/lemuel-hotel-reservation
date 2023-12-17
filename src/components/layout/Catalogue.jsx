@@ -97,13 +97,15 @@ function CatalogueItem({
             <div className={`card-thumbnail carousel-key--${id}`}>
               {img.map((el, key) => {
                 return (
-                  <img
-                    key={key}
-                    src={el}
-                    alt={`${title}: Preview image ${key}`}
-                    title={`${title}: Preview image ${key}`}
-                    className={`card-thumbnail--image container-key--${id}`}
-                  />
+                  <div key={key} className="card-thumbnail--image_container">
+                    <img
+                      key={key}
+                      src={el}
+                      alt={`${title}: Preview image ${key}`}
+                      title={`${title}: Preview image ${key}`}
+                      className={`card-thumbnail--image container-key--${id}`}
+                    />
+                  </div>
                 );
               })}
             </div>

@@ -5,11 +5,11 @@ import CatalogueItem from "../components/layout/Catalogue";
 
 function Home() {
   const [setFooterType, dataset] = useOutletContext();
-  setFooterType(false);
+  setFooterType(true);
   // // Short form footer used when true, long form footer is used when false.
 
   const hasDataSet =
-    dataset === [] ? <NoCatalogue /> : <Catalogue data={dataset} />;
+    !dataset ? <NoCatalogue /> : <Catalogue data={dataset} />;
   return (
     <>
       <main>
