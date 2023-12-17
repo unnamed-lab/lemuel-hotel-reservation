@@ -11,9 +11,13 @@ function CatalogueItem({
   rating,
   url,
 }) {
+  const [fave, addFave] = useState(false);
   let currentIndex = 0;
-  let prevIndex= null;
-  const [curIndex, setIndex] = useState(currentIndex);
+  let prevIndex = null;
+
+  const isFave = fave ? " active" : "";
+
+  //  References States
   const carouselBody = useRef(null);
   const carouselItems = useRef(null);
   const carouselItemButton = useRef(null);
@@ -39,26 +43,8 @@ function CatalogueItem({
     );
   }, [id]);
 
-//   useEffect(() => {
-//     curIndex === 0
-//       ? carouselPrevBtn.current.classList.add("hide")
-//       : carouselPrevBtn.current.classList.contains("hide") === true
-//       ? carouselPrevBtn.current.classList.remove("hide")
-//       : null;
-
-//     curIndex === carouselItems.current.length 
-//       ? carouselNextBtn.current.classList.add("hide")
-//       : carouselNextBtn.current.classList.contains("hide") === true
-//       ? carouselNextBtn.current.classList.remove("hide")
-//       : null;
-//   }, [curIndex]);
-
   function updateCarousel() {
     const itemWidth = carouselItems.current[0].clientWidth;
-    // carouselItemButton.current[
-    //   (currentIndex - 1 + carouselItems.current.length) %
-    //     carouselItems.current.length
-    // ].classList.remove("active");
     carouselItemButton.current[prevIndex].classList.remove("active");
     carouselItemButton.current[currentIndex].classList.add("active");
     carouselBody.current.style.transform = `translateX(${
@@ -68,23 +54,29 @@ function CatalogueItem({
 
   function nextSlide() {
     prevIndex = currentIndex;
-    currentIndex = (currentIndex + 1) % carouselItems.current.length; 
+    const newCurrentValue = (currentIndex + 1) % carouselItems.current.length;
+    currentIndex = newCurrentValue;
     // Get the index of the next item.
     updateCarousel();
   }
 
   function prevSlide() {
     prevIndex = currentIndex;
-    currentIndex =
+    const newCurrentValue =
       (currentIndex - 1 + carouselItems.current.length) %
       carouselItems.current.length;
+    currentIndex = newCurrentValue;
     updateCarousel();
   }
 
   return (
     <>
       <div key={id} className="catalogue-item--card">
-        <button type="button" className="card-favourite btn-borderless">
+        <button
+          type="button"
+          className={`card-favourite${isFave} btn-borderless`}
+          onClick={() => addFave(!fave)}
+        >
           <svg
             width="18"
             height="17"
@@ -119,7 +111,10 @@ function CatalogueItem({
               <button
                 type="button"
                 className={`card-thumbnail--swipe_btn btn-left swipe-btn-${id}`}
-                onClick={prevSlide}
+                onClick={() => {
+                  prevSlide();
+                  updateIndex();
+                }}
               >
                 <svg
                   width="7"
@@ -137,7 +132,10 @@ function CatalogueItem({
               <button
                 type="button"
                 className={`card-thumbnail--swipe_btn btn-right swipe-btn-${id}`}
-                onClick={nextSlide}
+                onClick={() => {
+                  nextSlide();
+                  updateIndex();
+                }}
               >
                 <svg
                   width="7"

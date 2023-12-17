@@ -158,6 +158,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  margin-bottom: 3rem;
 }
 @media (max-width: 767px) {
   .catalogue-section {
@@ -182,7 +183,7 @@
 }
 .catalogue-section .catalogue-item--card .card-favourite:focus svg > path {
   fill: #FF385C;
-  fill-opacity: 80%;
+  fill-opacity: 40%;
 }
 .catalogue-section .catalogue-item--card .card-favourite:active svg > path {
   fill: #FF385C;
@@ -344,6 +345,56 @@
 }
 .catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--rating svg {
   margin-right: 0.25rem;
+}
+.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--rating:hover svg > path {
+  transition: fill 1s ease;
+  fill: #3D94FF;
+}
+
+.catalogue-section--empty {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  min-height: 50dvh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3rem;
+}
+@media (max-width: 767px) {
+  .catalogue-section--empty {
+    width: 100%;
+  }
+}
+.catalogue-section--empty h1 {
+  font-size: 2.6rem;
+  margin-bottom: 0.1rem;
+}
+.catalogue-section--empty p {
+  font-size: 1.66rem;
+  font-weight: 300;
+}
+.catalogue-section--empty a {
+  text-decoration: none;
+  color: #000;
+}
+.catalogue-section--empty a:focus, .catalogue-section--empty a:hover {
+  text-decoration: none;
+}
+.catalogue-section--empty a .support-redirect {
+  background-color: #3D94FF;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 0.6rem 1.75rem;
+  border-radius: 13px;
+  text-transform: capitalize;
+  transition: background-color 1s ease;
+}
+.catalogue-section--empty a .support-redirect:hover {
+  background-color: #000;
 }
 
 /*# sourceMappingURL=app.css.map */

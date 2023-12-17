@@ -4,15 +4,17 @@ import { useEffect, useRef } from "react";
 import CatalogueItem from "../components/layout/Catalogue";
 
 function Home() {
-  const [setFooterType] = useOutletContext();
-  setFooterType(true);
-  // Short form footer used when true, long form footer is used when false.
+  const [setFooterType, dataset] = useOutletContext();
+  setFooterType(false);
+  // // Short form footer used when true, long form footer is used when false.
 
+  const hasDataSet =
+    dataset === [] ? <NoCatalogue /> : <Catalogue data={dataset} />;
   return (
     <>
       <main>
         <CategoryCarousel />
-        <Catalogue />
+        {hasDataSet}
       </main>
     </>
   );
@@ -467,153 +469,11 @@ function CategoryCarousel() {
   );
 }
 
-function Catalogue() {
-  const catalogue = [
-    {
-      title: "Jorgan beach",
-      img: [
-        "/beach-01.png",
-        "/beach-02.png",
-        "/beach-03.png",
-        "/beach-04.png",
-      ],
-      distance: 43,
-      available: "Apr 7 - 12",
-      price: "10,000",
-      rating: 4.83,
-      url: "#",
-    },
-    {
-      title: "Della beach Hotel",
-      img: [
-        "/resort-01.png",
-        "/resort-02.png",
-        "/resort-03.png",
-        "/resort-04.png",
-      ],
-      distance: 53,
-      available: "May 6 - 11",
-      price: "25,000",
-      rating: 4.95,
-      url: "#",
-    },
-    {
-      title: "Jorgan beach",
-      img: [
-        "/beach-01.png",
-        "/beach-02.png",
-        "/beach-03.png",
-        "/beach-04.png",
-      ],
-      distance: 43,
-      available: "Apr 7 - 12",
-      price: "10,000",
-      rating: 4.83,
-      url: "#",
-    },
-    {
-      title: "Della beach Hotel",
-      img: [
-        "/resort-01.png",
-        "/resort-02.png",
-        "/resort-03.png",
-        "/resort-04.png",
-      ],
-      distance: 53,
-      available: "May 6 - 11",
-      price: "25,000",
-      rating: 4.95,
-      url: "#",
-    },
-    {
-      title: "Jorgan beach",
-      img: [
-        "/beach-01.png",
-        "/beach-02.png",
-        "/beach-03.png",
-        "/beach-04.png",
-      ],
-      distance: 43,
-      available: "Apr 7 - 12",
-      price: "10,000",
-      rating: 4.83,
-      url: "#",
-    },
-    {
-      title: "Della beach Hotel",
-      img: [
-        "/resort-01.png",
-        "/resort-02.png",
-        "/resort-03.png",
-        "/resort-04.png",
-      ],
-      distance: 53,
-      available: "May 6 - 11",
-      price: "25,000",
-      rating: 4.95,
-      url: "#",
-    },
-    {
-      title: "Jorgan beach",
-      img: [
-        "/beach-01.png",
-        "/beach-02.png",
-        "/beach-03.png",
-        "/beach-04.png",
-      ],
-      distance: 43,
-      available: "Apr 7 - 12",
-      price: "10,000",
-      rating: 4.83,
-      url: "#",
-    },
-    {
-      title: "Della beach Hotel",
-      img: [
-        "/resort-01.png",
-        "/resort-02.png",
-        "/resort-03.png",
-        "/resort-04.png",
-      ],
-      distance: 53,
-      available: "May 6 - 11",
-      price: "25,000",
-      rating: 4.95,
-      url: "#",
-    },
-    {
-      title: "Jorgan beach",
-      img: [
-        "/beach-01.png",
-        "/beach-02.png",
-        "/beach-03.png",
-        "/beach-04.png",
-      ],
-      distance: 43,
-      available: "Apr 7 - 12",
-      price: "10,000",
-      rating: 4.83,
-      url: "#",
-    },
-    {
-      title: "Della beach Hotel",
-      img: [
-        "/resort-01.png",
-        "/resort-02.png",
-        "/resort-03.png",
-        "/resort-04.png",
-      ],
-      distance: 53,
-      available: "May 6 - 11",
-      price: "25,000",
-      rating: 4.95,
-      url: "#",
-    },
-  ];
+function Catalogue({ data }) {
   return (
     <>
       <section className="catalogue-section">
-        {catalogue
+        {data
           .filter((x, key) => key <= 11)
           .map((el, key) => {
             return (
@@ -633,6 +493,22 @@ function Catalogue() {
             );
           })}
       </section>
+    </>
+  );
+}
+
+function NoCatalogue() {
+  return (
+    <>
+    <section className="catalogue-section--empty">
+      <h1>No catalogue available at the moment!</h1>
+      <p>Please come back later or report to support.</p>
+      <a href="#">
+        <button type="button" className="support-redirect btn-borderless">
+          Contact support
+        </button>
+      </a>
+    </section>
     </>
   );
 }

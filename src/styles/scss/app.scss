@@ -165,6 +165,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  margin-bottom: 3rem;
 
   @include responsive(mobile) {
     grid-template-columns: 1fr;
@@ -192,7 +193,7 @@
       &:focus {
         svg > path {
           fill: $btn-active--red;
-          fill-opacity: 80%;
+          fill-opacity: 40%;
         }
       }
 
@@ -384,7 +385,65 @@
           svg {
             margin-right: 0.25rem;
           }
+
+          &:hover {
+            svg > path {
+              transition: fill 1s ease;
+              fill: $primary;
+            }
+          }
         }
+      }
+    }
+  }
+}
+
+.catalogue-section--empty {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  min-height: 50dvh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3rem;
+
+  @include responsive(mobile) {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+    margin-bottom: 0.1rem;
+  }
+
+  p {
+    font-size: 1.66rem;
+    font-weight: 300;
+  }
+
+  a {
+    text-decoration: none;
+    color: $black;
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+
+    .support-redirect {
+      background-color: $primary;
+      font-weight: 500;
+      color: $white;
+      font-size: 1.25rem;
+      padding: 0.6rem 1.75rem;
+      border-radius: 13px;
+      text-transform: capitalize;
+      transition: background-color 1s ease;
+
+      &:hover {
+        background-color: $black;
       }
     }
   }
