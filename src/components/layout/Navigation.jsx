@@ -284,14 +284,16 @@ function SearchBar({ setData }) {
       .filter((el) => {
         const searchKeywords = searchAddress.split(/\s+/);
         const similarKeywords = searchKeywords.some((words) =>
-          el.tags.includes(words)
+          el.tags.includes(words.toLowerCase())
         );
         if (searchCity === "" && searchAddress === "") {
           return true;
         } else if (searchCity !== "" && searchAddress === "") {
-          return el.city == searchCity;
+          return el.city.toLowerCase() === searchCity.toLowerCase();
         } else if (searchCity !== "") {
-          return el.city == searchCity && similarKeywords;
+          return (
+            el.city.toLowerCase() == searchCity.toLowerCase() && similarKeywords
+          );
         } else {
           return similarKeywords;
         }
