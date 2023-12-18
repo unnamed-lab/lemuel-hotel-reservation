@@ -243,8 +243,13 @@
           aspect-ratio: 1/1.015;
           transition: all 2s ease;
 
-          .card-thumbnail--image {
-            width: 100%;
+          .card-thumbnail--image_container {
+            display: flex;
+            aspect-ratio: 1/1.015;
+
+            .card-thumbnail--image {
+              width: 100%;
+            }
           }
         }
 

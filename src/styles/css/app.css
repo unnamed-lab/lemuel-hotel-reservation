@@ -221,7 +221,11 @@
   aspect-ratio: 1/1.015;
   transition: all 2s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image {
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container {
+  display: flex;
+  aspect-ratio: 1/1.015;
+}
+.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container .card-thumbnail--image {
   width: 100%;
 }
 .catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe {
