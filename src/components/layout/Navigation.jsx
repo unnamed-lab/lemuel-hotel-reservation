@@ -303,7 +303,6 @@ function SearchBar({ setData }) {
       });
 
     getSearchedData(searchedData);
-    console.log(searchedData);
   };
 
   return (
