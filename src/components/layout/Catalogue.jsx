@@ -29,7 +29,7 @@ function CatalogueItem({
       `.card-thumbnail.carousel-key--${id}`
     );
     carouselItems.current = document.querySelectorAll(
-      `.card-thumbnail--image.container-key--${id}`
+      `.card-thumbnail--image_container.container-key--${id}`
     );
     carouselItemButton.current = document.querySelectorAll(
       `.card-thumbnail-switch--btn.card-switch-key-${id}`
@@ -97,13 +97,16 @@ function CatalogueItem({
             <div className={`card-thumbnail carousel-key--${id}`}>
               {img.map((el, key) => {
                 return (
-                  <div key={key} className="card-thumbnail--image_container">
+                  <div
+                    key={key}
+                    className={`card-thumbnail--image_container container-key--${id}`}
+                  >
                     <img
                       key={key}
                       src={el}
                       alt={`${title}: Preview image ${key}`}
                       title={`${title}: Preview image ${key}`}
-                      className={`card-thumbnail--image container-key--${id}`}
+                      className={`card-thumbnail--image`}
                     />
                   </div>
                 );

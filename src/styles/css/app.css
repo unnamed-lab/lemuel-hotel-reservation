@@ -401,4 +401,14 @@
   background-color: #000;
 }
 
+.catalogue-detail-section {
+  position: relative;
+  padding: 2rem 3rem 5rem;
+  display: block;
+}
+.catalogue-detail-section .catalogue-detail--header {
+  position: relative;
+  display: flex;
+}
+
 /*# sourceMappingURL=app.css.map */
