@@ -1,6 +1,7 @@
 @use "./custom" as *;
 @use "./components/mixins" as *;
 @use "./components/animation" as *;
+@use "./components/button" as *;
 
 .category-carousel {
   display: flex;
@@ -594,33 +595,6 @@
           height: auto;
         }
       }
-
-      .btn-more-thumnail {
-        position: absolute;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        padding: 10px;
-        bottom: 1.7rem;
-        right: 1.5rem;
-        border: 1px solid $dark;
-        border-radius: 5px;
-        background-color: $white;
-        color: $dark;
-        font-size: 14px;
-        font-weight: 600;
-        transition: background-color 1s ease;
-
-        &:hover {
-          background-color: $g-50;
-        }
-
-        svg {
-          margin-right: 10px;
-          width: 16px;
-          height: 16px;
-        }
-      }
     }
   }
 
@@ -743,6 +717,126 @@
             width: 30px;
             height: 30px;
             margin-left: auto;
+          }
+        }
+      }
+
+      .catalogue-detail--offer {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 1rem 0;
+      }
+    }
+  }
+
+  .catalogue-detail--offer {
+    position: relative;
+    margin: 1rem 0;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .item-offer-heading {
+      width: 100%;
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .item-offer-list {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+
+      .offer-list-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        font-weight: 400;
+        font-size: 14px;
+        color: $dark;
+
+        span {
+          max-width: 30px;
+          margin-right: 2rem;
+        }
+      }
+    }
+
+    .item-offer-btn--container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      .btn-more-thumbnail {
+        position: relative;
+      }
+    }
+  }
+
+  .catalogue-detail-rating {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    color: $dark;
+    margin: 1rem 0;
+
+    .rating-heading {
+      width: 100%;
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+
+      span {
+        margin-right: 1rem;
+      }
+    }
+
+    .item-rating-list {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px 40px;
+
+      .rating-item {
+        width: 100%;
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .rating-item--title {
+          font-size: 16px;
+          margin-block-start: 1em;
+    margin-block-end: 1em;
+        }
+
+        .rating-loader {
+          width: 50%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          margin-left: auto;
+          
+          .rating-loader--bar {
+            margin-right: 1rem;
+            width:60%;
+            height: 8px;
+            border-radius: 20px;
+            background-color: $g-50;
+            overflow: hidden;
+
+            .loader--bar-fill {
+              background-color: $dark;
+              border-radius: 15px;
+              width: 70%;
+              height: inherit;
+            }
           }
         }
       }
