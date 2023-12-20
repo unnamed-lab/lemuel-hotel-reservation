@@ -77,6 +77,11 @@
   width: 16px;
   height: 16px;
 }
+.btn-more-thumbnail.btn-normal {
+  position: relative !important;
+  bottom: 0;
+  right: 0;
+}
 
 .category-carousel {
   display: flex;
@@ -771,7 +776,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 40px;
+  gap: 20px 70px;
 }
 .catalogue-detail-section .catalogue-detail-rating .item-rating-list .rating-item {
   width: 100%;
@@ -795,7 +800,7 @@
 }
 .catalogue-detail-section .catalogue-detail-rating .item-rating-list .rating-item .rating-loader .rating-loader--bar {
   margin-right: 1rem;
-  width: 60%;
+  width: 80%;
   height: 8px;
   border-radius: 20px;
   background-color: #B8B8B8;
@@ -806,6 +811,82 @@
   border-radius: 15px;
   width: 70%;
   height: inherit;
+}
+.catalogue-detail-section .catalogue-detail--comments {
+  margin: 1rem 0;
+  padding: 2rem 0;
+  position: relative;
+  display: block;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 250px;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-image {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-info .user-info--name {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-info .user-info--timestamp {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #B8B8B8;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item.next-btn-container {
+  align-items: center;
+}
+.catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item.next-btn-container .btn-more-thumbnail {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.catalogue-detail-section .catalogue-detail--location {
+  position: relative;
+  display: block;
+  margin: 1rem 0;
+  padding: 2rem 0;
+}
+.catalogue-detail-section .catalogue-detail--location .location-header {
+  font-size: 28px;
+  margin-bottom: 1.5rem;
+}
+.catalogue-detail-section .catalogue-detail--location .location-header--sub {
+  font-size: 14px;
+  font-weight: 400;
+}
+.catalogue-detail-section .catalogue-detail--location .map-container {
+  border-radius: 5px;
+  width: 100%;
+  height: 530px;
+  background-color: #888888;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=app.css.map */

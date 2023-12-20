@@ -70,6 +70,11 @@
   width: 16px;
   height: 16px;
 }
+.btn-more-thumbnail.btn-normal {
+  position: relative !important;
+  bottom: 0;
+  right: 0;
+}
 
 * {
   font-family: "Poppins", "Roboto", sans-serif;
