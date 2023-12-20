@@ -791,7 +791,7 @@
       margin-bottom: 1.5rem;
 
       span {
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
     }
 
@@ -800,7 +800,7 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px 40px;
+      gap: 20px 70px;
 
       .rating-item {
         width: 100%;
@@ -813,7 +813,7 @@
         .rating-item--title {
           font-size: 16px;
           margin-block-start: 1em;
-    margin-block-end: 1em;
+          margin-block-end: 1em;
         }
 
         .rating-loader {
@@ -822,10 +822,10 @@
           flex-wrap: wrap;
           align-items: center;
           margin-left: auto;
-          
+
           .rating-loader--bar {
             margin-right: 1rem;
-            width:60%;
+            width: 80%;
             height: 8px;
             border-radius: 20px;
             background-color: $g-50;
@@ -840,6 +840,95 @@
           }
         }
       }
+    }
+  }
+
+  .catalogue-detail--comments {
+    margin: 1rem 0;
+    padding: 2rem 0;
+    position: relative;
+    display: block;
+
+    .people-review-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 250px;
+
+      .people-review-item {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+
+        .item-header {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          width: 100%;
+
+          .user-image {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+          }
+
+          .user-info {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            .user-info--name {
+              width: 100%;
+              font-size: 14px;
+              font-weight: 600;
+              margin-block-start: 0;
+              margin-block-end: 5px;
+            }
+
+            .user-info--timestamp {
+              width: 100%;
+              font-size: 14px;
+              font-weight: 400;
+              color: $g-50;
+            }
+          }
+        }
+
+        &.next-btn-container {
+          align-items: center;
+
+          .btn-more-thumbnail {
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+        }
+      }
+    }
+  }
+
+  .catalogue-detail--location {
+    position: relative;
+    display: block;
+    margin: 1rem 0;
+    padding: 2rem 0;
+
+    .location-header {
+      font-size: 28px;
+      margin-bottom: 1.5rem;
+    }
+
+    .location-header--sub {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .map-container {
+      border-radius: 5px;
+      width: 100%;
+      height: 530px;
+      background-color: $g-200;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+      overflow: hidden;
     }
   }
 }

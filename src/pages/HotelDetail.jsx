@@ -1,6 +1,8 @@
+import React from 'react';
 import { useOutletContext } from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
+import MapComponent from "../utils/Maps";
 
 function DetailPage() {
   const [setFooterType, dataset] = useOutletContext();
@@ -26,7 +28,7 @@ function DetailPage() {
 function Header() {
   return (
     <>
-      <div className="catalogue-detail--header">
+      <section className="catalogue-detail--header">
         <div className="catalogue-detail-header--container w-80-lg">
           <h1
             className="catalogue-item--name"
@@ -135,7 +137,7 @@ function Header() {
             </a>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
@@ -143,7 +145,7 @@ function Header() {
 function Thumbnail() {
   return (
     <>
-      <div className="catalogue-detail--thumbnail">
+      <section className="catalogue-detail--thumbnail">
         <div className="thumbnail--main">
           <img src="/beach-01.png" alt="" />
         </div>
@@ -177,7 +179,7 @@ function Thumbnail() {
             Show all photos
           </button>
         </div>
-      </div>
+      </section>
     </>
   );
 }
@@ -185,7 +187,7 @@ function Thumbnail() {
 function ItemDetails() {
   return (
     <>
-      <div className="catalogue-detail--details">
+      <section className="catalogue-detail--details">
         <div className="catalogue-item-detail w-60-lg">
           <div className="catalogue-item-detail--header btm-border">
             <div className="catalogue-item-detail--header_segment w-90-lg">
@@ -322,7 +324,7 @@ function ItemDetails() {
           </div>
         </div>
         <div className="catalogue-item--booking w-40-lg"></div>
-      </div>
+      </section>
     </>
   );
 }
@@ -330,7 +332,7 @@ function ItemDetails() {
 function Offers() {
   return (
     <>
-      <div className="catalogue-detail--offer btm-border">
+      <section className="catalogue-detail--offer btm-border">
         <h3 className="item-offer-heading">What this place offers</h3>
         <ul className="item-offer-list w-70-lg">
           <li className="offer-list-item">
@@ -497,7 +499,7 @@ function Offers() {
             Show all 30 facilities
           </button>
         </div>
-      </div>
+      </section>
     </>
   );
 }
@@ -505,7 +507,7 @@ function Offers() {
 function Rating() {
   return (
     <>
-      <div className="catalogue-detail-rating">
+      <section className="catalogue-detail-rating">
         <h3 className="rating-heading">
           <span>
             <svg
@@ -579,7 +581,7 @@ function Rating() {
             </div>
           </li>
         </ul>
-      </div>
+      </section>
     </>
   );
 }
@@ -587,29 +589,79 @@ function Rating() {
 function Comments() {
   return (
     <>
-      <div className="catalogue-detail--comments">
+      <section className="catalogue-detail--comments btm-border">
         <ul className="people-review-list">
           <li className="people-review-item">
             <div className="item-header">
               <div className="user-image">
-                <img src="" alt="" title="" />
+                <img src={userImg} alt="" title="" />
               </div>
               <div className="user-info">
                 <h6 className="user-info--name">Mikasa</h6>
                 <time className="user-info--timestamp">April 2023</time>
               </div>
             </div>
+            <p className="user-comment" title="User comment">
+              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
+              swimming in the bay. Absolutely magical!
+            </p>
+          </li>
+          <li className="people-review-item">
+            <div className="item-header">
+              <div className="user-image">
+                <img src={userImg} alt="" title="" />
+              </div>
+              <div className="user-info">
+                <h6 className="user-info--name">Mikasa</h6>
+                <time className="user-info--timestamp">April 2023</time>
+              </div>
+            </div>
+            <p className="user-comment" title="User comment">
+              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
+              swimming in the bay. Absolutely magical!
+            </p>
+          </li>
+          <li className="people-review-item">
+            <div className="item-header">
+              <div className="user-image">
+                <img src={userImg} alt="" title="" />
+              </div>
+              <div className="user-info">
+                <h6 className="user-info--name">Mikasa</h6>
+                <time className="user-info--timestamp">April 2023</time>
+              </div>
+            </div>
+            <p className="user-comment" title="User comment">
+              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
+              swimming in the bay. Absolutely magical!
+            </p>
+          </li>
+
+          <li className="people-review-item next-btn-container">
+            <button type="button" className="btn-more-thumbnail btn-normal">
+              Show all 1,797 reviews
+            </button>
           </li>
         </ul>
-      </div>
+      </section>
     </>
   );
 }
 
 function Location() {
+  // const map = React.memo(MapComponent);
   return (
     <>
-      <div className="catalogue-detail--location"></div>
+      <section className="catalogue-detail--location btm-border">
+        <h3 className="location-header">Hotel located at</h3>
+        <p className="location-header--sub" title="location: ">
+          Delta sate, iterigbi
+        </p>
+
+        <div className="map-container">
+          {/* {map} */}
+        </div>
+      </section>
     </>
   );
 }
@@ -617,7 +669,7 @@ function Location() {
 function Terms() {
   return (
     <>
-      <div className="catalogue-detail--terms"></div>
+      <section className="catalogue-detail--terms"></section>
     </>
   );
 }
@@ -625,7 +677,7 @@ function Terms() {
 function Additional() {
   return (
     <>
-      <div className="catalogue-detail--additional"></div>
+      <section className="catalogue-detail--additional"></section>
     </>
   );
 }

@@ -44,7 +44,6 @@
   }
 }
 
-
 .btn-borderless {
   cursor: pointer;
   display: flex;
@@ -55,29 +54,35 @@
 }
 
 .btn-more-thumbnail {
-        cursor: pointer;
-        position: absolute;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        padding: 10px;
-        bottom: 1.7rem;
-        right: 1.5rem;
-        border: 1px solid $dark;
-        border-radius: 5px;
-        background-color: $white;
-        color: $dark;
-        font-size: 14px;
-        font-weight: 600;
-        transition: background-color 1s ease;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  bottom: 1.7rem;
+  right: 1.5rem;
+  border: 1px solid $dark;
+  border-radius: 5px;
+  background-color: $white;
+  color: $dark;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 1s ease;
 
-        &:hover {
-          background-color: $bg-color;
-        }
+  &:hover {
+    background-color: $bg-color;
+  }
 
-        svg {
-          margin-right: 10px;
-          width: 16px;
-          height: 16px;
-        }
-      }
+  svg {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &.btn-normal {
+    position: relative !important;
+    bottom: 0;
+    right: 0;
+  }
+}
