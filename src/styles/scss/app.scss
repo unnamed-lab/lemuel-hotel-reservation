@@ -164,17 +164,20 @@
   position: relative;
   padding: 0.5rem 5rem;
   
+    @include responsive(mobile) {
+      padding: 0.5rem 2.5rem;
+    }
+  
   .catalogue-section--list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: 3rem;
-  
+    
     @include responsive(mobile) {
       grid-template-columns: 1fr;
-      padding: 0.5rem 3rem;
     }
-    
+
     .catalogue-item--card {
       display: block;
       position: relative;
