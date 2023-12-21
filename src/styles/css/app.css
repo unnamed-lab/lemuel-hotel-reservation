@@ -233,6 +233,11 @@
   position: relative;
   padding: 0.5rem 5rem;
 }
+@media (max-width: 767px) {
+  .catalogue-section {
+    padding: 0.5rem 2.5rem;
+  }
+}
 .catalogue-section .catalogue-section--list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -242,7 +247,6 @@
 @media (max-width: 767px) {
   .catalogue-section .catalogue-section--list {
     grid-template-columns: 1fr;
-    padding: 0.5rem 3rem;
   }
 }
 .catalogue-section .catalogue-section--list .catalogue-item--card {
