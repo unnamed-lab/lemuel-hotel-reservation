@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useOutletContext } from "react-router-dom";
 import "../styles/css/app.css";
 import { useEffect, useRef } from "react";
@@ -5,8 +6,9 @@ import CatalogueItem from "../components/layout/Catalogue";
 
 function Home() {
   const [setFooterType, dataset] = useOutletContext();
-  setFooterType(true);
-  // // Short form footer used when true, long form footer is used when false.
+  useEffect(() => {
+    setFooterType(true);
+  }, [setFooterType])
 
   const hasDataSet =
     !dataset ? <NoCatalogue /> : <Catalogue data={dataset} />;
@@ -365,19 +367,13 @@ function CategoryCarousel() {
   let currentIndex = 0;
   const carouselBody = useRef(null);
   const carouselItems = useRef(null);
-  const firstClone = useRef(null);
-  const lastClone = useRef(null);
+  // const firstClone = useRef(null);
+  // const lastClone = useRef(null);
 
   useEffect(() => {
     carouselBody.current = document.querySelector(".carousel-box-list");
     carouselItems.current = document.querySelectorAll(".box-item");
   }, []);
-
-  // useEffect(() => {
-  //   firstClone.current = carouselItems.current[0].cloneNode(true);
-  //   lastClone.current =
-  //     carouselItems.current[carouselItems.current.length - 1].cloneNode(true);
-  // }, [carouselItems]);
 
   function updateCarousel() {
     const itemWidth = carouselItems.current[0].clientWidth + 26;
@@ -473,8 +469,9 @@ function Catalogue({ data }) {
   return (
     <>
       <section className="catalogue-section">
+        <ul className="catalogue-section--list">
         {data
-          .filter((x, key) => key <= 11)
+          .filter((x, k) => k <= 11)
           .map((el, key) => {
             return (
               <>
@@ -492,6 +489,7 @@ function Catalogue({ data }) {
               </>
             );
           })}
+        </ul>
       </section>
     </>
   );

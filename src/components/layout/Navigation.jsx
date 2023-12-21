@@ -265,8 +265,8 @@ function SearchBar({ setData }) {
 
   useEffect(() => {
     getData(catalogue);
-    setData(searchedData || data);
-  }, [searchedData]);
+    searchedData === "" ? setData(data) : setData(searchedData);
+  }, [data, searchedData, setData]);
 
   const addressText = (e) => {
     getSearchAddress(e.target.value);

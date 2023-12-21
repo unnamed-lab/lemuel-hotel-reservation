@@ -232,80 +232,82 @@
 .catalogue-section {
   position: relative;
   padding: 0.5rem 5rem;
+}
+.catalogue-section .catalogue-section--list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   margin-bottom: 3rem;
 }
 @media (max-width: 767px) {
-  .catalogue-section {
+  .catalogue-section .catalogue-section--list {
     grid-template-columns: 1fr;
     padding: 0.5rem 3rem;
   }
 }
-.catalogue-section .catalogue-item--card {
+.catalogue-section .catalogue-section--list .catalogue-item--card {
   display: block;
   position: relative;
   width: 100%;
 }
-.catalogue-section .catalogue-item--card .card-favourite {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite {
   position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 10;
 }
-.catalogue-section .catalogue-item--card .card-favourite:hover svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite:hover svg > path {
   fill: #FF385C;
   fill-opacity: 60%;
 }
-.catalogue-section .catalogue-item--card .card-favourite:focus svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite:focus svg > path {
   fill: #FF385C;
   fill-opacity: 40%;
 }
-.catalogue-section .catalogue-item--card .card-favourite:active svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite:active svg > path {
   fill: #FF385C;
   stroke: #FF385C;
   fill-opacity: 100%;
 }
-.catalogue-section .catalogue-item--card .card-favourite.active svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite.active svg > path {
   fill: #FF385C;
   stroke: #FF385C;
   fill-opacity: 100%;
 }
-.catalogue-section .catalogue-item--card .card-favourite svg {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite svg {
   width: 18px;
   height: 18px;
 }
-.catalogue-section .catalogue-item--card .card-favourite svg:active {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite svg:active {
   animation: fave_click 2s ease;
 }
-.catalogue-section .catalogue-item--card .card-favourite svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-favourite svg > path {
   fill: #222222;
   transition: all 1s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel {
   position: relative;
   margin-bottom: 1rem;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container {
   position: relative;
   overflow: hidden;
   border-radius: 15px;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail {
   display: flex;
   width: 100%;
   aspect-ratio: 1/1.015;
   transition: all 2s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container {
   display: flex;
   aspect-ratio: 1/1.015;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container .card-thumbnail--image {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail .card-thumbnail--image_container .card-thumbnail--image {
   width: 100%;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe {
   position: absolute;
   display: flex;
   width: 100%;
@@ -313,7 +315,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn {
   cursor: pointer;
   display: flex;
   width: 20px;
@@ -326,25 +328,25 @@
   opacity: 0.45;
   transition: opacity 1s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.hide {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.hide {
   display: none;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn:hover {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn:hover {
   opacity: 0.8;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-left {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-left {
   margin-right: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-right {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn.btn-right {
   margin-left: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg {
   margin: auto;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail--swipe .card-thumbnail--swipe_btn svg > path {
   fill: #3E3E3E;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
@@ -356,7 +358,7 @@
   left: 50%;
   transform: translate(-50%, 0);
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn {
   padding-block: 0;
   padding-inline: 0;
   width: 6px;
@@ -367,27 +369,27 @@
   opacity: 0.45;
   transition: all 1s ease;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn:hover {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn:hover {
   opacity: 0.7;
 }
-.catalogue-section .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn.active {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-thumbnail--carousel .card-thumbnail--carousel_container .card-thumbnail-switch .card-thumbnail-switch--btn.active {
   opacity: 1;
   width: 8px;
   height: 8px;
 }
-.catalogue-section .catalogue-item--card .card-redirect {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect {
   position: relative;
   width: 100%;
   text-decoration: none;
 }
-.catalogue-section .catalogue-item--card .card-redirect:hover {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect:hover {
   color: #000;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details {
   display: block;
   width: 100%;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--title {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--title {
   font-size: 16px;
   font-weight: 500;
   margin-block-start: 0.25em;
@@ -395,27 +397,27 @@
   width: 80%;
   color: #000;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--availability,
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--distance {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--availability,
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--distance {
   font-size: 14px;
   font-weight: 300;
   color: #B8B8B8;
   margin-block-start: 0.1em;
   margin-block-end: 0.1em;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--pricing {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--pricing {
   font-size: 14px;
   font-weight: 300;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
   color: #000;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--pricing .pricing-amount {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--pricing .pricing-amount {
   font-size: 16px;
   font-weight: 500;
   font-variant: tabular-nums;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--rating {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--rating {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
@@ -424,10 +426,10 @@
   right: 0;
   font-variant: tabular-nums;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--rating svg {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--rating svg {
   margin-right: 0.25rem;
 }
-.catalogue-section .catalogue-item--card .card-redirect .card-details .card-details--rating:hover svg > path {
+.catalogue-section .catalogue-section--list .catalogue-item--card .card-redirect .card-details .card-details--rating:hover svg > path {
   transition: fill 1s ease;
   fill: #3D94FF;
 }

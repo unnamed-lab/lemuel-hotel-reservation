@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import "../../styles/css/app.css";
 
 function CatalogueItem({
+  key,
   id,
   img,
   title,
@@ -14,7 +16,6 @@ function CatalogueItem({
   const [fave, addFave] = useState(false);
   let currentIndex = 0;
   let prevIndex = null;
-
   const isFave = fave ? " active" : "";
 
   //  References States
@@ -71,7 +72,7 @@ function CatalogueItem({
 
   return (
     <>
-      <div key={id} className="catalogue-item--card">
+      <li className="catalogue-item--card">
         <button
           type="button"
           className={`card-favourite${isFave} btn-borderless`}
@@ -196,7 +197,7 @@ function CatalogueItem({
             </span>
           </div>
         </a>
-      </div>
+      </li>
     </>
   );
 }
