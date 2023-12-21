@@ -10,11 +10,14 @@ import DetailPage from "../pages/HotelDetail";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<AppLayout />} errorElement={<Error />}>
+    <Route element={<AppLayout />} errorElement={<Error />}>
       <Route path="/" element={<Home />} />
-      <Route path="/place/" element={<DetailPage />} />
+      <Route path="place" element={<DetailPage />} />
     </Route>
-  )
+  ),
+  {
+    basename: "/",
+  }
 );
 
 export { routes };
