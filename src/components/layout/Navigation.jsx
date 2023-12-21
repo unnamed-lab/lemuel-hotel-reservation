@@ -264,10 +264,9 @@ function SearchBar({ setData }) {
   const cityInputPlaceholder = searchCity || "Delta";
 
   useEffect(() => {
-    console.log(searchedData);
     getData(catalogue);
-  }, [data]);
-  setData(searchedData || data);
+    setData(searchedData || data);
+  }, [searchedData]);
 
   const addressText = (e) => {
     getSearchAddress(e.target.value);
