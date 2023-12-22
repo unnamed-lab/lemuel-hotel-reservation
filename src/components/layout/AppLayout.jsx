@@ -3,7 +3,6 @@ import Navbar from "./Navigation";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
-import { catalogue } from "../../utils/catalog";
 
 function AppLayout() {
   const [footerType, setFooterType] = useState(true);

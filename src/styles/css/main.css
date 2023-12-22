@@ -72,8 +72,14 @@
 }
 .btn-more-thumbnail.btn-normal {
   position: relative !important;
+  display: block;
   bottom: 0;
   right: 0;
+}
+@media (max-width: 767px) {
+  .btn-more-thumbnail.btn-normal.w-100-md {
+    width: 100%;
+  }
 }
 
 * {
@@ -123,6 +129,10 @@
   margin-inline-start: 0px;
   list-style-type: none;
   padding-inline-start: 0px;
+}
+:root ul li {
+  margin-block-start: 0.25rem;
+  margin-block-end: 1rem;
 }
 :root .info-banner {
   position: relative;

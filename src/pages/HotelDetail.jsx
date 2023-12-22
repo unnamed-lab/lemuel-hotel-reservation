@@ -1,15 +1,14 @@
-import React from 'react';
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
-import MapComponent from "../utils/Maps";
+// import MapComponent from "../utils/Maps";
 
 function DetailPage() {
-  const [setFooterType, dataset] = useOutletContext();
+  const [setFooterType] = useOutletContext();
   React.useEffect(() => {
     setFooterType(false);
-  },[setFooterType])
-
+  }, [setFooterType]);
 
   return (
     <>
@@ -21,8 +20,8 @@ function DetailPage() {
         <Rating />
         <Comments />
         <Location />
-        <Terms />
         <Additional />
+        <Terms />
       </section>
     </>
   );
@@ -32,7 +31,7 @@ function Header() {
   return (
     <>
       <section className="catalogue-detail--header">
-        <div className="catalogue-detail-header--container w-80-lg">
+        <div className="catalogue-detail-header--container text-field w-80-lg">
           <h1
             className="catalogue-item--name"
             title="Beautiful Hotel on the edge of iterigbi river"
@@ -191,9 +190,9 @@ function ItemDetails() {
   return (
     <>
       <section className="catalogue-detail--details">
-        <div className="catalogue-item-detail w-60-lg">
+        <div className="catalogue-item-detail w-60-lg w-100-md">
           <div className="catalogue-item-detail--header btm-border">
-            <div className="catalogue-item-detail--header_segment w-90-lg">
+            <div className="catalogue-item-detail--header_segment w-90-lg w-80-md">
               <h3 className="item-detail-brand">Jorgan Hotel</h3>
               <ul className="item-detail-extra-info">
                 <li className="extra-info-item">1 guests</li>
@@ -202,7 +201,7 @@ function ItemDetails() {
                 <li className="extra-info-item">1 bath</li>
               </ul>
             </div>
-            <div className="catalogue-item-detail--header_segment w-10-lg">
+            <div className="catalogue-item-detail--header_segment w-10-lg w-20-md">
               <div className="item-brand-logo">
                 <img src={brandImg} alt="" className="brand-logo" />
               </div>
@@ -326,7 +325,7 @@ function ItemDetails() {
             </div>
           </div>
         </div>
-        <div className="catalogue-item--booking w-40-lg"></div>
+        <div className="catalogue-item--booking w-40-lg w-100-md"></div>
       </section>
     </>
   );
@@ -337,7 +336,7 @@ function Offers() {
     <>
       <section className="catalogue-detail--offer btm-border">
         <h3 className="item-offer-heading">What this place offers</h3>
-        <ul className="item-offer-list w-70-lg">
+        <ul className="item-offer-list w-70-lg w-100-md">
           <li className="offer-list-item">
             <span>
               <svg
@@ -497,8 +496,8 @@ function Offers() {
             Air conditioning
           </li>
         </ul>
-        <div className="item-offer-btn--container w-30-lg">
-          <button type="button" className="btn-more-thumbnail">
+        <div className="item-offer-btn--container w-30-lg w-100-md">
+          <button type="button" className="btn-more-thumbnail btn-normal w-100-md">
             Show all 30 facilities
           </button>
         </div>
@@ -641,7 +640,7 @@ function Comments() {
           </li>
 
           <li className="people-review-item next-btn-container">
-            <button type="button" className="btn-more-thumbnail btn-normal">
+            <button type="button" className="btn-more-thumbnail btn-normal w-100-md">
               Show all 1,797 reviews
             </button>
           </li>
@@ -661,9 +660,7 @@ function Location() {
           Delta sate, iterigbi
         </p>
 
-        <div className="map-container">
-          {/* {map} */}
-        </div>
+        <div className="map-container">{/* {map} */}</div>
       </section>
     </>
   );
@@ -674,7 +671,7 @@ function Additional() {
     <>
       <section className="catalogue-detail--additional">
         <div className="additional-header">
-          <img src="" alt="" className="brand-logo" />
+          <img src={brandImg} alt="" className="brand-logo" />
           <div className="company-info">
             <h3 className="company-info--name">Jorgan</h3>
             <h6 className="company-info--established">
@@ -742,10 +739,33 @@ function Additional() {
                 Identity verified
               </li>
             </ul>
+            <p>
+              A passionate host, who loves to welcome guest from all over the
+              world and share the beauty of this amazing natural spot that is
+              Blue Lagoon
+            </p>
           </div>
-          <div className="additional-context--lang"></div>
-          <div className="additional-context--experience"></div>
-          <div className="additional-context--contact"></div>
+          <div className="additional-context--info">
+            <ul className="info-list">
+              <li className="info-list-item">
+                Languages: 中文, English, Brazil, Français, Bahasa Indonesia,
+                Español
+              </li>
+              <li className="info-list-item">Response rate: 100%</li>
+              <li className="info-list-item">Response time: within an hour</li>
+            </ul>
+          </div>
+          <div className="additional-context--experience">
+            <h6 className="experience-heading">During your stay</h6>
+            <ul>
+              <li>24/7 full management</li>
+            </ul>
+          </div>
+          <div className="additional-context--contact">
+            <button type="button" className="btn-more-thumbnail btn-normal w-100-md">
+              Contact Hotel
+            </button>
+          </div>
         </div>
       </section>
     </>
@@ -753,12 +773,69 @@ function Additional() {
 }
 
 function Terms() {
+  const policyOne = [
+    "Check-in after 2:00 PM",
+    "Checkout before 12:00 PM",
+    "2 guests maximum",
+  ];
+  const policyTwo = ["Carbon monoxide alarm", "Smoke alarm"];
+  const policyThree = [
+    "Free cancellation for 48 hours.",
+    "Review the Host’s full cancellation policy which applies even if you cancel for illness or disruptions caused by COVID-19.",
+  ];
   return (
     <>
-      <section className="catalogue-detail--terms"></section>
+      <section className="catalogue-detail--terms">
+        <h3 className="terms-heading">Jorgan Resort & Hotel</h3>
+        <ul className="policy-list">
+          <li className="policy-list-item">
+            <h6 className="policy-list-item--heading">House rules</h6>
+            <ul className="policy-list-item--mini_list">
+              {policyOne.map((el, key) => {
+                return (
+                  <>
+                    <PolicyItem key={key} text={el} />
+                  </>
+                );
+              })}
+            </ul>
+          </li>
+          <li className="policy-list-item">
+            <h6 className="policy-list-item--heading">Safety & property</h6>
+            <ul className="policy-list-item--mini_list">
+              {policyTwo.map((el, key) => {
+                return (
+                  <>
+                    <PolicyItem key={key} text={el} />
+                  </>
+                );
+              })}
+            </ul>
+          </li>
+          <li className="policy-list-item">
+            <h6 className="policy-list-item--heading">Cancellation policy</h6>
+            <ul className="policy-list-item--mini_list">
+              {policyThree.map((el, key) => {
+                return (
+                  <>
+                    <PolicyItem key={key} text={el} />
+                  </>
+                );
+              })}
+            </ul>
+          </li>
+        </ul>
+      </section>
     </>
   );
 }
 
+function PolicyItem({ text }) {
+  return (
+    <>
+      <li className="policy-list-item--mini_list_item">{text}</li>
+    </>
+  );
+}
 
 export default DetailPage;

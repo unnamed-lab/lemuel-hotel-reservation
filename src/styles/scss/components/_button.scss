@@ -82,7 +82,15 @@
 
   &.btn-normal {
     position: relative !important;
+    display: block;
     bottom: 0;
     right: 0;
+
+    &.w-100-md {
+      @include responsive(mobile) {
+        width: 100%
+      }
+    }
+
   }
 }
