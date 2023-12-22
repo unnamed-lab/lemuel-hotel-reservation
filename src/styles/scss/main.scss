@@ -62,6 +62,11 @@
     margin-inline-start: 0px;
     list-style-type: none;
     padding-inline-start: 0px;
+
+    li {
+      margin-block-start: .25rem;
+      margin-block-end: 1rem;
+    }
   }
 
   .info-banner {
