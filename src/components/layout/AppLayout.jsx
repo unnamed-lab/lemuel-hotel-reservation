@@ -4,17 +4,43 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
 
-function AppLayout() {
+function AppLayout({ layout = true }) {
   const [footerType, setFooterType] = useState(true);
-  const [dataset, setDataCollection] = useState([])
-  
+  const [dataset, setDataCollection] = useState([]);
+  const layoutSwitch = layout ? (
+    <NormalLayout
+      footerType={footerType}
+      setFooterType={setFooterType}
+      dataset={dataset}
+      setData={setDataCollection}
+    />
+  ) : (
+    <DetailLayout
+      footerType={footerType}
+      setFooterType={setFooterType}
+      dataset={dataset}
+      setData={setDataCollection}
+    />
+  );
 
+  return <>{layoutSwitch}</>;
+}
+
+function NormalLayout({ footerType, setFooterType, dataset, setData }) {
   return (
     <>
       <InfoBanner />
-      <Navbar 
-      setData={setDataCollection} 
-      />
+      <Navbar setData={setData} />
+      <Outlet context={[setFooterType, dataset]} />
+      <Footer footerState={footerType} />
+    </>
+  );
+}
+
+function DetailLayout({ footerType, setFooterType, dataset, setData }) {
+  return (
+    <>
+      <Navbar noNavMobile={'no-nav-mobile'} setData={setData} />
       <Outlet context={[setFooterType, dataset]} />
       <Footer footerState={footerType} />
     </>
