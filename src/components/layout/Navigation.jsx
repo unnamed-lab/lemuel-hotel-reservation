@@ -4,11 +4,11 @@ import userImg from "../../assets/user.svg";
 import { useEffect, useRef, useState } from "react";
 import { catalogue } from "../../utils/catalog";
 
-function Navbar({ setData }) {
+function Navbar({ setData, noNavMobile }) {
   return (
     <>
       <header>
-        <nav className="navbar">
+        <nav className={`navbar ${noNavMobile}`}>
           <BrandLogo logo={logoImg} />
           <SearchBar setData={setData} />
           <NavMenu />

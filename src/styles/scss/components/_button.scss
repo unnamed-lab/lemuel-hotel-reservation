@@ -88,9 +88,26 @@
 
     &.w-100-md {
       @include responsive(mobile) {
-        width: 100%
+        width: 100%;
       }
     }
+  }
+}
 
+.btn-submit-reserve {
+  background-color: $primary;
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  transition: all 1s ease;
+
+  &:hover,
+  &:focus {
+    background-color: $black;
   }
 }
