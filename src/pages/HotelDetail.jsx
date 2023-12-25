@@ -2,6 +2,7 @@ import React from "react";
 import { useOutletContext } from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
+import { numToText } from "../utils/utils";
 // import MapComponent from "../utils/Maps";
 
 function DetailPage() {
@@ -377,19 +378,23 @@ function ItemDetails() {
                 <div className="check-date-selector">
                   <label htmlFor="checkIn">Check-in</label>
                   <input
-                    type="datetime"
+                    type="date"
                     name="checkIn"
                     id="checkIn"
-                    placeholder="5/8/2023"
+                    value="2023-08-03"
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    required
                   />
                 </div>
                 <div className="check-date-selector">
                   <label htmlFor="checkOut">Checkout</label>
                   <input
-                    type="datetime"
+                    type="date"
                     name="checkOut"
                     id="checkOut"
-                    placeholder="5/12/2023"
+                    value="2023-12-05"
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    required
                   />
                 </div>
               </div>
@@ -608,6 +613,17 @@ function Offers() {
 }
 
 function Rating() {
+  const reviewTotal = 12;
+  const reviewTotalText = numToText(reviewTotal);
+
+  const ratingObj = [
+    { type: "communication", value: 5, reviews: reviewTotal },
+    { type: "clean", value: 7, reviews: reviewTotal },
+    { type: "location", value: 9, reviews: reviewTotal },
+    { type: "checkin", value: 2, reviews: reviewTotal },
+    { type: "accuracy", value: 8, reviews: reviewTotal },
+    { type: "value", value: 5, reviews: reviewTotal },
+  ];
   return (
     <>
       <section className="catalogue-detail-rating">
@@ -626,128 +642,154 @@ function Rating() {
               />
             </svg>
           </span>
-          4.83 &bull; 1,800 reviews
+          4.83 &bull; {reviewTotalText} reviews
         </h3>
         <ul className="item-rating-list">
-          <li className="rating-item">
-            <h6 className="rating-item--title">Cleanliness</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Communication</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Check-in</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Accuracy</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Location</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Value</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
+          {ratingObj.map((el, key) => {
+            return (
+              <RatingItem
+                key={key}
+                type={el.type}
+                value={el.value}
+                reviews={el.reviews}
+              />
+            );
+          })}
         </ul>
       </section>
     </>
   );
 }
 
+function RatingItem({ type, value, reviews }) {
+  let ratingType = "";
+  switch (type) {
+    case "communication":
+      ratingType = "Communication";
+      break;
+    case "clean":
+      ratingType = "Cleanliness";
+      break;
+    case "location":
+      ratingType = "Location";
+      break;
+    case "checkin":
+      ratingType = "Check-In";
+      break;
+    case "accuracy":
+      ratingType = "Accuracy";
+      break;
+    case "value":
+      ratingType = "Value";
+      break;
+
+    default:
+      break;
+  }
+
+  const ratingValue = ((value / reviews) * 5).toFixed(2);
+  const ratingPercent = (value / reviews) * 100;
+  //   return (reviewType.length/this.review.length).toFixed(2)
+
+  return (
+    <>
+      <li className="rating-item">
+        <h6 className="rating-item--title">{ratingType}</h6>
+        <div className="rating-loader">
+          <div className="rating-loader--bar">
+            <div
+              className="loader--bar-fill"
+              style={{ width: `${ratingPercent}%` }}
+            ></div>
+          </div>
+          {ratingValue}
+        </div>
+      </li>
+    </>
+  );
+}
+
 function Comments() {
+  const reviewCount = numToText(13);
+  const review = [
+    {
+      name: "Mikasa",
+      tags: [
+        "communication",
+        "clean",
+        "location",
+        "frontdesk",
+        "accuracy",
+        "value",
+      ],
+      message:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi harum quas animi minima fugit natus assumenda fugiat iusto?",
+      timestamp: "May 21, 2023",
+    },
+    {
+      name: "Eren",
+      tags: ["communication", "clean", "location", "accuracy", "value"],
+      message:
+        "Illo iusto consequatur hic ad incidunt veniam facilis necessitatibus doloribus quaerat explicabo, nihil fuga earum voluptate fugit blanditiis numquam neque ab.",
+      timestamp: "August 2, 2023",
+    },
+  ];
+  const getTimestamp = (time) => {
+    const date = new Date(time);
+    const monthsInWords = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return `${monthsInWords[date.getMonth()]} ${date.getFullYear()}`;
+  };
   return (
     <>
       <section className="catalogue-detail--comments btm-border">
         <ul className="people-review-list">
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
+          {review
+            .filter((el, key) => key <= 5)
+            .map((el, key) => {
+              const output =
+                key != 5 ? (
+                  <li key={key} className="people-review-item">
+                    <div className="item-header">
+                      <div className="user-image">
+                        <img src={userImg} alt="" title="" />
+                      </div>
+                      <div className="user-info">
+                        <h6 className="user-info--name">{el.name}</h6>
+                        <time className="user-info--timestamp">
+                          {getTimestamp(el.timestamp)}
+                        </time>
+                      </div>
+                    </div>
+                    <p className="user-comment" title="User comment">
+                      {el.message}
+                    </p>
+                  </li>
+                ) : (
+                  <li className="people-review-item next-btn-container">
+                    <button
+                      type="button"
+                      className="btn-more-thumbnail btn-normal w-100-md"
+                    >
+                      Show all {reviewCount} reviews
+                    </button>
+                  </li>
+                );
 
-          <li className="people-review-item next-btn-container">
-            <button
-              type="button"
-              className="btn-more-thumbnail btn-normal w-100-md"
-            >
-              Show all 1,797 reviews
-            </button>
-          </li>
+              return output;
+            })}
         </ul>
       </section>
     </>

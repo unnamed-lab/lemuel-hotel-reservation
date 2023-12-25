@@ -996,12 +996,21 @@
                 margin-bottom: 0.1rem;
               }
 
-              input[type="datetime"] {
+              input[type="date"] {
                 width: 100%;
                 font-size: 12px;
                 border: none;
                 color: $dark;
                 transition: all 1s ease;
+
+                &:focus-visible {
+                  outline: none;
+                }
+
+                &::-webkit-calendar-picker-indicator {
+                  opacity: .5;
+
+                }
 
                 &::placeholder {
                   color: $g-500;
@@ -1108,7 +1117,6 @@
     .item-offer-list {
       position: relative;
       display: grid;
-      width: 100%;
       grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       margin-bottom: 2rem;
@@ -1120,7 +1128,6 @@
 
       .offer-list-item {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         font-weight: 400;
         font-size: 14px;
@@ -1195,6 +1202,7 @@
           font-size: 16px;
           margin-block-start: 1em;
           margin-block-end: 1em;
+          text-transform: capitalize;
 
           @include responsive(mobile) {
             margin-block-end: 0.25rem;
