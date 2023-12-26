@@ -3,15 +3,15 @@ import { useOutletContext } from "react-router-dom";
 import "../styles/css/app.css";
 import { useEffect, useRef } from "react";
 import CatalogueItem from "../components/layout/Catalogue";
+import { amtFormater, numToText } from "../utils/utils";
 
 function Home() {
   const [setFooterType, dataset] = useOutletContext();
   useEffect(() => {
     setFooterType(true);
-  }, [setFooterType])
+  }, [setFooterType]);
 
-  const hasDataSet =
-    !dataset ? <NoCatalogue /> : <Catalogue data={dataset} />;
+  const hasDataSet = !dataset ? <NoCatalogue /> : <Catalogue data={dataset} />;
   return (
     <>
       <main>
@@ -466,29 +466,30 @@ function CategoryCarousel() {
 }
 
 function Catalogue({ data }) {
+  console.log("Output Data(Home): ", data);
   return (
     <>
       <section className="catalogue-section">
         <ul className="catalogue-section--list">
-        {data
-          .filter((x, k) => k <= 11)
-          .map((el, key) => {
-            return (
-              <>
-                <CatalogueItem
-                  key={key}
-                  id={key}
-                  title={el.title}
-                  img={el.img}
-                  distance={el.distance}
-                  available={el.available}
-                  price={el.price}
-                  rating={el.rating}
-                  url={el.url}
-                />
-              </>
-            );
-          })}
+          {data
+            .filter((x, k) => k <= 11)
+            .map((el, key) => {
+              return (
+                <>
+                  <CatalogueItem
+                    key={key}
+                    id={key}
+                    title={el.name}
+                    img={el.images}
+                    distance={el.distance}
+                    available={el.available}
+                    price={numToText(el.price)}
+                    rating={el.ratingAvg()}
+                    url={el.id}
+                  />
+                </>
+              );
+            })}
         </ul>
       </section>
     </>
@@ -498,15 +499,15 @@ function Catalogue({ data }) {
 function NoCatalogue() {
   return (
     <>
-    <section className="catalogue-section--empty">
-      <h1>No catalogue available at the moment!</h1>
-      <p>Please come back later or report to support.</p>
-      <a href="#">
-        <button type="button" className="support-redirect btn-borderless">
-          Contact support
-        </button>
-      </a>
-    </section>
+      <section className="catalogue-section--empty">
+        <h1>No catalogue available at the moment!</h1>
+        <p>Please come back later or report to support.</p>
+        <a href="#">
+          <button type="button" className="support-redirect btn-borderless">
+            Contact support
+          </button>
+        </a>
+      </section>
     </>
   );
 }

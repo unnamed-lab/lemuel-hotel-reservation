@@ -1,33 +1,120 @@
-import React from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useOutletContext, useParams } from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
-// import MapComponent from "../utils/Maps";
+import {
+  amtFormater,
+  findReview,
+  getCurDateFormat,
+  getDateDiff,
+  getRatingDecimal,
+  getRatingPercent,
+  getStarRating,
+  getTimestamp,
+  makeArrayToString,
+  numToText,
+  ratingText,
+} from "../utils/utils";
+import { catalogueItem, catalogues } from "../utils/catalog";
+import Error from "../routes/error/Error";
+// import MapComponent from "../utils/Maps";/
 
 function DetailPage() {
   const [setFooterType] = useOutletContext();
+  const [item, setItem] = React.useState([]);
   React.useEffect(() => {
     setFooterType(false);
   }, [setFooterType]);
 
+  React.useEffect(() => {
+    setItem(catalogueItem);
+  }, [item]);
+  const { placeId } = useParams();
+
+  const hotel = catalogues.find((item) => {
+    return parseInt(placeId) === item.id;
+  });
+
+  if (!hotel) {
+    return (
+      <>
+        <Error />
+      </>
+    );
+  }
+
   return (
     <>
       <section className="catalogue-detail-section">
-        <Header />
-        <Thumbnail />
-        <ItemDetails />
+        <Header
+          title={hotel.title}
+          rating={hotel.ratingAvg()}
+          reviews={hotel.reviewCount()}
+          isSuperHost={hotel.isSuperHost}
+          address={hotel.address}
+        />
+        <Thumbnail images={hotel.images} title={catalogueItem.title} />
+        <ItemDetails
+          hotelName={hotel.name}
+          accomodation={hotel.accomodation}
+          company={hotel.company}
+          about={hotel.about}
+          rating={hotel.rating}
+          ratingAvg={hotel.ratingAvg()}
+          reviews={hotel.review}
+          reviewCount={hotel.reviewCount()}
+          rooms={hotel.room}
+          pricing={hotel.price}
+        />
         <Offers />
-        <Rating />
+        <Rating
+          rating={hotel.rating}
+          ratingAvg={hotel.ratingAvg()}
+          reviews={hotel.review}
+          reviewCount={hotel.reviewCount()}
+        />
         <Comments />
         <Location />
-        <Additional />
-        <Terms />
+        <Additional
+          isSuperHost={hotel.isSuperHost}
+          reviewCount={hotel.reviewCount()}
+          ratingAvg={hotel.ratingAvg()}
+          description={hotel.description}
+          lang={hotel.language}
+          company={hotel.company}
+          established={hotel.company.regDate}
+          contact={hotel.company.contact}
+        />
+        <Terms policies={hotel.policy} />
       </section>
     </>
   );
 }
 
-function Header() {
+function Header({ title, rating, reviews, isSuperHost, address }) {
+  const hasSuperHost = isSuperHost ? (
+    <li className="catalogue-item--mini item-badge">
+      <svg
+        width="9"
+        height="15"
+        viewBox="0 0 9 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4.5 9.59531C6.98527 9.59531 9 7.55929 9 5.04766C9 2.53606 6.98527 0.5 4.5 0.5C2.01472 0.5 0 2.53606 0 5.04766C0 7.55929 2.01472 9.59531 4.5 9.59531Z"
+          fill="#292D32"
+        />
+        <path
+          d="M7.02667 10.0215C7.24667 9.90253 7.5 10.0774 7.5 10.3363V13.7296C7.5 14.3592 7.08 14.6671 6.56 14.4082L4.77333 13.5197C4.62 13.4497 4.38 13.4497 4.22667 13.5197L2.44 14.4082C1.92 14.6601 1.5 14.3522 1.5 13.7226L1.51333 10.3363C1.51333 10.0774 1.77333 9.90952 1.98667 10.0215C2.74 10.4203 3.59333 10.6441 4.5 10.6441C5.40667 10.6441 6.26667 10.4203 7.02667 10.0215Z"
+          fill="#292D32"
+        />
+      </svg>
+      Superhost
+    </li>
+  ) : (
+    ""
+  );
   return (
     <>
       <section className="catalogue-detail--header">
@@ -36,7 +123,7 @@ function Header() {
             className="catalogue-item--name"
             title="Beautiful Hotel on the edge of iterigbi river"
           >
-            Beautiful Hotel on the edge of iterigbi river
+            {title}
           </h1>
           <ul className="catalogue-item--mini_container">
             <li className="catalogue-item--mini item-rating">
@@ -52,31 +139,13 @@ function Header() {
                   fill="black"
                 />
               </svg>
-              4.83
+              {rating}
             </li>
-            <li className="catalogue-item--mini item-review">1,800 reviews</li>
-            <li className="catalogue-item--mini item-badge">
-              <svg
-                width="9"
-                height="15"
-                viewBox="0 0 9 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.5 9.59531C6.98527 9.59531 9 7.55929 9 5.04766C9 2.53606 6.98527 0.5 4.5 0.5C2.01472 0.5 0 2.53606 0 5.04766C0 7.55929 2.01472 9.59531 4.5 9.59531Z"
-                  fill="#292D32"
-                />
-                <path
-                  d="M7.02667 10.0215C7.24667 9.90253 7.5 10.0774 7.5 10.3363V13.7296C7.5 14.3592 7.08 14.6671 6.56 14.4082L4.77333 13.5197C4.62 13.4497 4.38 13.4497 4.22667 13.5197L2.44 14.4082C1.92 14.6601 1.5 14.3522 1.5 13.7226L1.51333 10.3363C1.51333 10.0774 1.77333 9.90952 1.98667 10.0215C2.74 10.4203 3.59333 10.6441 4.5 10.6441C5.40667 10.6441 6.26667 10.4203 7.02667 10.0215Z"
-                  fill="#292D32"
-                />
-              </svg>
-              Superhost
+            <li className="catalogue-item--mini item-review">
+              {numToText(reviews)} reviews
             </li>
-            <li className="catalogue-item--mini item-address">
-              Jorgan hotel, Delta, Iterigbi
-            </li>
+            {hasSuperHost}
+            <li className="catalogue-item--mini item-address">{address}</li>
           </ul>
         </div>
         <div className="catalogue-detail-header--container w-20-lg w-100-md">
@@ -160,26 +229,31 @@ function Header() {
   );
 }
 
-function Thumbnail() {
+function Thumbnail({ images, title }) {
   return (
     <>
       <section className="catalogue-detail--thumbnail">
         <div className="thumbnail--main">
-          <img src="/beach-01.png" alt="" />
+          <img
+            src={images[0]}
+            alt={`${title} main preview`}
+            title={`${title} main preview`}
+          />
         </div>
         <div className="thumbnail--sub_group">
-          <div className="thumbnail--sub_container">
-            <img src="/beach-02.png" alt="" />
-          </div>
-          <div className="thumbnail--sub_container">
-            <img src="/beach-03.png" alt="" />
-          </div>
-          <div className="thumbnail--sub_container">
-            <img src="/beach-04.png" alt="" />
-          </div>
-          <div className="thumbnail--sub_container">
-            <img src="/beach-01.png" alt="" />
-          </div>
+          {images
+            .filter((el, key) => key > 0)
+            .map((el, key) => {
+              return (
+                <div key={key} className="thumbnail--sub_container">
+                  <img
+                    src={el}
+                    alt={`${title} sub preview ${key + 1}`}
+                    title={`${title} main preview`}
+                  />
+                </div>
+              );
+            })}
 
           <button type="button" className="btn-more-thumbnail">
             <svg
@@ -202,24 +276,78 @@ function Thumbnail() {
   );
 }
 
-function ItemDetails() {
+function ItemDetails({
+  hotelName,
+  accomodation,
+  company,
+  about,
+  rating,
+  reviews,
+  rooms,
+  ratingAvg,
+  reviewCount,
+  pricing,
+}) {
+  const { guest, bed, bedroom, bath } = accomodation;
+  const { name, url, imgUrl, contact } = company;
+  const fiveStarRating = getStarRating(5, rating, true);
+  const fiveCheckInRating = getRatingPercent(
+    findReview("frontdesk", reviews, true).length,
+    reviews.length
+  );
+  let ratingQuote = ratingText(fiveStarRating);
+  let reviewQuote = ratingText(fiveCheckInRating);
+  const [checkInValue, setCheckIn] = useState("");
+  const [checkOutValue, setCheckOut] = useState("");
+  const [numGuest, setNumGuest] = useState(0);
+  const [dateDiff, setDateDiff] = useState(0);
+  let numGuestRender = numGuest === 0 ? 1 : numGuest;
+  let dataDiffRender = dateDiff === "NaN" ? 0 : dateDiff;
+  const checkInRef = useRef(null);
+  const checkOutRef = useRef(null);
+
+  console.log("Check In: ", checkInValue);
+  console.log("Check Out: ", checkOutValue);
+  console.log("Date Difference: ", dateDiff);
+  console.log("Date Diff Render: ", dataDiffRender);
+  console.log("Guest Number Render: ", dataDiffRender);
+
+  useEffect(() => {
+    setDateDiff(getDateDiff(checkInValue, checkOutValue));
+  }, [checkInValue, checkOutValue]);
+
+  const changeCheckIn = (e) => {
+    setCheckIn(e.target.value);
+  };
+  const changeCheckOut = (e) => {
+    setCheckOut(e.target.value);
+  };
+  const changeGuestNumber = (e) => {
+    setNumGuest(e.target.value);
+  };
+
   return (
     <>
       <section className="catalogue-detail--details">
         <div className="catalogue-item-detail w-60-lg w-100-md">
           <div className="catalogue-item-detail--header btm-border">
             <div className="catalogue-item-detail--header_segment w-80-lg w-80-md">
-              <h3 className="item-detail-brand">Jorgan Hotel</h3>
+              <h3 className="item-detail-brand">{name}</h3>
               <ul className="item-detail-extra-info">
-                <li className="extra-info-item">1 guests</li>
-                <li className="extra-info-item">1 bedroom</li>
-                <li className="extra-info-item">1 bed</li>
-                <li className="extra-info-item">1 bath</li>
+                <li className="extra-info-item">{guest} guests</li>
+                <li className="extra-info-item">{bedroom} bedroom</li>
+                <li className="extra-info-item">{bed} bed</li>
+                <li className="extra-info-item">{bath} bath</li>
               </ul>
             </div>
             <div className="catalogue-item-detail--header_segment w-20-lg w-20-md">
               <div className="item-brand-logo">
-                <img src={brandImg} alt="" className="brand-logo" />
+                <img
+                  src={imgUrl}
+                  alt={`${hotelName} by ${name}`}
+                  title={`${hotelName} by ${name}`}
+                  className="brand-logo"
+                />
               </div>
             </div>
           </div>
@@ -248,11 +376,8 @@ function ItemDetails() {
                     </svg>
                   </span>
                   <div className="item-detail">
-                    <h4>Jorgan Hotel</h4>
-                    <p>
-                      Jorgan are experienced, highly rated hosts who are
-                      committed to providing great stays for guests.
-                    </p>
+                    <h4>{hotelName}</h4>
+                    <p>{about}</p>
                   </div>
                 </li>
 
@@ -280,9 +405,10 @@ function ItemDetails() {
                     </svg>
                   </span>
                   <div className="item-detail">
-                    <h4>Great location</h4>
+                    <h4>{ratingQuote} location</h4>
                     <p>
-                      95% of recent guests gave the location a 5-star rating.
+                      {fiveStarRating}% of recent guests gave the location a
+                      5-star rating.
                     </p>
                   </div>
                 </li>
@@ -305,11 +431,12 @@ function ItemDetails() {
                     </svg>
                   </span>
                   <div className="item-detail">
-                    <h4>Great check-in experience</h4>
+                    <h4>{reviewQuote} check-in experience</h4>
                     <p>
-                      100% of recent guests gave the check-in process a 5-star
-                      rating.Jorgan are experienced, highly rated hosts who are
-                      committed to providing great stays for guests.
+                      {fiveCheckInRating}% of recent guests gave the check-in
+                      process a 5-star rating. <br /> {name} are experienced,
+                      highly rated hosts who are committed to providing great
+                      stays for guests.
                     </p>
                   </div>
                 </li>
@@ -318,8 +445,8 @@ function ItemDetails() {
             <div className="catalogue-item-detail--info">
               <div className="info-bubble">
                 <p className="info-text">
-                  <strong>Only 5 hours left to book.</strong> The hotel will
-                  stop accepting bookings for your dates soon.
+                  <strong>Only {rooms.available} hours left to book.</strong>{" "}
+                  The hotel will stop accepting bookings for your dates soon.
                 </p>
                 <svg
                   width="30"
@@ -349,7 +476,8 @@ function ItemDetails() {
           <section className="booking-card">
             <div className="booking-card--header">
               <div className="booking-card-header_title">
-                <strong className="amount">N10k</strong>/night
+                <strong className="amount">N{amtFormater(pricing)}</strong>
+                /night
               </div>
               <ul className="booking-card-header_rating">
                 <li className="booking-card-header_rating-item item-rating">
@@ -365,10 +493,10 @@ function ItemDetails() {
                       fill="black"
                     />
                   </svg>
-                  4.83
+                  {ratingAvg}
                 </li>
                 <li className="booking-card-header_rating-item item-review">
-                  1,800 reviews
+                  {`${reviewCount} review${reviewCount > 1 ? "s" : ""}`}
                 </li>
               </ul>
             </div>
@@ -377,19 +505,31 @@ function ItemDetails() {
                 <div className="check-date-selector">
                   <label htmlFor="checkIn">Check-in</label>
                   <input
-                    type="datetime"
+                    type="date"
                     name="checkIn"
                     id="checkIn"
-                    placeholder="5/8/2023"
+                    ref={checkInRef}
+                    min={getCurDateFormat()}
+                    placeholder={getCurDateFormat()}
+                    // value={}
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    onChange={changeCheckIn}
+                    required
                   />
                 </div>
                 <div className="check-date-selector">
                   <label htmlFor="checkOut">Checkout</label>
                   <input
-                    type="datetime"
+                    type="date"
                     name="checkOut"
                     id="checkOut"
-                    placeholder="5/12/2023"
+                    ref={checkOutRef}
+                    min={getCurDateFormat(1)}
+                    placeholder={getCurDateFormat(1)}
+                    // value={}
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    onChange={changeCheckOut}
+                    required
                   />
                 </div>
               </div>
@@ -399,8 +539,11 @@ function ItemDetails() {
                   type="number"
                   name="guests"
                   id="guestCount"
+                  min={0}
+                  defaultValue={0}
                   className="guest-number-input"
-                  placeholder="1 guest"
+                  placeholder="0 guest"
+                  onChange={changeGuestNumber}
                 />
               </div>
             </div>
@@ -414,12 +557,21 @@ function ItemDetails() {
                 You won’t be charged yet
               </p>
               <div className="booking-card--additional_quantity btm-border">
-                <span className="quantity-label">N 10k x 4 nights</span>
-                <span>N 40k</span>
+                <span className="quantity-label">
+                  N {amtFormater(pricing * numGuestRender)} x {dataDiffRender}{" "}
+                  nights
+                </span>
+                <span>
+                  N{" "}
+                  {amtFormater(pricing * numGuestRender * dataDiffRender, true)}
+                </span>
               </div>
               <div className="booking-card--additional_total">
                 <span className="total-label">Total before taxes</span>
-                <span>N 40k</span>
+                <span>
+                  N{" "}
+                  {amtFormater(pricing * numGuestRender * dataDiffRender, true)}
+                </span>
               </div>
             </div>
           </section>
@@ -607,7 +759,41 @@ function Offers() {
   );
 }
 
-function Rating() {
+function Rating({ rating, ratingAvg, reviews, reviewCount }) {
+  const reviewTotal = reviewCount;
+  const reviewTotalText = numToText(reviewTotal);
+  const ratingObj = [
+    {
+      type: "communication",
+      value: findReview("communication", reviews, true).length,
+      reviews: reviewTotal,
+    },
+    {
+      type: "clean",
+      value: findReview("clean", reviews, true).length,
+      reviews: reviewTotal,
+    },
+    {
+      type: "location",
+      value: findReview("location", reviews, true).length,
+      reviews: reviewTotal,
+    },
+    {
+      type: "checkin",
+      value: findReview("frontdesk", reviews, true).length,
+      reviews: reviewTotal,
+    },
+    {
+      type: "accuracy",
+      value: findReview("accuracy", reviews, true).length,
+      reviews: reviewTotal,
+    },
+    {
+      type: "value",
+      value: findReview("value", reviews, true).length,
+      reviews: reviewTotal,
+    },
+  ];
   return (
     <>
       <section className="catalogue-detail-rating">
@@ -626,128 +812,136 @@ function Rating() {
               />
             </svg>
           </span>
-          4.83 &bull; 1,800 reviews
+          {ratingAvg} &bull; {reviewTotalText} reviews
         </h3>
         <ul className="item-rating-list">
-          <li className="rating-item">
-            <h6 className="rating-item--title">Cleanliness</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Communication</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Check-in</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Accuracy</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Location</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
-          <li className="rating-item">
-            <h6 className="rating-item--title">Value</h6>
-            <div className="rating-loader">
-              <div className="rating-loader--bar">
-                <div className="loader--bar-fill"></div>
-              </div>
-              4.8
-            </div>
-          </li>
+          {ratingObj.map((el, key) => {
+            return (
+              <RatingItem
+                key={key}
+                type={el.type}
+                value={el.value}
+                reviews={el.reviews}
+              />
+            );
+          })}
         </ul>
       </section>
     </>
   );
 }
 
+function RatingItem({ type, value, reviews }) {
+  let ratingType = "";
+  switch (type) {
+    case "communication":
+      ratingType = "Communication";
+      break;
+    case "clean":
+      ratingType = "Cleanliness";
+      break;
+    case "location":
+      ratingType = "Location";
+      break;
+    case "checkin":
+      ratingType = "Check-In";
+      break;
+    case "accuracy":
+      ratingType = "Accuracy";
+      break;
+    case "value":
+      ratingType = "Value";
+      break;
+
+    default:
+      break;
+  }
+
+  const ratingValue = getRatingDecimal(value, reviews);
+  const ratingPercent = getRatingPercent(value, reviews);
+
+  return (
+    <>
+      <li className="rating-item">
+        <h6 className="rating-item--title">{ratingType}</h6>
+        <div className="rating-loader">
+          <div className="rating-loader--bar">
+            <div
+              className="loader--bar-fill"
+              style={{ width: `${ratingPercent}%` }}
+            ></div>
+          </div>
+          {ratingValue}
+        </div>
+      </li>
+    </>
+  );
+}
+
 function Comments() {
+  const reviewCount = numToText(13);
+  const review = [
+    {
+      name: "Mikasa",
+      tags: [
+        "communication",
+        "clean",
+        "location",
+        "frontdesk",
+        "accuracy",
+        "value",
+      ],
+      message:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi harum quas animi minima fugit natus assumenda fugiat iusto?",
+      timestamp: "May 21, 2023",
+    },
+    {
+      name: "Eren",
+      tags: ["communication", "clean", "location", "accuracy", "value"],
+      message:
+        "Illo iusto consequatur hic ad incidunt veniam facilis necessitatibus doloribus quaerat explicabo, nihil fuga earum voluptate fugit blanditiis numquam neque ab.",
+      timestamp: "August 2, 2023",
+    },
+  ];
+
   return (
     <>
       <section className="catalogue-detail--comments btm-border">
         <ul className="people-review-list">
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
-          <li className="people-review-item">
-            <div className="item-header">
-              <div className="user-image">
-                <img src={userImg} alt="" title="" />
-              </div>
-              <div className="user-info">
-                <h6 className="user-info--name">Mikasa</h6>
-                <time className="user-info--timestamp">April 2023</time>
-              </div>
-            </div>
-            <p className="user-comment" title="User comment">
-              Fantastic Villa. Beautiful scenic views of the ocean. Turtles
-              swimming in the bay. Absolutely magical!
-            </p>
-          </li>
+          {review
+            .filter((el, key) => key <= 5)
+            .map((el, key) => {
+              const output =
+                key != 5 ? (
+                  <li key={key} className="people-review-item">
+                    <div className="item-header">
+                      <div className="user-image">
+                        <img src={userImg} alt="" title="" />
+                      </div>
+                      <div className="user-info">
+                        <h6 className="user-info--name">{el.name}</h6>
+                        <time className="user-info--timestamp">
+                          {getTimestamp(el.timestamp)}
+                        </time>
+                      </div>
+                    </div>
+                    <p className="user-comment" title="User comment">
+                      {el.message}
+                    </p>
+                  </li>
+                ) : (
+                  <li className="people-review-item next-btn-container">
+                    <button
+                      type="button"
+                      className="btn-more-thumbnail btn-normal w-100-md"
+                    >
+                      Show all {reviewCount} reviews
+                    </button>
+                  </li>
+                );
 
-          <li className="people-review-item next-btn-container">
-            <button
-              type="button"
-              className="btn-more-thumbnail btn-normal w-100-md"
-            >
-              Show all 1,797 reviews
-            </button>
-          </li>
+              return output;
+            })}
         </ul>
       </section>
     </>
@@ -770,16 +964,73 @@ function Location() {
   );
 }
 
-function Additional() {
+function Additional({
+  isSuperHost,
+  reviewCount,
+  ratingAvg,
+  description,
+  lang,
+  company,
+}) {
+  const { name, url, imgUrl, contact, regDate, isVerified } = company;
+  const { phone, email } = contact;
+  const hasSuperhost = isSuperHost ? (
+    <li className="achievement-item">
+      <span>
+        <svg
+          width="9"
+          height="15"
+          viewBox="0 0 9 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.5 9.59531C6.98527 9.59531 9 7.55929 9 5.04766C9 2.53606 6.98527 0.5 4.5 0.5C2.01472 0.5 0 2.53606 0 5.04766C0 7.55929 2.01472 9.59531 4.5 9.59531Z"
+            fill="#292D32"
+          />
+          <path
+            d="M7.02667 10.0215C7.24667 9.90253 7.5 10.0774 7.5 10.3363V13.7296C7.5 14.3592 7.08 14.6671 6.56 14.4082L4.77333 13.5197C4.62 13.4497 4.38 13.4497 4.22667 13.5197L2.44 14.4082C1.92 14.6601 1.5 14.3522 1.5 13.7226L1.51333 10.3363C1.51333 10.0774 1.77333 9.90952 1.98667 10.0215C2.74 10.4203 3.59333 10.6441 4.5 10.6441C5.40667 10.6441 6.26667 10.4203 7.02667 10.0215Z"
+            fill="#292D32"
+          />
+        </svg>
+      </span>
+      Superhost
+    </li>
+  ) : (
+    ""
+  );
+  const hasVerified = isVerified ? (
+    <li className="achievement-item">
+      <span>
+        <svg
+          width="14"
+          height="15"
+          viewBox="0 0 14 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5.21234 1.41996C6.08846 0.193347 7.91149 0.193347 8.78768 1.41996L8.92718 1.61524C9.08132 1.83112 9.34026 1.94671 9.60389 1.91742L10.2256 1.84833C11.6249 1.69287 12.8071 2.87516 12.6517 4.27437L12.5826 4.8961C12.5533 5.15976 12.6689 5.41865 12.8848 5.57285L13.0801 5.71234C14.3066 6.58846 14.3066 8.41149 13.0801 9.28768L12.8848 9.42718C12.6689 9.58132 12.5533 9.84026 12.5826 10.1039L12.6517 10.7256C12.8071 12.1249 11.6249 13.3071 10.2256 13.1517L9.60389 13.0826C9.34026 13.0533 9.08132 13.1689 8.92718 13.3848L8.78768 13.5801C7.91149 14.8066 6.08853 14.8066 5.21234 13.5801L5.07285 13.3848C4.91865 13.1689 4.65976 13.0533 4.39609 13.0826L3.77437 13.1517C2.37516 13.3071 1.19287 12.1249 1.34833 10.7256L1.41742 10.1039C1.44671 9.84026 1.33112 9.58132 1.11524 9.42718L0.91996 9.28768C-0.306653 8.41149 -0.306653 6.58853 0.91996 5.71234L1.11524 5.57285C1.33112 5.41865 1.44671 5.15976 1.41742 4.89609L1.34833 4.27437C1.19287 2.87516 2.37516 1.69287 3.77437 1.84833L4.3961 1.91742C4.65976 1.94671 4.91865 1.83112 5.07285 1.61524L5.21234 1.41996ZM9.71468 5.51762C10.0006 5.8036 10.0006 6.26728 9.71468 6.55323L6.91814 9.34977C6.55895 9.70903 5.97649 9.70903 5.6173 9.34977L4.28533 8.01781C3.99936 7.73185 3.99936 7.26817 4.28533 6.98221C4.57132 6.69625 5.03497 6.69625 5.32095 6.98221L6.26772 7.92899L8.67908 5.51762C8.96504 5.23165 9.42872 5.23165 9.71468 5.51762Z"
+            fill="#323232"
+          />
+        </svg>
+      </span>
+      Identity verified
+    </li>
+  ) : (
+    ""
+  );
   return (
     <>
       <section className="catalogue-detail--additional">
         <div className="additional-header">
-          <img src={brandImg} alt="" className="brand-logo" />
+          <img src={imgUrl} alt="" className="brand-logo" />
           <div className="company-info">
-            <h3 className="company-info--name">Jorgan</h3>
+            <h3 className="company-info--name">{name}</h3>
             <h6 className="company-info--established">
-              Joined in September 2020
+              Joined in {getTimestamp(regDate)}
             </h6>
           </div>
         </div>
@@ -801,59 +1052,20 @@ function Additional() {
                     />
                   </svg>
                 </span>
-                4.82
+                {ratingAvg}
               </li>
-              <li className="achievement-item">1,800 reviews</li>
-              <li className="achievement-item">
-                <span>
-                  <svg
-                    width="14"
-                    height="15"
-                    viewBox="0 0 14 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M5.21234 1.41996C6.08846 0.193347 7.91149 0.193347 8.78768 1.41996L8.92718 1.61524C9.08132 1.83112 9.34026 1.94671 9.60389 1.91742L10.2256 1.84833C11.6249 1.69287 12.8071 2.87516 12.6517 4.27437L12.5826 4.8961C12.5533 5.15976 12.6689 5.41865 12.8848 5.57285L13.0801 5.71234C14.3066 6.58846 14.3066 8.41149 13.0801 9.28768L12.8848 9.42718C12.6689 9.58132 12.5533 9.84026 12.5826 10.1039L12.6517 10.7256C12.8071 12.1249 11.6249 13.3071 10.2256 13.1517L9.60389 13.0826C9.34026 13.0533 9.08132 13.1689 8.92718 13.3848L8.78768 13.5801C7.91149 14.8066 6.08853 14.8066 5.21234 13.5801L5.07285 13.3848C4.91865 13.1689 4.65976 13.0533 4.39609 13.0826L3.77437 13.1517C2.37516 13.3071 1.19287 12.1249 1.34833 10.7256L1.41742 10.1039C1.44671 9.84026 1.33112 9.58132 1.11524 9.42718L0.91996 9.28768C-0.306653 8.41149 -0.306653 6.58853 0.91996 5.71234L1.11524 5.57285C1.33112 5.41865 1.44671 5.15976 1.41742 4.89609L1.34833 4.27437C1.19287 2.87516 2.37516 1.69287 3.77437 1.84833L4.3961 1.91742C4.65976 1.94671 4.91865 1.83112 5.07285 1.61524L5.21234 1.41996ZM9.71468 5.51762C10.0006 5.8036 10.0006 6.26728 9.71468 6.55323L6.91814 9.34977C6.55895 9.70903 5.97649 9.70903 5.6173 9.34977L4.28533 8.01781C3.99936 7.73185 3.99936 7.26817 4.28533 6.98221C4.57132 6.69625 5.03497 6.69625 5.32095 6.98221L6.26772 7.92899L8.67908 5.51762C8.96504 5.23165 9.42872 5.23165 9.71468 5.51762Z"
-                      fill="#323232"
-                    />
-                  </svg>
-                </span>
-                Identity verified
-              </li>
-              <li className="achievement-item">
-                <span>
-                  <svg
-                    width="14"
-                    height="15"
-                    viewBox="0 0 14 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M5.21234 1.41996C6.08846 0.193347 7.91149 0.193347 8.78768 1.41996L8.92718 1.61524C9.08132 1.83112 9.34026 1.94671 9.60389 1.91742L10.2256 1.84833C11.6249 1.69287 12.8071 2.87516 12.6517 4.27437L12.5826 4.8961C12.5533 5.15976 12.6689 5.41865 12.8848 5.57285L13.0801 5.71234C14.3066 6.58846 14.3066 8.41149 13.0801 9.28768L12.8848 9.42718C12.6689 9.58132 12.5533 9.84026 12.5826 10.1039L12.6517 10.7256C12.8071 12.1249 11.6249 13.3071 10.2256 13.1517L9.60389 13.0826C9.34026 13.0533 9.08132 13.1689 8.92718 13.3848L8.78768 13.5801C7.91149 14.8066 6.08853 14.8066 5.21234 13.5801L5.07285 13.3848C4.91865 13.1689 4.65976 13.0533 4.39609 13.0826L3.77437 13.1517C2.37516 13.3071 1.19287 12.1249 1.34833 10.7256L1.41742 10.1039C1.44671 9.84026 1.33112 9.58132 1.11524 9.42718L0.91996 9.28768C-0.306653 8.41149 -0.306653 6.58853 0.91996 5.71234L1.11524 5.57285C1.33112 5.41865 1.44671 5.15976 1.41742 4.89609L1.34833 4.27437C1.19287 2.87516 2.37516 1.69287 3.77437 1.84833L4.3961 1.91742C4.65976 1.94671 4.91865 1.83112 5.07285 1.61524L5.21234 1.41996ZM9.71468 5.51762C10.0006 5.8036 10.0006 6.26728 9.71468 6.55323L6.91814 9.34977C6.55895 9.70903 5.97649 9.70903 5.6173 9.34977L4.28533 8.01781C3.99936 7.73185 3.99936 7.26817 4.28533 6.98221C4.57132 6.69625 5.03497 6.69625 5.32095 6.98221L6.26772 7.92899L8.67908 5.51762C8.96504 5.23165 9.42872 5.23165 9.71468 5.51762Z"
-                      fill="#323232"
-                    />
-                  </svg>
-                </span>
-                Identity verified
-              </li>
+              <li className="achievement-item">{`${reviewCount} review${
+                reviewCount > 1 ? "s" : ""
+              }`}</li>
+              {hasVerified}
+              {hasSuperhost}
             </ul>
-            <p>
-              A passionate host, who loves to welcome guest from all over the
-              world and share the beauty of this amazing natural spot that is
-              Blue Lagoon
-            </p>
+            <p>{description}</p>
           </div>
           <div className="additional-context--info">
             <ul className="info-list">
               <li className="info-list-item">
-                Languages: 中文, English, Brazil, Français, Bahasa Indonesia,
-                Español
+                Languages: {makeArrayToString(lang)}
               </li>
               <li className="info-list-item">Response rate: 100%</li>
               <li className="info-list-item">Response time: within an hour</li>
@@ -866,12 +1078,14 @@ function Additional() {
             </ul>
           </div>
           <div className="additional-context--contact">
-            <button
-              type="button"
-              className="btn-more-thumbnail btn-normal w-100-md"
-            >
-              Contact Hotel
-            </button>
+            <Link to={url}>
+              <button
+                type="button"
+                className="btn-more-thumbnail btn-normal w-100-md"
+              >
+                Contact Hotel
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -879,17 +1093,8 @@ function Additional() {
   );
 }
 
-function Terms() {
-  const policyOne = [
-    "Check-in after 2:00 PM",
-    "Checkout before 12:00 PM",
-    "2 guests maximum",
-  ];
-  const policyTwo = ["Carbon monoxide alarm", "Smoke alarm"];
-  const policyThree = [
-    "Free cancellation for 48 hours.",
-    "Review the Host’s full cancellation policy which applies even if you cancel for illness or disruptions caused by COVID-19.",
-  ];
+function Terms({ policies }) {
+  const { rules, safety, cancellation } = policies;
   return (
     <>
       <section className="catalogue-detail--terms">
@@ -898,7 +1103,7 @@ function Terms() {
           <li className="policy-list-item">
             <h6 className="policy-list-item--heading">House rules</h6>
             <ul className="policy-list-item--mini_list">
-              {policyOne.map((el, key) => {
+              {rules.map((el, key) => {
                 return (
                   <>
                     <PolicyItem key={key} text={el} />
@@ -908,9 +1113,9 @@ function Terms() {
             </ul>
           </li>
           <li className="policy-list-item">
-            <h6 className="policy-list-item--heading">Safety & property</h6>
+            <h6 className="policy-list-item--heading">Safety & Property</h6>
             <ul className="policy-list-item--mini_list">
-              {policyTwo.map((el, key) => {
+              {safety.map((el, key) => {
                 return (
                   <>
                     <PolicyItem key={key} text={el} />
@@ -922,7 +1127,7 @@ function Terms() {
           <li className="policy-list-item">
             <h6 className="policy-list-item--heading">Cancellation policy</h6>
             <ul className="policy-list-item--mini_list">
-              {policyThree.map((el, key) => {
+              {cancellation.map((el, key) => {
                 return (
                   <>
                     <PolicyItem key={key} text={el} />

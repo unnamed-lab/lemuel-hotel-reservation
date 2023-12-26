@@ -67,10 +67,11 @@
   color: #3E3E3E;
   font-size: 14px;
   font-weight: 600;
-  transition: background-color 1s ease;
+  transition: all 1s ease;
 }
 .btn-more-thumbnail:hover {
-  background-color: #F8F8F8;
+  background-color: #3E3E3E;
+  color: #fff;
 }
 .btn-more-thumbnail svg {
   margin-right: 10px;
@@ -90,6 +91,7 @@
 }
 
 .btn-submit-reserve {
+  cursor: pointer;
   background-color: #3D94FF;
   color: #fff;
   font-size: 14px;
@@ -685,6 +687,7 @@
   width: 100%;
   height: auto;
   overflow: hidden;
+  background-color: #B8B8B8;
 }
 .catalogue-detail-section .catalogue-detail--thumbnail .thumbnail--sub_group .thumbnail--sub_container img {
   position: absolute;
@@ -1009,14 +1012,20 @@
   font-weight: 300;
   margin-bottom: 0.1rem;
 }
-.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=datetime] {
+.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=date] {
   width: 100%;
   font-size: 12px;
   border: none;
   color: #3E3E3E;
   transition: all 1s ease;
 }
-.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=datetime]::placeholder {
+.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=date]:focus-visible {
+  outline: none;
+}
+.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=date]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+}
+.catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=date]::placeholder {
   color: #555555;
 }
 .catalogue-detail-section .catalogue-detail--details .catalogue-item--booking .booking-card .booking-card--appointment .booking-card--appointment_guest {
@@ -1104,7 +1113,6 @@
 .catalogue-detail-section .catalogue-detail--offer .item-offer-list {
   position: relative;
   display: grid;
-  width: 100%;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-bottom: 2rem;
@@ -1117,7 +1125,6 @@
 }
 .catalogue-detail-section .catalogue-detail--offer .item-offer-list .offer-list-item {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   font-weight: 400;
   font-size: 14px;
@@ -1187,6 +1194,7 @@
   font-size: 16px;
   margin-block-start: 1em;
   margin-block-end: 1em;
+  text-transform: capitalize;
 }
 @media (max-width: 767px) {
   .catalogue-detail-section .catalogue-detail-rating .item-rating-list .rating-item .rating-item--title {
@@ -1410,6 +1418,9 @@
   margin-bottom: 1rem;
   margin-block-start: 0;
   margin-block-end: 0;
+}
+.catalogue-detail-section .catalogue-detail--additional .additional-context .additional-context--contact a:hover {
+  text-decoration: none;
 }
 .catalogue-detail-section .catalogue-detail--terms {
   margin: 1rem 0 2rem;
