@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import "../../styles/css/app.css";
+import { Link } from "react-router-dom";
 
 function CatalogueItem({
-  key,
   id,
   img,
   title,
@@ -24,6 +24,10 @@ function CatalogueItem({
   const carouselItemButton = useRef(null);
   const carouselPrevBtn = useRef(null);
   const carouselNextBtn = useRef(null);
+
+  console.log("Images: ", img);
+  console.log("Title: ", title);
+  console.log("Price: ", price);
 
   useEffect(() => {
     carouselBody.current = document.querySelector(
@@ -172,7 +176,7 @@ function CatalogueItem({
             </div>
           </div>
         </div>
-        <a href={url} className="card-redirect">
+        <Link to={`/place/${url}`} className="card-redirect">
           <div className="card-details">
             <h3 className="card-details--title">{title}</h3>
             <p className="card-details--distance">{distance} kilometers away</p>
@@ -196,7 +200,7 @@ function CatalogueItem({
               {rating}
             </span>
           </div>
-        </a>
+        </Link>
       </li>
     </>
   );

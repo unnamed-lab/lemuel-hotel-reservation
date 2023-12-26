@@ -68,10 +68,11 @@
   color: $dark;
   font-size: 14px;
   font-weight: 600;
-  transition: background-color 1s ease;
+  transition: all 1s ease;
 
   &:hover {
-    background-color: $bg-color;
+    background-color: $dark;
+    color: $white;
   }
 
   svg {
@@ -95,6 +96,7 @@
 }
 
 .btn-submit-reserve {
+  cursor: pointer;
   background-color: $primary;
   color: $white;
   font-size: 14px;

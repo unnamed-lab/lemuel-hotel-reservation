@@ -2,15 +2,16 @@ import "../../styles/css/nav.css";
 import logoImg from "../../assets/logo.svg";
 import userImg from "../../assets/user.svg";
 import { useEffect, useRef, useState } from "react";
-import { catalogue } from "../../utils/catalog";
+import { Link } from "react-router-dom";
+// import { catalogue } from "../../utils/catalog";
 
-function Navbar({ setData, noNavMobile }) {
+function Navbar({ setData, noNavMobile, data }) {
   return (
     <>
       <header>
         <nav className={`navbar ${noNavMobile}`}>
           <BrandLogo logo={logoImg} />
-          <SearchBar setData={setData} />
+          <SearchBar data={data} setData={setData} />
           <NavMenu />
         </nav>
         <MobileNavMenu />
@@ -255,8 +256,8 @@ function NavMenu() {
   );
 }
 
-function SearchBar({ setData }) {
-  const [data, getData] = useState("");
+function SearchBar({ data, setData }) {
+  // const [data, getData] = useState("");
   const [searchedData, getSearchedData] = useState("");
   const [searchAddress, getSearchAddress] = useState("");
   const [searchCity, getSearchCity] = useState("");
@@ -264,8 +265,8 @@ function SearchBar({ setData }) {
   const cityInputPlaceholder = searchCity || "Delta";
 
   useEffect(() => {
-    getData(catalogue);
-    searchedData === "" ? setData(data) : setData(searchedData);
+    // getData(catalogue);
+    searchedData === "" ? "" : setData(searchedData);
   }, [data, searchedData, setData]);
 
   const addressText = (e) => {
@@ -395,7 +396,9 @@ function BrandLogo({ logo }) {
   return (
     <>
       <section className="nav-brand">
-        <img src={logo} alt="Logo" className="brand-logo" title="Rock Logo" />
+        <Link to={"/"}>
+          <img src={logo} alt="Logo" className="brand-logo" title="Rock Logo" />
+        </Link>
       </section>
     </>
   );

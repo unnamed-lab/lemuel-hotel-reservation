@@ -3,23 +3,33 @@ import Navbar from "./Navigation";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
+import { catalogue } from "../../utils/catalog";
 
 function AppLayout({ layout = true }) {
   const [footerType, setFooterType] = useState(true);
-  const [dataset, setDataCollection] = useState([]);
+  const [dataset, setDataCollection] = useState('' || catalogue);
+  const [searchedData, setSearchData] = useState('')
+  const [output, setOutput] = useState('')
+  useEffect(() => {
+    searchedData !== '' ? setOutput(searchedData) : setOutput(dataset);
+  },[dataset, searchedData])
+
+  console.log("Searched Data: ", searchedData, typeof searchedData);
+  console.log("Output Data: ", output);
+
   const layoutSwitch = layout ? (
     <NormalLayout
       footerType={footerType}
       setFooterType={setFooterType}
-      dataset={dataset}
-      setData={setDataCollection}
+      dataset={output}
+      setData={setSearchData}
     />
   ) : (
     <DetailLayout
       footerType={footerType}
       setFooterType={setFooterType}
-      dataset={dataset}
-      setData={setDataCollection}
+      dataset={output}
+      setData={setSearchData}
     />
   );
 
@@ -30,7 +40,7 @@ function NormalLayout({ footerType, setFooterType, dataset, setData }) {
   return (
     <>
       <InfoBanner />
-      <Navbar setData={setData} />
+      <Navbar setData={setData} data={dataset} />
       <Outlet context={[setFooterType, dataset]} />
       <Footer footerState={footerType} />
     </>
