@@ -109,3 +109,21 @@ export const getCurDateFormat = (spread = 0) => {
   const dd = String(currentDate.getDate() + spread).padStart(2, "0");
   return `${yr}-${mm}-${dd}`;
 };
+
+export const sharePage = (title, text, url, img) => {
+  const sharedData = {
+    title: title,
+    text: text,
+    url: url,
+    icon: img,
+  };
+  console.log(navigator.canShare);
+  if (navigator.canShare(sharedData)) {
+    navigator
+      .share()
+      .then(() => console.log("Successful share!"))
+      .catch((error) => console.error("Error sharing item: ", error));
+  } else {
+    console.log("Web Share API not supported.");
+  }
+};

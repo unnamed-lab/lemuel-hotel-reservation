@@ -207,6 +207,7 @@ export const catalogueItem = {
   reviewCount: function () {
     return this.review.length;
   },
+  faves: [{id:123,username: "unnamed"}],
   isSuperHost: true,
   customerExp: ["24/7 full management"],
   policy: {

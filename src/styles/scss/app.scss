@@ -1267,9 +1267,9 @@
 
         .item-header {
           display: flex;
-          flex-wrap: wrap;
           align-items: center;
           width: 100%;
+          margin-bottom: 1rem;
 
           .user-image {
             width: 60px;
@@ -1280,7 +1280,6 @@
           .user-info {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: 1rem;
             .user-info--name {
               width: 100%;
               font-size: 14px;
