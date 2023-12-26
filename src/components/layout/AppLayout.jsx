@@ -14,9 +14,6 @@ function AppLayout({ layout = true }) {
     searchedData !== '' ? setOutput(searchedData) : setOutput(dataset);
   },[dataset, searchedData])
 
-  console.log("Searched Data: ", searchedData, typeof searchedData);
-  console.log("Output Data: ", output);
-
   const layoutSwitch = layout ? (
     <NormalLayout
       footerType={footerType}

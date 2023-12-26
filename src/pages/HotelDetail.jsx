@@ -14,6 +14,7 @@ import {
   makeArrayToString,
   numToText,
   ratingText,
+  sharePage,
 } from "../utils/utils";
 import { catalogueItem, catalogues } from "../utils/catalog";
 import Error from "../routes/error/Error";
@@ -52,6 +53,8 @@ function DetailPage() {
           reviews={hotel.reviewCount()}
           isSuperHost={hotel.isSuperHost}
           address={hotel.address}
+          hotelName={hotel.name}
+          images={hotel.images}
         />
         <Thumbnail images={hotel.images} title={catalogueItem.title} />
         <ItemDetails
@@ -91,7 +94,15 @@ function DetailPage() {
   );
 }
 
-function Header({ title, rating, reviews, isSuperHost, address }) {
+function Header({
+  title,
+  rating,
+  reviews,
+  isSuperHost,
+  address,
+  hotelName,
+  images,
+}) {
   const hasSuperHost = isSuperHost ? (
     <li className="catalogue-item--mini item-badge">
       <svg
@@ -150,7 +161,7 @@ function Header({ title, rating, reviews, isSuperHost, address }) {
         </div>
         <div className="catalogue-detail-header--container w-20-lg w-100-md">
           <div className="catalogue-item--mini_container baseline">
-            <a href="#" className="item-redirect back-btn">
+            <Link to={"/"} className="item-redirect back-btn">
               <svg
                 width="10"
                 height="18"
@@ -165,8 +176,20 @@ function Header({ title, rating, reviews, isSuperHost, address }) {
                   fill="#3E3E3E"
                 />
               </svg>
-            </a>
-            <a href="#" className="item-redirect">
+            </Link>
+            <a
+              href="#"
+              className="item-redirect"
+              onClick={(e) => {
+                e.preventDefault();
+                sharePage(
+                  `${title}`,
+                  `${hotelName}: ${title} with a ${rating} rating.`,
+                  `${window.location.href}`,
+                  `${images[0]}`
+                );
+              }}
+            >
               <svg
                 width="14"
                 height="15"
@@ -305,12 +328,6 @@ function ItemDetails({
   let dataDiffRender = dateDiff === "NaN" ? 0 : dateDiff;
   const checkInRef = useRef(null);
   const checkOutRef = useRef(null);
-
-  console.log("Check In: ", checkInValue);
-  console.log("Check Out: ", checkOutValue);
-  console.log("Date Difference: ", dateDiff);
-  console.log("Date Diff Render: ", dataDiffRender);
-  console.log("Guest Number Render: ", dataDiffRender);
 
   useEffect(() => {
     setDateDiff(getDateDiff(checkInValue, checkOutValue));

@@ -1254,9 +1254,9 @@
 }
 .catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   width: 100%;
+  margin-bottom: 1rem;
 }
 .catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-image {
   width: 60px;
@@ -1266,7 +1266,6 @@
 .catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-info {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
 }
 .catalogue-detail-section .catalogue-detail--comments .people-review-list .people-review-item .item-header .user-info .user-info--name {
   width: 100%;
