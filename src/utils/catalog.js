@@ -175,6 +175,14 @@ export const catalogueItem = {
     bedroom: 1,
     bath: 1,
   },
+  facility: [
+    "Wifi",
+    "TV",
+    "Private Pool",
+    "Beach access - Beachfront",
+    "Free parking on premises",
+    "Air conditioning",
+  ],
   rating: [5, 1, 4, 5, 5, 3, 2, 2],
   ratingAvg: function () {
     return (
@@ -207,7 +215,7 @@ export const catalogueItem = {
   reviewCount: function () {
     return this.review.length;
   },
-  faves: [{id:123,username: "unnamed"}],
+  faves: [{ id: 123, username: "unnamed" }],
   isSuperHost: true,
   customerExp: ["24/7 full management"],
   policy: {
