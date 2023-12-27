@@ -156,11 +156,12 @@
     .info-text {
       max-width: 95%;
 
-      strong{
+      strong {
         display: block;
         &.fill {
-        width: 100%;
-      }}
+          width: 100%;
+        }
+      }
     }
     svg {
       width: 30px;
@@ -337,15 +338,20 @@
       }
       .booking-card--appointment_check {
         position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         width: 100%;
+        background-color: $white;
         max-width: inherit;
 
         .check-date-selector {
-          width: 50%;
-          max-width: 50%;
-          padding: 1.15rem 1rem;
+          width: -webkit-fill-available;
+          padding-top: 1.15rem;
+          padding-bottom: 1.15rem;
+          padding-left: 1.5rem;
+          padding-right: 2rem;
           box-shadow: 0 0 0 0.5px $g-50;
+          background-color: $white;
 
           label {
             display: block;
@@ -361,6 +367,7 @@
             font-size: 12px;
             border: none;
             color: $dark;
+            background-color: $white;
             transition: all 1s ease;
 
             &:focus-visible {
@@ -382,7 +389,7 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        padding: 1.15rem 1rem;
+        padding: 1.15rem 1.5rem;
         box-shadow: 0 0 0 0.5px $g-50;
 
         label {
@@ -401,6 +408,7 @@
           font-size: 12px;
           border: none;
           color: $dark;
+          background-color: $white;
           transition: all 1s ease;
 
           &::placeholder {

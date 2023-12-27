@@ -171,6 +171,7 @@ export const catalogueItem = {
   price: 10000,
   accomodation: {
     guest: 1,
+    max_guest: 2,
     bed: 1,
     bedroom: 1,
     bath: 1,

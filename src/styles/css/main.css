@@ -443,15 +443,20 @@
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_check {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
+  background-color: #fff;
   max-width: inherit;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector {
-  width: 50%;
-  max-width: 50%;
-  padding: 1.15rem 1rem;
+  width: -webkit-fill-available;
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+  padding-left: 1.5rem;
+  padding-right: 2rem;
   box-shadow: 0 0 0 0.5px #B8B8B8;
+  background-color: #fff;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector label {
   display: block;
@@ -466,6 +471,7 @@
   font-size: 12px;
   border: none;
   color: #3E3E3E;
+  background-color: #fff;
   transition: all 1s ease;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector input[type=date]:focus-visible {
@@ -482,7 +488,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding: 1.15rem 1rem;
+  padding: 1.15rem 1.5rem;
   box-shadow: 0 0 0 0.5px #B8B8B8;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_guest label {
@@ -500,6 +506,7 @@
   font-size: 12px;
   border: none;
   color: #3E3E3E;
+  background-color: #fff;
   transition: all 1s ease;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_guest .guest-number-input::placeholder {
