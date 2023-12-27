@@ -7,6 +7,7 @@ import AppLayout from "../components/layout/AppLayout";
 import Error from "./error/Error";
 import Home from "../pages/Home";
 import DetailPage from "../pages/HotelDetail";
+import Reservation from "../pages/Reservation";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const routes = createBrowserRouter(
       </Route>
       <Route path="place/" element={<AppLayout layout={false} />}>
         <Route path=":placeId" element={<DetailPage />} />
+        <Route path=":placeId/reserve" element={<Reservation />} />
       </Route>
     </Route>
   ),

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useOutletContext, useParams } from "react-router-dom";
+import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
 import {
@@ -30,8 +30,8 @@ function DetailPage() {
   React.useEffect(() => {
     setItem(catalogueItem);
   }, [item]);
-  const { placeId } = useParams();
 
+  const { placeId } = useParams();
   const hotel = catalogues.find((item) => {
     return parseInt(placeId) === item.id;
   });
@@ -68,6 +68,7 @@ function DetailPage() {
           reviewCount={hotel.reviewCount()}
           rooms={hotel.room}
           pricing={hotel.price}
+          pageId={parseInt(placeId)}
         />
         <Offers facility={hotel.facility} />
         <Rating
@@ -318,6 +319,7 @@ function ItemDetails({
   ratingAvg,
   reviewCount,
   pricing,
+  pageId
 }) {
   const { guest, bed, bedroom, bath } = accomodation;
   const { name, url, imgUrl, contact } = company;
@@ -354,6 +356,13 @@ function ItemDetails({
   const [makeReserve, setReserve] = useState(false);
   const hasReserve = makeReserve ? "show": "";
   const reserveBlock = makeReserve ? 'hide': "";
+
+  const navigate = useNavigate();
+
+  const createReservation = (e) => {
+    e.preventDefault()
+    navigate(`/place/${pageId}/reserve`);
+  };
 
   return (
     <>
@@ -502,7 +511,7 @@ function ItemDetails({
           </div>
         </div>
         <div className="catalogue-item--booking w-40-lg w-100-md">
-          <section className="booking-card">
+          <form onSubmit={createReservation} className="booking-card">
             <div className="booking-card--header">
               <div className="booking-card-header_title">
                 <strong className="amount">N{amtFormater(pricing)}</strong>
@@ -573,12 +582,16 @@ function ItemDetails({
                   className="guest-number-input"
                   placeholder="0 guest"
                   onChange={changeGuestNumber}
+                  required
                 />
               </div>
             </div>
             <div className="booking-card--reserve">
-              <div className={`mobile-blocker ${reserveBlock}`} onClick={() => setReserve(!makeReserve)}></div>
-              <button type="button" className="btn-submit-reserve">
+              <div
+                className={`mobile-blocker ${reserveBlock}`}
+                onClick={() => setReserve(!makeReserve)}
+              ></div>
+              <button type="submit" className="btn-submit-reserve">
                 Reserve
               </button>
             </div>
@@ -604,7 +617,7 @@ function ItemDetails({
                 </span>
               </div>
             </div>
-          </section>
+          </form>
         </div>
       </section>
     </>
