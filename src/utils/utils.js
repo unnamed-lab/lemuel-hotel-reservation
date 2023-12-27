@@ -40,43 +40,47 @@ export const getTimestamp = (time) => {
   return `${monthsInWords[date.getMonth()]} ${date.getFullYear()}`;
 };
 
-export const makeArrayToString = (arr = []) => {
+export const makeArrayToString = (arr) => {
   return arr.join(", ");
 };
 
 export const getStarRating = (value, rating = [], percentage = false) => {
   const lookUpStar = rating.filter((item) => item === value);
   const output = lookUpStar.length / rating.length;
-  if (percentage === true) {
-    return output * 100;
-  }
-  return output;
+  return percentage ? output * 100 : output;
 };
 
 export const ratingText = (input) => {
-  let output = "";
   switch (true) {
     case input <= 20:
-      return output = "Terrible";
+      return "Terrible";
     case input <= 40:
-      return output = "Poor";
+      return "Poor";
     case input >= 60:
-      return output = "Good";
+      return "Good";
     case input >= 75:
-      return output = "Excellence";
+      return "Excellence";
     default:
-      return output = "Average";
+      return "Average";
   }
-  return output;
 };
 
 export const amtFormater = (value, decimal = false) => {
-  if (value >= 1000000000) return (value / 1000000000).toFixed(2) + "Bn";
-  if (value >= 1000000) return (value / 1000000).toFixed(2) + "M";
-  else if (value >= 1000) return (value / 1000).toFixed(2) + "K";
+  if (value >= 1000000000)
+    return decimal
+      ? (value / 1000000000).toFixed(2) + "Bn"
+      : (value / 1000000000).toFixed(0) + "Bn";
+  else if (value >= 1000000)
+    return decimal
+      ? (value / 1000000).toFixed(2) + "M"
+      : (value / 1000000).toFixed(0) + "M";
+  else if (value >= 1000)
+    return decimal
+      ? (value / 1000).toFixed(2) + "K"
+      : (value / 1000).toFixed(0) + "K";
   else {
-    if (decimal === true) return value.toFixed(2).toString();
-    return value.toString();
+    if (decimal === true)
+      return decimal ? value.toFixed(2).toString() : value.toString();
   }
 };
 

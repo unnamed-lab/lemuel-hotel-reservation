@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 import brandImg from "../assets/brand.svg";
 import userImg from "../assets/user.svg";
 import {
@@ -69,6 +74,8 @@ function DetailPage() {
           rooms={hotel.room}
           pricing={hotel.price}
           pageId={parseInt(placeId)}
+          minGuests={hotel.accomodation.guest}
+          maxGuests={hotel.accomodation.max_guest}
         />
         <Offers facility={hotel.facility} />
         <Rating
@@ -319,7 +326,9 @@ function ItemDetails({
   ratingAvg,
   reviewCount,
   pricing,
-  pageId
+  pageId,
+  minGuests,
+  maxGuests,
 }) {
   const { guest, bed, bedroom, bath } = accomodation;
   const { name, url, imgUrl, contact } = company;
@@ -354,13 +363,13 @@ function ItemDetails({
   };
 
   const [makeReserve, setReserve] = useState(false);
-  const hasReserve = makeReserve ? "show": "";
-  const reserveBlock = makeReserve ? 'hide': "";
+  const hasReserve = makeReserve ? "show" : "";
+  const reserveBlock = makeReserve ? "hide" : "";
 
   const navigate = useNavigate();
 
   const createReservation = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     navigate(`/place/${pageId}/reserve`);
   };
 
@@ -577,10 +586,11 @@ function ItemDetails({
                   type="number"
                   name="guests"
                   id="guestCount"
-                  min={0}
-                  defaultValue={0}
+                  min={minGuests}
+                  max={maxGuests}
+                  defaultValue={minGuests}
                   className="guest-number-input"
-                  placeholder="0 guest"
+                  placeholder={`${minGuests} guest`}
                   onChange={changeGuestNumber}
                   required
                 />
@@ -624,7 +634,7 @@ function ItemDetails({
   );
 }
 
-function Offers({facility}) {
+function Offers({ facility }) {
   return (
     <>
       <section className="catalogue-detail--offer btm-border">
