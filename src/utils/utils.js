@@ -40,6 +40,29 @@ export const getTimestamp = (time) => {
   return `${monthsInWords[date.getMonth()]} ${date.getFullYear()}`;
 };
 
+export const getMonthTimestamp = (time, abbr = false) => {
+  const date = new Date(time);
+  const monthsInWords = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return abbr
+    ? monthsInWords[date.getMonth()] === "September"
+      ? `${monthsInWords[date.getMonth()].slice(0, 3)}`
+      : `${monthsInWords[date.getMonth()].slice(0, 2)}`
+    : `${monthsInWords[date.getMonth()]}`;
+};
+
 export const makeArrayToString = (arr) => {
   return arr.join(", ");
 };
@@ -79,8 +102,7 @@ export const amtFormater = (value, decimal = false) => {
       ? (value / 1000).toFixed(2) + "K"
       : (value / 1000).toFixed(0) + "K";
   else {
-    if (decimal === true)
-      return decimal ? value.toFixed(2).toString() : value.toString();
+    return decimal ? value.toFixed(2).toString() : value.toString();
   }
 };
 

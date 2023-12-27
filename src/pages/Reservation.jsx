@@ -72,9 +72,101 @@ function Reservation() {
                 </defs>
               </svg>
             </div>
+            <div className="reservation-body--container btm-border">
+              <h3 className="reservation-body--header">Your Stay</h3>
+              <div className="reservation-body--sub_container">
+                <div className="sub-container_segment">
+                  <h6 className="segment-header">Dates</h6>
+                  <p className="segment-info">Dec 15 – 22</p>
+                </div>
+                <div className="sub-container_segment aln-left">
+                  <a href="#" className="property-edit">
+                    Edit
+                  </a>
+                </div>
+              </div>
+              <div className="reservation-body--sub_container">
+                <div className="sub-container_segment">
+                  <h6 className="segment-header">Guests</h6>
+                  <p className="segment-info">1 guest</p>
+                </div>
+                <div className="sub-container_segment aln-left">
+                  <a href="#" className="property-edit">
+                    Edit
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="reservation-body--container">
+              <h3 className="reservation-body--header">Choose how to pay</h3>
+              <ul className="reservation-body--sub">
+                <li className="reservation-body--sub_container selector ">
+                  <div className="sub-container_segment">
+                    <h6 className="segment-header">Pay with card</h6>
+                    <p className="segment-info">Pay the total (N 20,000).</p>
+                  </div>
+                  <div className="sub-container_segment aln-left">
+                    <div className="input-radio-group">
+                      <label htmlFor="btn3" className="reserve-radio-icon"></label>
+                      <input
+                        type="radio"
+                        className="reserve-radio-btn"
+                        name=""
+                        id="btn3"
+                      />
+                    </div>
+                  </div>
+                </li>
+                <li className="reservation-body--sub_container selector ">
+                  <div className="sub-container_segment">
+                    <h6 className="segment-header">Pay with bank</h6>
+                    <p className="segment-info">
+                      interest-free.{" "}
+                      <a href="#" className="property-edit">
+                        More info
+                      </a>
+                    </p>
+                  </div>
+                  <div className="sub-container_segment aln-left">
+                    <div className="input-radio-group">
+                      <label htmlFor="btn2" className="reserve-radio-icon"></label>
+                      <input
+                        type="radio"
+                        className="reserve-radio-btn"
+                        name=""
+                        id="btn2"
+                      />
+                    </div>
+                  </div>
+                </li>
+                <li className="reservation-body--sub_container selector active">
+                  <div className="sub-container_segment">
+                    <h6 className="segment-header">Pay at hotel</h6>
+                    <p className="segment-info">
+                      Interest may apply.{" "}
+                      <a href="#" className="property-edit">
+                        More info
+                      </a>
+                    </p>
+                  </div>
+                  <div className="sub-container_segment aln-left">
+                    <div className="input-radio-group">
+                      <label htmlFor="btn3" className="reserve-radio-icon">
+                      <input
+                        type="radio"
+                        className="reserve-radio-btn"
+                        name=""
+                        id="btn3"
+                      />
+                      </label>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="reservation-section--body_summary w-50-lg w-100-md">
-            <form  className="booking-card">
+            <form className="booking-card">
               <div className="booking-card--header">
                 <div className="booking-card-header_title">
                   <strong className="amount">N{amtFormater(10000)}</strong>
@@ -154,9 +246,7 @@ function Reservation() {
                   You won’t be charged yet
                 </p>
                 <div className="booking-card--additional_quantity btm-border">
-                  <span className="quantity-label">
-                    N 10K x 1 nights
-                  </span>
+                  <span className="quantity-label">N 10K x 1 nights</span>
                   <span>N 10K</span>
                 </div>
                 <div className="booking-card--additional_total">
