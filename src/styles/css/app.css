@@ -1254,7 +1254,7 @@
 }
 @media (max-width: 767px) {
   .reservation-section {
-    padding: 0;
+    padding: 2rem 1.5rem;
   }
 }
 .reservation-section .reservation-section--nav {
@@ -1276,12 +1276,97 @@
   margin-block-end: 0;
   margin-block-start: 0;
 }
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--nav .reservation-section--nav_header {
+    font-size: 18px;
+  }
+}
 .reservation-section .reservation-section--body {
   width: 100%;
   position: relative;
   padding: 0 2rem;
   display: flex;
   gap: 30px;
+}
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+.reservation-section .reservation-section--body .reservation-body--container {
+  position: relative;
+  padding-bottom: 2rem;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--header {
+  font-size: 22px;
+  font-weight: 600;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub {
+  position: relative;
+  border-radius: 8px;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container {
+  max-width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.75rem;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector {
+  border-top: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 2px solid #B8B8B8;
+  border-right: 2px solid #B8B8B8;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector:nth-child(1) {
+  border-top: 2px solid #B8B8B8;
+  border-bottom: 2px solid #B8B8B8;
+  border-radius: 8px 8px 0 0;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector:nth-last-child(1) {
+  border-bottom: 2px solid #B8B8B8;
+  border-top: 2px solid #B8B8B8;
+  border-radius: 0 0 8px 8px;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector.active {
+  border-color: #3E3E3E;
+  border-top: 2px solid #3E3E3E;
+  border-bottom: 2px solid #3E3E3E;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector.active .sub-container_segment > .reserve-radio-btn {
+  border: 1px solid #3E3E3E;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment.aln-left {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .segment-header {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  margin-block-start: 0.25rem;
+  margin-block-end: 0.25rem;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .segment-info {
+  width: 100%;
+  font-size: 15.75px;
+  margin-block-start: 0.25rem;
+  margin-block-end: 0.25rem;
+}
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .property-edit {
+  margin-left: auto;
+  font-weight: 600;
+  text-decoration: underline;
 }
 .reservation-section .info-bubble {
   margin-bottom: 2rem;
