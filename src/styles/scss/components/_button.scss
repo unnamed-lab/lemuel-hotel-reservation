@@ -113,3 +113,58 @@
     background-color: $black;
   }
 }
+
+.fave-btn {
+  &:hover {
+    svg > path {
+      fill: $btn-active--red;
+      fill-opacity: 60%;
+    }
+  }
+
+  &:focus {
+    svg > path {
+      fill: $btn-active--red;
+      fill-opacity: 40%;
+    }
+  }
+
+  &:active {
+    svg > path {
+      fill: $btn-active--red;
+      stroke: $btn-active--red;
+      fill-opacity: 100%;
+    }
+  }
+
+  &.active {
+    svg > path {
+      fill: $btn-active--red;
+      stroke: $btn-active--red;
+      fill-opacity: 100%;
+    }
+  }
+}
+
+.share-btn {
+  &:hover {
+    svg > path {
+      fill: $btn-active--green;
+      fill-opacity: 60%;
+    }
+  }
+
+  &:focus {
+    svg > path {
+      fill: $btn-active--green;
+      fill-opacity: 40%;
+    }
+  }
+
+  &:active {
+    svg > path {
+      fill: $btn-active--green;
+      stroke: $btn-active--green;
+    }
+  }
+}

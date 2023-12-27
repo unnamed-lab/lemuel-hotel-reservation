@@ -100,6 +100,38 @@
   background-color: #000;
 }
 
+.fave-btn:hover svg > path {
+  fill: #FF385C;
+  fill-opacity: 60%;
+}
+.fave-btn:focus svg > path {
+  fill: #FF385C;
+  fill-opacity: 40%;
+}
+.fave-btn:active svg > path {
+  fill: #FF385C;
+  stroke: #FF385C;
+  fill-opacity: 100%;
+}
+.fave-btn.active svg > path {
+  fill: #FF385C;
+  stroke: #FF385C;
+  fill-opacity: 100%;
+}
+
+.share-btn:hover svg > path {
+  fill: #3bff38;
+  fill-opacity: 60%;
+}
+.share-btn:focus svg > path {
+  fill: #3bff38;
+  fill-opacity: 40%;
+}
+.share-btn:active svg > path {
+  fill: #3bff38;
+  stroke: #3bff38;
+}
+
 * {
   font-family: "Poppins", "Roboto", sans-serif;
   font-size: 13px;
@@ -115,6 +147,7 @@
 }
 :root html {
   overflow: hidden;
+  scroll-behavior: smooth;
 }
 :root main,
 :root body {

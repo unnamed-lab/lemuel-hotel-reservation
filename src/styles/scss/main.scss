@@ -21,6 +21,7 @@
   }
   html {
     overflow: hidden;
+    scroll-behavior: smooth;
   }
   main,
   body {
@@ -68,6 +69,7 @@
       margin-block-end: 1rem;
     }
   }
+
 
   .info-banner {
     position: relative;

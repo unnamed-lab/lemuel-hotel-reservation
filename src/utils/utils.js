@@ -57,23 +57,16 @@ export const ratingText = (input) => {
   let output = "";
   switch (true) {
     case input <= 20:
-      output = "Terrible";
-      break;
+      return output = "Terrible";
     case input <= 40:
-      output = "Poor";
-      break;
+      return output = "Poor";
     case input >= 60:
-      output = "Good";
-      break;
+      return output = "Good";
     case input >= 75:
-      output = "Excellence";
-      break;
-
+      return output = "Excellence";
     default:
-      output = "Average";
-      break;
+      return output = "Average";
   }
-
   return output;
 };
 

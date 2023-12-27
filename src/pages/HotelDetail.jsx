@@ -69,7 +69,7 @@ function DetailPage() {
           rooms={hotel.room}
           pricing={hotel.price}
         />
-        <Offers />
+        <Offers facility={hotel.facility} />
         <Rating
           rating={hotel.rating}
           ratingAvg={hotel.ratingAvg()}
@@ -126,6 +126,10 @@ function Header({
   ) : (
     ""
   );
+
+  const [fave, addFave] = useState(false);
+  const isFave = fave ? " active" : "";
+
   return (
     <>
       <section className="catalogue-detail--header">
@@ -179,7 +183,7 @@ function Header({
             </Link>
             <a
               href="#"
-              className="item-redirect"
+              className="item-redirect share-btn"
               onClick={(e) => {
                 e.preventDefault();
                 sharePage(
@@ -230,7 +234,11 @@ function Header({
               </svg>
               <span>Share</span>
             </a>
-            <a href="#" className="item-redirect">
+            <a
+              href="#"
+              className={`item-redirect fave-btn ${isFave}`}
+              onClick={() => addFave(!fave)}
+            >
               <svg
                 width="15"
                 height="15"
@@ -342,6 +350,10 @@ function ItemDetails({
   const changeGuestNumber = (e) => {
     setNumGuest(e.target.value);
   };
+
+  const [makeReserve, setReserve] = useState(false);
+  const hasReserve = makeReserve ? "show": "";
+  const reserveBlock = makeReserve ? 'hide': "";
 
   return (
     <>
@@ -517,7 +529,7 @@ function ItemDetails({
                 </li>
               </ul>
             </div>
-            <div className="booking-card--appointment">
+            <div className={`booking-card--appointment ${hasReserve}`}>
               <div className="booking-card--appointment_check">
                 <div className="check-date-selector">
                   <label htmlFor="checkIn">Check-in</label>
@@ -565,11 +577,12 @@ function ItemDetails({
               </div>
             </div>
             <div className="booking-card--reserve">
+              <div className={`mobile-blocker ${reserveBlock}`} onClick={() => setReserve(!makeReserve)}></div>
               <button type="button" className="btn-submit-reserve">
                 Reserve
               </button>
             </div>
-            <div className="booking-card--additional">
+            <div className={`booking-card--additional ${hasReserve}`}>
               <p className="booking-card--additional_info">
                 You won’t be charged yet
               </p>
@@ -598,7 +611,7 @@ function ItemDetails({
   );
 }
 
-function Offers() {
+function Offers({facility}) {
   return (
     <>
       <section className="catalogue-detail--offer btm-border">
@@ -768,7 +781,7 @@ function Offers() {
             type="button"
             className="btn-more-thumbnail btn-normal w-100-md"
           >
-            Show all 30 facilities
+            Show all {facility.length} facilities
           </button>
         </div>
       </section>
