@@ -4,15 +4,16 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
 import { catalogue } from "../../utils/catalog";
+import { ScrollToTop } from "../../utils/component";
 
 function AppLayout({ layout = true }) {
   const [footerType, setFooterType] = useState(true);
-  const [dataset, setDataCollection] = useState('' || catalogue);
-  const [searchedData, setSearchData] = useState('')
-  const [output, setOutput] = useState('')
+  const [dataset, setDataCollection] = useState("" || catalogue);
+  const [searchedData, setSearchData] = useState("");
+  const [output, setOutput] = useState("");
   useEffect(() => {
-    searchedData !== '' ? setOutput(searchedData) : setOutput(dataset);
-  },[dataset, searchedData])
+    searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
+  }, [dataset, searchedData]);
 
   const layoutSwitch = layout ? (
     <NormalLayout
@@ -47,7 +48,8 @@ function NormalLayout({ footerType, setFooterType, dataset, setData }) {
 function DetailLayout({ footerType, setFooterType, dataset, setData }) {
   return (
     <>
-      <Navbar noNavMobile={'no-nav-mobile'} setData={setData} />
+      <ScrollToTop />
+      <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
       <Outlet context={[setFooterType, dataset]} />
       <Footer footerState={footerType} />
     </>
