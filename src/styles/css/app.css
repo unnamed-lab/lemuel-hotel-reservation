@@ -1292,15 +1292,21 @@
   .reservation-section .reservation-section--body {
     flex-direction: column;
     padding: 0;
+    gap: 10px;
   }
 }
 .reservation-section .reservation-section--body .reservation-body--container {
   position: relative;
-  padding-bottom: 2rem;
 }
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--header {
   font-size: 22px;
   font-weight: 600;
+}
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body .reservation-body--container .reservation-body--header {
+    font-size: 18px;
+    margin-block-end: 0;
+  }
 }
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub {
   position: relative;
@@ -1315,11 +1321,21 @@
   margin-block-start: 0;
   margin-block-end: 0;
 }
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container {
+    padding-left: 0;
+  }
+}
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector {
   border-top: 0px solid transparent;
   border-bottom: 0px solid transparent;
   border-left: 2px solid #B8B8B8;
   border-right: 2px solid #B8B8B8;
+}
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector {
+    padding: 0.5rem 0.75rem;
+  }
 }
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector:nth-child(1) {
   border-top: 2px solid #B8B8B8;
@@ -1331,13 +1347,10 @@
   border-top: 2px solid #B8B8B8;
   border-radius: 0 0 8px 8px;
 }
-.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector.active {
+.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector:has(.sub-container_segment > .input-radio-group > .reserve-radio-btn:checked) {
   border-color: #3E3E3E;
   border-top: 2px solid #3E3E3E;
   border-bottom: 2px solid #3E3E3E;
-}
-.reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container.selector.active .sub-container_segment > .reserve-radio-btn {
-  border: 1px solid #3E3E3E;
 }
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment {
   width: 80%;
@@ -1357,11 +1370,21 @@
   margin-block-start: 0.25rem;
   margin-block-end: 0.25rem;
 }
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .segment-header {
+    font-size: 14px;
+  }
+}
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .segment-info {
   width: 100%;
   font-size: 15.75px;
   margin-block-start: 0.25rem;
   margin-block-end: 0.25rem;
+}
+@media (max-width: 767px) {
+  .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .segment-info {
+    font-size: 12px;
+  }
 }
 .reservation-section .reservation-section--body .reservation-body--container .reservation-body--sub_container .sub-container_segment .property-edit {
   margin-left: auto;

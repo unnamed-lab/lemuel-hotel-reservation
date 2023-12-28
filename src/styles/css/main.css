@@ -193,13 +193,16 @@
   width: 24px;
   height: 24px;
 }
-:root .input-radio-group:hover .reserve-radio-icon {
-  width: 18px;
-  height: 18px;
-  outline: 2px solid #B8B8B8;
+:root .input-radio-group:hover .reserve-radio-icon, :root .input-radio-group:focus .reserve-radio-icon {
+  outline: 1px solid #111111;
+}
+:root .input-radio-group:has(.reserve-radio-btn:checked) .reserve-radio-icon {
+  background-color: #3E3E3E;
+  outline: none;
 }
 :root .input-radio-group .reserve-radio-icon {
   cursor: pointer;
+  position: relative;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -207,19 +210,24 @@
   outline: 1px solid #B8B8B8;
   transition: all 100ms linear;
 }
+:root .input-radio-group .reserve-radio-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
 :root .input-radio-group .reserve-radio-btn {
   cursor: pointer;
   position: absolute;
   margin: 0;
-  opacity: 30%;
+  opacity: 0;
   width: 20px;
   height: 20px;
-}
-:root .input-radio-group .reserve-radio-btn:checked + .reserve-radio-icon {
-  background-color: #3E3E3E;
-  width: 10px;
-  height: 10px;
-  outline: 10px solid #3E3E3E;
 }
 :root .info-banner {
   position: relative;
@@ -455,6 +463,33 @@
     display: none;
   }
 }
+:root .booking-card .booking-card--order {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+  order: 4;
+}
+:root .booking-card .booking-card--order .mobile-blocker {
+  display: none;
+}
+@media (max-width: 767px) {
+  :root .booking-card .booking-card--order {
+    width: 100%;
+    margin: 0;
+    order: 4;
+  }
+  :root .booking-card .booking-card--order .mobile-blocker {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  :root .booking-card .booking-card--order .mobile-blocker.hide {
+    display: none;
+  }
+}
 :root .booking-card .booking-card--appointment {
   position: relative;
   display: flex;
@@ -559,6 +594,10 @@
   :root .booking-card .booking-card--additional {
     display: none;
   }
+  :root .booking-card .booking-card--additional.order {
+    display: block;
+    margin-top: 2rem;
+  }
   :root .booking-card .booking-card--additional.show {
     display: block;
   }
@@ -585,8 +624,126 @@
   display: flex;
   padding-bottom: 1.5rem;
 }
+:root .booking-card .booking-card--additional .booking-card--additional_quantity_summary {
+  display: flex;
+  padding-bottom: 0.75rem;
+}
+:root .booking-card .booking-card--additional .booking-card--additional_quantity_summary .quantity-label {
+  margin-right: auto;
+}
+:root .booking-card .booking-card--additional .booking-card--additional_quantity_summary.btm-border {
+  padding-bottom: 1.75rem;
+}
+:root .booking-card .booking-card--additional .booking-card--additional_quantity_summary .discount {
+  color: #3bff38;
+}
 :root .booking-card .booking-card--additional .booking-card--additional_quantity .quantity-label {
   margin-right: auto;
+}
+:root .booking-card .booking-card--additional .booking-card--additional_quantity .discount {
+  color: #3bff38;
+}
+:root .booking-card--thumbnail {
+  display: flex;
+  align-items: start;
+  margin-bottom: 1rem;
+  width: 100%;
+  order: 1;
+}
+@media (max-width: 767px) {
+  :root .booking-card--thumbnail {
+    display: flex;
+    margin-bottom: 3rem;
+  }
+}
+:root .booking-card--thumbnail .booking-card--thumbnail_section:nth-child(1) {
+  width: 40%;
+}
+:root .booking-card--thumbnail .booking-card--thumbnail_section:nth-child(n+2) {
+  padding-left: 1rem;
+  width: -webkit-fill-available;
+}
+:root .booking-card--thumbnail .booking-card--thumbnail_section .thumbnail-container {
+  position: relative;
+  aspect-ratio: 62/53;
+  border-radius: 8px;
+  overflow: hidden;
+}
+:root .booking-card--thumbnail .booking-card--thumbnail_section .thumbnail-container img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  object-fit: fill;
+  transform: translate(-50%, -50%);
+}
+:root .booking-card--thumbnail .booking-card-header_subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: auto;
+}
+:root .booking-card--thumbnail .booking-card-header_subtitle p {
+  font-size: 12px;
+  margin-block-end: 0.25rem;
+  margin-block-start: 0.2rem;
+}
+:root .booking-card--thumbnail .booking-card-header_subtitle h1,
+:root .booking-card--thumbnail .booking-card-header_subtitle h2,
+:root .booking-card--thumbnail .booking-card-header_subtitle h3,
+:root .booking-card--thumbnail .booking-card-header_subtitle h4,
+:root .booking-card--thumbnail .booking-card-header_subtitle h5,
+:root .booking-card--thumbnail .booking-card-header_subtitle h6 {
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-block-end: 1rem;
+  margin-block-start: 0.2rem;
+}
+@media (max-width: 767px) {
+  :root .booking-card--thumbnail .booking-card-header_subtitle {
+    font-size: 14px;
+  }
+  :root .booking-card--thumbnail .booking-card-header_subtitle strong {
+    font-size: 15px;
+    margin-right: 4px;
+  }
+}
+:root .booking-card--thumbnail .booking-card-header_rating {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  justify-content: space-between;
+}
+@media (max-width: 767px) {
+  :root .booking-card--thumbnail .booking-card-header_rating {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
+:root .booking-card--thumbnail .booking-card-header_rating .booking-card-header_rating-item {
+  margin: 0 5px;
+}
+@media (max-width: 767px) {
+  :root .booking-card--thumbnail .booking-card-header_rating .booking-card-header_rating-item {
+    margin: 0;
+  }
+}
+:root .booking-card--thumbnail .booking-card-header_rating .booking-card-header_rating-item svg {
+  width: 13px;
+  height: 13px;
+  margin-right: 5px;
+}
+:root .booking-card--thumbnail .booking-card-header_rating .booking-card-header_rating-item.item-review {
+  text-decoration: underline;
+}
+@media (max-width: 767px) {
+  :root .booking-card--thumbnail .booking-card-header_rating .booking-card-header_rating-item.item-review {
+    display: none;
+  }
 }
 :root .w-100 {
   width: 100%;

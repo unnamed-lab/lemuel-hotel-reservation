@@ -78,39 +78,54 @@
     width: 24px;
     height: 24px;
 
-    &:hover {
+    &:hover,
+    &:focus {
       .reserve-radio-icon {
-        width: 18px;
-        height: 18px;
-        outline: 2px solid $g-50;
+        outline: 1px solid $g-900;
       }
     }
-    
+
+    &:has(.reserve-radio-btn:checked) {
+      .reserve-radio-icon {
+        background-color: $dark;
+        outline: none;
+      }
+    }
+
     .reserve-radio-icon {
       cursor: pointer;
+      position: relative;
       width: 20px;
       height: 20px;
       border-radius: 50%;
       background-color: $white;
       outline: 1px solid $g-50;
       transition: all 100ms linear;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $white;
+      }
     }
 
     .reserve-radio-btn {
       cursor: pointer;
       position: absolute;
       margin: 0;
-      opacity: 30%;
+      opacity: 0;
       width: 20px;
       height: 20px;
     }
 
-    .reserve-radio-btn:checked + .reserve-radio-icon {
-      background-color: $dark;
-      width: 10px;
-        height: 10px;
-        outline: 10px solid $dark;
-    }
+    // .reserve-radio-btn:checked + .reserve-radio-icon {
+    //   background-color: $dark;
+    // }
   }
 
   .info-banner {
@@ -259,6 +274,8 @@
       box-shadow: none;
     }
 
+    
+
     .booking-card--header {
       display: flex;
       flex-wrap: wrap;
@@ -342,6 +359,35 @@
         width: 40%;
         margin: 0;
         order: 2;
+
+        .mobile-blocker {
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+
+          &.hide {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .booking-card--order {
+      position: relative;
+      width: 100%;
+      margin: 2rem 0;
+      order: 4;
+
+      .mobile-blocker {
+        display: none;
+      }
+      @include responsive(mobile) {
+        width: 100%;
+        margin: 0;
+        order: 4;
 
         .mobile-blocker {
           position: absolute;
@@ -471,6 +517,11 @@
       @include responsive(mobile) {
         display: none;
 
+        &.order {
+          display: block;
+          margin-top: 2rem;
+        }
+
         &.show {
           display: block;
         }
@@ -502,12 +553,141 @@
         display: flex;
         padding-bottom: 1.5rem;
 
+        &_summary {
+          display: flex;
+          padding-bottom: 0.75rem;
+          .quantity-label {
+            margin-right: auto;
+          }
+
+          &.btm-border {
+            padding-bottom: 1.75rem;
+          }
+
+          .discount {
+            color: $btn-active--green;
+          }
+        }
+
         .quantity-label {
           margin-right: auto;
+        }
+
+        .discount {
+          color: $btn-active--green;
         }
       }
     }
   }
+
+  .booking-card--thumbnail {
+      display: flex;
+      align-items: start;
+      margin-bottom: 1rem;
+      width: 100%;
+      order: 1;
+
+      @include responsive(mobile) {
+        display: flex;
+        margin-bottom: 3rem;
+      }
+
+      .booking-card--thumbnail_section {
+        &:nth-child(1) {
+          width: 40%;
+        }
+        &:nth-child(n + 2) {
+          padding-left: 1rem;
+          width: -webkit-fill-available;
+        }
+
+        .thumbnail-container {
+          position: relative;
+          aspect-ratio: 62/53;
+          border-radius: 8px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            object-fit: fill;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      .booking-card-header_subtitle {
+        font-size: 14px;
+        font-weight: 300;
+        margin-right: auto;
+
+        p {
+          font-size: 12px;
+          margin-block-end: .25rem;
+          margin-block-start: 0.2rem;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-weight: 500;
+          text-transform: capitalize;
+          margin-block-end: 1rem;
+          margin-block-start: .2rem;
+        }
+
+        @include responsive(mobile) {
+          font-size: 14px;
+
+          strong {
+            font-size: 15px;
+            margin-right: 4px;
+          }
+        }
+      }
+
+      .booking-card-header_rating {margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        justify-content: space-between;
+
+        @include responsive(mobile) {
+          display: block;
+          margin-block-start: 0;
+          margin-block-end: 0;
+        }
+
+        .booking-card-header_rating-item {
+          margin: 0 5px;
+
+          @include responsive(mobile) {
+            margin: 0;
+          }
+          svg {
+            width: 13px;
+            height: 13px;
+            margin-right: 5px;
+          }
+
+          &.item-review {
+            text-decoration: underline;
+
+            @include responsive(mobile) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
 
   .w-100 {
     width: 100%;
