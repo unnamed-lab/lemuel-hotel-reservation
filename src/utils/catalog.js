@@ -130,8 +130,6 @@ export const catalogueItem = {
   name: "Jorgan Hotel",
   title: "Beautiful Hotel on the edge of iterigbi river",
   description: `A passionate host, who loves to welcome guest from all over the world and share the beauty of this amazing natural spot that is Blue Lagoon`,
-  about:
-    "Jorgan are experienced, highly rated hosts who are committed to providing great stays for guests.",
   language: [
     "中文",
     "English",
@@ -144,6 +142,8 @@ export const catalogueItem = {
     name: "Jorgan",
     url: "#",
     imgUrl: brandImg,
+    about:
+      "Jorgan are experienced, highly rated hosts who are committed to providing great stays for guests.",
     contact: {
       phone: "",
       email: "",

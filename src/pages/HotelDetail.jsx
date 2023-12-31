@@ -66,7 +66,7 @@ function DetailPage() {
           hotelName={hotel.name}
           accomodation={hotel.accomodation}
           company={hotel.company}
-          about={hotel.about}
+          about={hotel.company.about}
           rating={hotel.rating}
           ratingAvg={hotel.ratingAvg()}
           reviews={hotel.review}
