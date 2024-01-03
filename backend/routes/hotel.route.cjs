@@ -5,14 +5,19 @@ const {
   createHotel,
   updateHotel,
   deleteHotel,
+  findMyHotel,
 } = require("../controllers/hotel/hotelController.cjs");
 
-router.route("/").get(getHotels);
+const { protect } = require("../middleware/authMiddleware.cjs");
 
-router.route("/new").post(createHotel);
+router.route("/").get(protect, getHotels);
 
-router.route("/:id/update").put(updateHotel);
+router.route("/:id").get(findMyHotel);
 
-router.route("/:id/delete").delete(deleteHotel);
+router.route("/new").post(protect, createHotel);
+
+router.route("/:id/update").put(protect, updateHotel);
+
+router.route("/:id/delete").delete(protect, deleteHotel);
 
 module.exports = router;

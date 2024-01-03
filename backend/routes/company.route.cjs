@@ -6,13 +6,14 @@ const {
   updateCompany,
   deleteCompany,
 } = require("../controllers/company/companyController.cjs");
+const { protect } = require("../middleware/authMiddleware.cjs");
 
-router.route("/").get(getCompanies);
+router.route("/").get(protect, getCompanies);
 
-router.route("/new").post(createCompany);
+router.route("/new").post(protect, createCompany);
 
-router.route("/:id/update").put(updateCompany);
+router.route("/:id/update").put(protect, updateCompany);
 
-router.route("/:id/delete").delete(deleteCompany);
+router.route("/:id/delete").delete(protect, deleteCompany);
 
 module.exports = router;

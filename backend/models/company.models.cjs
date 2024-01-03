@@ -3,6 +3,12 @@ const { Schema } = mongoose;
 
 const companySchema = new Schema(
   {
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -12,7 +18,7 @@ const companySchema = new Schema(
     about: { type: String },
     contact: {
       phone: { type: String },
-      email: { type: String, lowercase: true, minLength: 8 },
+      email: { type: String, lowercase: true, minLength: 8, unique: true },
     },
     regDate: {
       type: Date,
@@ -30,4 +36,4 @@ const companySchema = new Schema(
 );
 
 const companyModel = mongoose.model("Company", companySchema);
-module.exports = {companyModel, companySchema};
+module.exports = companyModel;

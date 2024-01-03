@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const {companySchema} = require("./company.models.cjs");
-
 const hotelSchema = new Schema(
   {
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -12,7 +16,11 @@ const hotelSchema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     language: [{ type: String }],
-    company: { type: companySchema },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Company",
+    },
     images: [{ type: String }],
     address: String,
     street: String,
@@ -62,6 +70,4 @@ const hotelSchema = new Schema(
 
 const hotelModel = mongoose.model("Hotel", hotelSchema);
 
-module.exports = {
-  hotelModel,
-};
+module.exports = hotelModel;
