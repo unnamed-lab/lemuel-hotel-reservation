@@ -2,7 +2,9 @@ import "../../styles/css/nav.css";
 import logoImg from "../../assets/logo.svg";
 import userImg from "../../assets/user.svg";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../../utils/auth/authSlice";
 // import { catalogue } from "../../utils/catalog";
 
 function Navbar({ setData, noNavMobile, data }) {
@@ -164,6 +166,22 @@ function NavMenu() {
     setMenuPanel(!showMenuPanel);
   };
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
+  }
+
+  const isLogged = user ? (
+    <NavMenuListLoggedIn onLogout={onLogout} />
+  ) : (
+    <NavMenuListLoggedOut />
+  );
+  
   return (
     <>
       <section className="nav-menu">
@@ -234,24 +252,47 @@ function NavMenu() {
           </button>
 
           <section className={`panel user-dropdown ${showMenu}`} ref={btnEl}>
-            <ul className="menu-list">
-              <li className="menu-item">
-                <a href="#">Contact us</a>
-              </li>
-              <li className="menu-item">
-                <a href="#">Wishlist</a>
-              </li>
-              <li className="menu-item">
-                <a href="#">Account</a>
-              </li>
-            </ul>
-            <hr />
-            <div className="menu-item--extra">
-              <a href="#">Log out</a>
-            </div>
+            {isLogged}
           </section>
         </div>
       </section>
+    </>
+  );
+}
+
+function NavMenuListLoggedIn({onLogout}) {
+  return (
+    <>
+      <ul className="menu-list">
+        <li className="menu-item">
+          <a href="#">Contact us</a>
+        </li>
+        <li className="menu-item">
+          <a href="#">Wishlist</a>
+        </li>
+        <li className="menu-item">
+          <a href="#">Account</a>
+        </li>
+      </ul>
+      <hr />
+      <div className="menu-item--extra">
+        <a href="#" onClick={onLogout}>Log out</a>
+      </div>
+    </>
+  );
+}
+function NavMenuListLoggedOut() {
+  return (
+    <>
+      <ul className="menu-list">
+        <li className="menu-item">
+          <Link to={"auth/login"}>Log in</Link>
+        </li>
+        <hr />
+        <li className="menu-item">
+          <Link to={"auth/register"}>Register</Link>
+        </li>
+      </ul>
     </>
   );
 }
