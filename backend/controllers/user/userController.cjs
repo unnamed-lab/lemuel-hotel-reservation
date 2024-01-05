@@ -87,8 +87,7 @@ const loginUser = asyncHandlerSync(async (req, res) => {
 //  @route      PUT /api/user/:id/update
 //  @access     Private
 const updateUser = asyncHandlerSync(async (req, res) => {
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user.id) {
     res.status(400);
     throw new Error("User not found");
   }
@@ -106,10 +105,10 @@ const updateUser = asyncHandlerSync(async (req, res) => {
   );
   if (updateUser) {
     res.status(201).json({
-      _id: user.id,
-      username: user.username,
-      email: user.email,
-      token: generateToken(user._id),
+      _id: updateUser.id,
+      username: updateUser.username,
+      email: updateUser.email,
+      token: generateToken(updateUser._id),
     });
   }
 });
@@ -118,12 +117,11 @@ const updateUser = asyncHandlerSync(async (req, res) => {
 //  @route      DELETE /api/user/:id/delete
 //  @access     Private
 const deleteUser = asyncHandlerSync(async (req, res) => {
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user.id) {
     res.status(400);
     throw new Error("User not found");
   }
-  await User.findByIdAndDelete(req.params.id);
+  await User.findByIdAndDelete(req.user.id);
   res.status(200).json({ message: `User(${req.params.id}) data deleted!` });
 });
 

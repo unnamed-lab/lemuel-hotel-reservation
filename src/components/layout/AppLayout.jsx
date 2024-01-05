@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
 import { catalogue } from "../../utils/catalog";
 import { ScrollToTop } from "../../utils/component";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AppLayout({ layout = true }) {
   const [footerType, setFooterType] = useState(true);
@@ -40,7 +42,7 @@ function NormalLayout({ footerType, setFooterType, dataset, setData }) {
       <InfoBanner />
       <Navbar setData={setData} data={dataset} />
       <Outlet context={[setFooterType, dataset]} />
-      <Footer footerState={footerType} />
+      <Footer footerState={footerType} /><ToastContainer />
     </>
   );
 }
@@ -51,7 +53,7 @@ function DetailLayout({ footerType, setFooterType, dataset, setData }) {
       <ScrollToTop />
       <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
       <Outlet context={[setFooterType, dataset]} />
-      <Footer footerState={footerType} />
+      <Footer footerState={footerType} /><ToastContainer />
     </>
   );
 }

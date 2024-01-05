@@ -63,12 +63,12 @@ const updateCompany = asyncHandlerSync(async (req, res) => {
     res.status(400);
     throw new Error("Company not found");
   }
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  
+  if (!req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
-  if (hasCompany.owner.toString() !== user.id) {
+  if (hasCompany.owner.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
@@ -104,12 +104,12 @@ const deleteCompany = asyncHandlerSync(async (req, res) => {
     res.status(400);
     throw new Error("Company not found");
   }
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  
+  if (!req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
-  if (company.owner.toString() !== user.id) {
+  if (company.owner.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }

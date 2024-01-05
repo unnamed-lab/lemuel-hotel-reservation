@@ -118,7 +118,7 @@ function Register() {
           <div className="form-group">
             <label htmlFor="password2">Verify Password</label>
             <input
-              type="password2"
+              type="password"
               name="password2"
               id="password2"
               value={password2}

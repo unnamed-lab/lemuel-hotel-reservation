@@ -149,12 +149,11 @@ const updateHotel = asyncHandlerSync(async (req, res) => {
     cancellation,
   } = req.body;
 
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
-  if (hasHotel.owner.toString() !== user.id) {
+  if (hasHotel.owner.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
@@ -218,12 +217,12 @@ const deleteHotel = asyncHandlerSync(async (req, res) => {
     res.status(400);
     throw new Error("Hotel not found");
   }
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  
+  if (!req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }
-  if (hotel.owner.toString() !== user.id) {
+  if (hotel.owner.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not found");
   }

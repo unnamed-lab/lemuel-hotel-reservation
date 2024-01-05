@@ -1,16 +1,14 @@
 import axios from 'axios';
+const baseURL = import.meta.env.VITE_BASE_URL;
+const API_URL = `${baseURL}/api/user/`;
 
-const rootURL = window.location.origin;
-const httpType = window.location.protocol;
-const proxy = `${httpType}://${rootURL}`
-
-const API_URL = `${proxy}/api/user/`;
 
 // Register user
 const register = async (userData) => {
     const response = await axios.post(API_URL, userData);
+    console.log(response.data);
     if (response.data) {
-        localStorage.setItem('user',JSON.stringify())
+        localStorage.setItem('user',JSON.stringify(response.data))
     }
     return response.data;
 }
@@ -19,7 +17,7 @@ const register = async (userData) => {
 const login = async (userData) => {
     const response = await axios.post(API_URL + 'login', userData);
     if (response.data) {
-        localStorage.setItem('user',JSON.stringify())
+        localStorage.setItem('user',JSON.stringify(response.data))
     }
     return response.data;
 }
