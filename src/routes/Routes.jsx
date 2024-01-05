@@ -10,8 +10,7 @@ import DetailPage from "../pages/HotelDetail";
 import Reservation from "../pages/Reservation";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "../pages/admin/Dashboard";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -20,12 +19,14 @@ const routes = createBrowserRouter(
         <Route index path="/" element={<Home />} />
       </Route>
       <Route
-        path="auth/"
         element={<AppLayout layout={false} />}
         errorElement={<Error />}
       >
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="auth/login" element={<Login />} />
+        <Route path="auth/register" element={<Register />} />
+      </Route>
+      <Route element={<AppLayout layout={false} />}>
+        <Route element={<Dashboard />} />
       </Route>
       <Route
         path="place/"
@@ -35,7 +36,6 @@ const routes = createBrowserRouter(
         <Route path=":placeId" element={<DetailPage />} />
         <Route path=":placeId/reserve" element={<Reservation />} />
       </Route>
-      <ToastContainer />
     </Route>
   ),
   {
