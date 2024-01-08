@@ -21,4 +21,4 @@ app.use("/api/business/", require("./routes/company.route.cjs"));
 
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(port, () => console.log(`Server started on port ${port}`.green));

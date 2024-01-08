@@ -52,6 +52,8 @@ const createUser = asyncHandlerSync(async (req, res) => {
     res.status(201).json({
       _id: user.id,
       username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -75,6 +77,8 @@ const loginUser = asyncHandlerSync(async (req, res) => {
       _id: user.id,
       username: user.username,
       email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
       token: generateToken(user._id),
     });
   } else {
@@ -107,6 +111,8 @@ const updateUser = asyncHandlerSync(async (req, res) => {
     res.status(201).json({
       _id: updateUser.id,
       username: updateUser.username,
+      firstname: updateUser.firstname,
+      lastname: updateUser.lastname,
       email: updateUser.email,
       token: generateToken(updateUser._id),
     });
