@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCompany, reset } from "../../utils/company/companySlice";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 
-function Dashboard() {
+function CompanyDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -19,21 +19,25 @@ function Dashboard() {
     if (!user) {
       navigate("/auth/login");
     }
-
     if (!company) {
       dispatch(getCompany());
     }
-
     return () => {
       dispatch(reset());
     };
   }, [user, company, navigate, dispatch, isError, message]);
 
+  const companyData = company[0];
   if (isLoading) {
     return <Loader />;
   }
 
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <h1>{companyData ? companyData.name : ""}</h1>
+      <p>{companyData ? companyData.about : ""}</p>
+    </>
+  );
 }
 
-export default Dashboard;
+export default CompanyDetail;
