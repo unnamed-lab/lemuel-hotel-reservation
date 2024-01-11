@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server.cjs"
+    "server": "node server.cjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
