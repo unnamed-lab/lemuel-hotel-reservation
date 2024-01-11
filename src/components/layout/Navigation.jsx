@@ -145,22 +145,22 @@ function NavMenu() {
   const [isNotified, setNotified] = useState(true);
   const [showNotificationPanel, setNotificationPnanel] = useState(false);
   const [showMenuPanel, setMenuPanel] = useState(false);
+  
   const panels = [...document.querySelectorAll(".panel")];
   const hasNotification = isNotified ? "show" : "";
   const showNotification = showNotificationPanel ? "show" : "";
   const showMenu = showMenuPanel ? "show" : "";
   const btnEl = useRef(null);
+
   const closePanels = () => {
     panels.map((el) => {
       el.classList.remove("show");
     });
   };
-
   const notifyBtn = () => {
     closePanels();
     setNotificationPnanel(!showNotificationPanel);
   };
-
   const menuBtn = () => {
     closePanels();
     setMenuPanel(!showMenuPanel);

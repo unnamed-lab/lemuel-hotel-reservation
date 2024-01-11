@@ -10,7 +10,7 @@ const {
 
 const { protect } = require("../middleware/authMiddleware.cjs");
 
-router.route("/").get(protect, getHotels);
+router.route("/").get(getHotels);
 
 router.route("/:id").get(findMyHotel);
 

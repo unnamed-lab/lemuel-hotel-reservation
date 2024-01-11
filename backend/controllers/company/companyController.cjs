@@ -1,14 +1,22 @@
 const asyncHandlerSync = require("express-async-handler");
 const Company = require("../../models/company.models.cjs");
-const User = require("../../models/user.models.cjs");
 
 //  @desc       Get Company List
 //  @route      Get /api/business/
 //  @access     Private
-const getCompanies = asyncHandlerSync(async (req, res) => {
-  const companies = await Company.find({ owner: req.user.id });
+const getCompany = asyncHandlerSync(async (req, res) => {
+  const companies = await Company.findOne({ owner: req.user.id });
   res.status(200).json(companies);
 });
+
+//  @desc       Get Company List
+//  @route      Get /api/business/all
+//  @access     Public
+const getAllCompanies = asyncHandlerSync(async (req, res) => {
+  const companies = await Company.find();
+  res.status(200).json(companies);
+});
+
 
 //  @desc       Get Company List
 //  @route      Get /api/business/new
@@ -117,4 +125,4 @@ const deleteCompany = asyncHandlerSync(async (req, res) => {
   res.status(200).json({ message: `Company(${req.params.id}) data deleted!` });
 });
 
-module.exports = { getCompanies, createCompany, updateCompany, deleteCompany };
+module.exports = { getCompany, getAllCompanies, createCompany, updateCompany, deleteCompany };

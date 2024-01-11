@@ -3,31 +3,57 @@ import Navbar from "./Navigation";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
-import { catalogue } from "../../utils/catalog";
+// import { catalogue } from "../../utils/catalog";
 import { ScrollToTop } from "../../utils/component";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Loader";
+import { getHotels, reset } from "../../utils/hotel/hotelSlice";
+import { toast } from "react-toastify";
 
-function AppLayout({ layout = true }) {
-  const [footerType, setFooterType] = useState(true);
-  const [dataset, setDataCollection] = useState("" || catalogue);
+function AppLayout({ layout = true, footer = true }) {
+  const [dataset, setData] = useState(false);
+  // const hotelsData = JSON.parse(localStorage.getItem("hotels"));
   const [searchedData, setSearchData] = useState("");
   const [output, setOutput] = useState("");
+  const dispatch = useDispatch();
+  const { hotels, isSuccess, isError, message, isLoading } = useSelector(
+    (state) => state.hotel
+  );
+
+  useEffect(() => {
+    if (isError) toast.error(message);
+    if (!dataset) {
+      dispatch(getHotels());
+    }
+    if (isSuccess && hotels) {
+      setData(hotels);
+      console.log("Is successful!")
+    }
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [hotels, dataset, dispatch, isSuccess, isError, message]);
+
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
   }, [dataset, searchedData]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
   const layoutSwitch = layout ? (
     <NormalLayout
-      footerType={footerType}
-      setFooterType={setFooterType}
+      footerType={footer}
       dataset={output}
       setData={setSearchData}
     />
   ) : (
     <DetailLayout
-      footerType={footerType}
-      setFooterType={setFooterType}
+      footerType={footer}
       dataset={output}
       setData={setSearchData}
     />
@@ -36,24 +62,26 @@ function AppLayout({ layout = true }) {
   return <>{layoutSwitch}</>;
 }
 
-function NormalLayout({ footerType, setFooterType, dataset, setData }) {
+function NormalLayout({ footerType, dataset, setData }) {
   return (
     <>
       <InfoBanner />
       <Navbar setData={setData} data={dataset} />
-      <Outlet context={[setFooterType, dataset]} />
-      <Footer footerState={footerType} /><ToastContainer />
+      <Outlet context={[dataset]} />
+      <Footer footerType={footerType} />
+      <ToastContainer />
     </>
   );
 }
 
-function DetailLayout({ footerType, setFooterType, dataset, setData }) {
+function DetailLayout({ footerType, dataset, setData }) {
   return (
     <>
       <ScrollToTop />
       <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
-      <Outlet context={[setFooterType, dataset]} />
-      <Footer footerState={footerType} /><ToastContainer />
+      <Outlet context={[dataset]} />
+      <Footer footerType={footerType} />
+      <ToastContainer />
     </>
   );
 }

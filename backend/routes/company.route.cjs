@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getCompanies,
+  getCompany,
+  getAllCompanies,
   createCompany,
   updateCompany,
   deleteCompany,
 } = require("../controllers/company/companyController.cjs");
 const { protect } = require("../middleware/authMiddleware.cjs");
 
-router.route("/").get(protect, getCompanies);
+router.route("/").get(protect, getCompany);
+
+router.route("/all").get( getAllCompanies);
 
 router.route("/new").post(protect, createCompany);
 

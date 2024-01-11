@@ -19,7 +19,7 @@ function CompanyForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { company, isLoading, isError, message } = useSelector(
+  const { company, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.company
   );
 
