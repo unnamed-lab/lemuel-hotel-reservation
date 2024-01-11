@@ -1,6 +1,10 @@
 function Loader() {
 
-    return <><h1>Loading Screen...</h1></>
+    return <>
+    <section className="loader">
+        <div className="bubble"></div>
+    </section>
+    </>
 }
 
 export default Loader;

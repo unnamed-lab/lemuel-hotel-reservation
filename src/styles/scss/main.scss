@@ -1,6 +1,7 @@
 @use "./custom" as *;
 @use "./components/button" as *;
 @use "./components/mixins" as *;
+@use "./components/animation" as *;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap");
 
@@ -273,8 +274,6 @@
       outline: none;
       box-shadow: none;
     }
-
-    
 
     .booking-card--header {
       display: flex;
@@ -581,113 +580,114 @@
   }
 
   .booking-card--thumbnail {
+    display: flex;
+    align-items: start;
+    margin-bottom: 1rem;
+    width: 100%;
+    order: 1;
+
+    @include responsive(mobile) {
       display: flex;
-      align-items: start;
-      margin-bottom: 1rem;
-      width: 100%;
-      order: 1;
+      margin-bottom: 3rem;
+    }
+
+    .booking-card--thumbnail_section {
+      &:nth-child(1) {
+        width: 40%;
+      }
+      &:nth-child(n + 2) {
+        padding-left: 1rem;
+        width: -webkit-fill-available;
+      }
+
+      .thumbnail-container {
+        position: relative;
+        aspect-ratio: 62/53;
+        border-radius: 8px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          object-fit: fill;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    .booking-card-header_subtitle {
+      font-size: 14px;
+      font-weight: 300;
+      margin-right: auto;
+
+      p {
+        font-size: 12px;
+        margin-block-end: 0.25rem;
+        margin-block-start: 0.2rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 500;
+        text-transform: capitalize;
+        margin-block-end: 1rem;
+        margin-block-start: 0.2rem;
+      }
 
       @include responsive(mobile) {
-        display: flex;
-        margin-bottom: 3rem;
-      }
-
-      .booking-card--thumbnail_section {
-        &:nth-child(1) {
-          width: 40%;
-        }
-        &:nth-child(n + 2) {
-          padding-left: 1rem;
-          width: -webkit-fill-available;
-        }
-
-        .thumbnail-container {
-          position: relative;
-          aspect-ratio: 62/53;
-          border-radius: 8px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            object-fit: fill;
-            transform: translate(-50%, -50%);
-          }
-        }
-      }
-
-      .booking-card-header_subtitle {
         font-size: 14px;
-        font-weight: 300;
-        margin-right: auto;
 
-        p {
-          font-size: 12px;
-          margin-block-end: .25rem;
-          margin-block-start: 0.2rem;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          font-weight: 500;
-          text-transform: capitalize;
-          margin-block-end: 1rem;
-          margin-block-start: .2rem;
-        }
-
-        @include responsive(mobile) {
-          font-size: 14px;
-
-          strong {
-            font-size: 15px;
-            margin-right: 4px;
-          }
+        strong {
+          font-size: 15px;
+          margin-right: 4px;
         }
       }
+    }
 
-      .booking-card-header_rating {margin-top: auto;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
+    .booking-card-header_rating {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-block-end: 0;
+      margin-inline-start: 0;
+      justify-content: space-between;
+
+      @include responsive(mobile) {
+        display: block;
+        margin-block-start: 0;
         margin-block-end: 0;
-        margin-inline-start: 0;
-        justify-content: space-between;
+      }
+
+      .booking-card-header_rating-item {
+        margin: 0 5px;
 
         @include responsive(mobile) {
-          display: block;
-          margin-block-start: 0;
-          margin-block-end: 0;
+          margin: 0;
+        }
+        svg {
+          width: 13px;
+          height: 13px;
+          margin-right: 5px;
         }
 
-        .booking-card-header_rating-item {
-          margin: 0 5px;
+        &.item-review {
+          text-decoration: underline;
 
           @include responsive(mobile) {
-            margin: 0;
-          }
-          svg {
-            width: 13px;
-            height: 13px;
-            margin-right: 5px;
-          }
-
-          &.item-review {
-            text-decoration: underline;
-
-            @include responsive(mobile) {
-              display: none;
-            }
+            display: none;
           }
         }
       }
     }
+  }
 
   .w-100 {
     width: 100%;
@@ -831,5 +831,63 @@
 
   .btm-border {
     border-bottom: 1px solid $g-50;
+  }
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100lvh;
+  width: 100%;
+  background-color: $white;
+
+  .bubble {
+    --bubble-x: 9rem;
+    --bubble-y: 9rem;
+    @include responsive(mediadown) {
+      --bubble-x: 5rem;
+    --bubble-y: 5rem;
+    }
+    position: relative;
+    width: var(--bubble-x);
+    height: var(--bubble-y);
+    border-radius: 50%;
+    background-color: $primary;
+    animation: beep 2s ease-in-out alternate-reverse infinite;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: flex;
+      top: 0%;
+      right: -50%;
+      transform: translate(-10%, -10%);
+      width: calc(var(--bubble-x) + 4rem);
+      height: calc(var(--bubble-y) + 4rem);
+      border-radius: 50%;
+      background-color: $primary;
+      opacity: 20%;
+      animation: beep 1s 1.15s ease-in-out alternate-reverse infinite;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: flex;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(var(--bubble-x) + 4rem);
+      height: calc(var(--bubble-y) + 4rem);
+      border-radius: 50%;
+      background-color: $primary;
+      opacity: 20%;
+      animation: beep 1s 1s ease-in-out alternate-reverse infinite;
+    }
   }
 }
