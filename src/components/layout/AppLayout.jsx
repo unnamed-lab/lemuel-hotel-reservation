@@ -32,6 +32,11 @@ function AppLayout({ layout = true, footer = true }) {
       setData(hotels);
     }
 
+    return () => {
+      dispatch(reset());
+    };
+  }, [hotels, dataset, dispatch, isSuccess, isError, message]);
+
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
   }, [dataset, searchedData]);
