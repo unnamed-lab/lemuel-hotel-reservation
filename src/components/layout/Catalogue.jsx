@@ -25,9 +25,6 @@ function CatalogueItem({
   const carouselPrevBtn = useRef(null);
   const carouselNextBtn = useRef(null);
 
-  console.log("Images: ", img);
-  console.log("Title: ", title);
-  console.log("Price: ", price);
 
   useEffect(() => {
     carouselBody.current = document.querySelector(

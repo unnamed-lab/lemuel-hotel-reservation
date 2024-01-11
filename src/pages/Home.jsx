@@ -3,20 +3,25 @@ import { useOutletContext } from "react-router-dom";
 import "../styles/css/app.css";
 import { useEffect, useRef } from "react";
 import CatalogueItem from "../components/layout/Catalogue";
-import { amtFormater, numToText } from "../utils/utils";
+import { amtFormater, getRatingAvg, numToText } from "../utils/utils";
+
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { reset, getHotels } from "../utils/hotel/hotelSlice";
+// import { getCompanies, resetCompany:reset } from "../utils/company/companySlice";
+// import Loader from "../components/Loader";
+// import { toast } from "react-toastify";
 
 function Home() {
-  const [setFooterType, dataset] = useOutletContext();
-  useEffect(() => {
-    setFooterType(true);
-  }, [setFooterType]);
+  const [dataset] = useOutletContext();
 
-  const hasDataSet = !dataset ? <NoCatalogue /> : <Catalogue data={dataset} />;
   return (
     <>
       <main>
         <CategoryCarousel />
-        {hasDataSet}
+        {dataset 
+        ? <Catalogue data={dataset} /> 
+        : <NoCatalogue />}
       </main>
     </>
   );
@@ -466,7 +471,6 @@ function CategoryCarousel() {
 }
 
 function Catalogue({ data }) {
-  console.log("Output Data(Home): ", data);
   return (
     <>
       <section className="catalogue-section">
@@ -484,8 +488,8 @@ function Catalogue({ data }) {
                     distance={el.distance}
                     available={el.available}
                     price={numToText(el.price)}
-                    rating={el.ratingAvg()}
-                    url={el.id}
+                    rating={getRatingAvg(el.rating)}
+                    url={el._id}
                   />
                 </>
               );

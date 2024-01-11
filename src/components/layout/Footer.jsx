@@ -1,8 +1,8 @@
 import "../../styles/css/footer.css";
 
-function Footer({ footerState }) {
+function Footer({ footerType }) {
   const year = new Date().getFullYear();
-  const footer = footerState ? (
+  const footer = footerType ? (
     <FooterShort date={year} />
   ) : (
     <FooterLong date={year} />

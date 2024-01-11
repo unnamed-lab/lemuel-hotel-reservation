@@ -29,6 +29,7 @@ const companySchema = new Schema(
       type: Boolean,
       default: false,
     },
+    validated: { type: Boolean, default: true },
   },
   {
     timestamps: true,

@@ -45,6 +45,22 @@ export const getCompany = createAsyncThunk(
   }
 );
 
+// Get coompany
+export const getCompanies = createAsyncThunk(
+  "business/all",
+  async (_, thunkAPI) => {
+    try {
+      return await companyService.getAllCompanies();
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Remove company from storage
 export const removeCompany = createAsyncThunk("business/clear", async () => {
   await companyService.removeCompany();
@@ -86,6 +102,20 @@ export const companySlice = createSlice({
         state.company = action.payload;
       })
       .addCase(getCompany.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.company = null;
+      })
+      .addCase(getCompanies.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCompanies.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.company = action.payload;
+      })
+      .addCase(getCompanies.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

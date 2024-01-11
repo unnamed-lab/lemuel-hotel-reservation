@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import {
   Link,
   useNavigate,
@@ -12,6 +13,7 @@ import {
   findReview,
   getCurDateFormat,
   getDateDiff,
+  getRatingAvg,
   getRatingDecimal,
   getRatingPercent,
   getStarRating,
@@ -21,24 +23,63 @@ import {
   ratingText,
   sharePage,
 } from "../utils/utils";
-import { catalogueItem, catalogues } from "../utils/catalog";
 import Error from "../routes/error/Error";
+import { useDispatch, useSelector } from "react-redux";
+import { getCompanies, reset } from "../utils/company/companySlice";
+import Loader from "../components/Loader";
 // import MapComponent from "../utils/Maps";/
 
 function DetailPage() {
-  const [setFooterType] = useOutletContext();
-  const [item, setItem] = React.useState([]);
-  React.useEffect(() => {
-    setFooterType(false);
-  }, [setFooterType]);
-
-  React.useEffect(() => {
-    setItem(catalogueItem);
-  }, [item]);
-
   const { placeId } = useParams();
-  const hotel = catalogues.find((item) => {
-    return parseInt(placeId) === item.id;
+  const [dataset] = useOutletContext();
+  const dispatch = useDispatch();
+  const { company, isSuccess, isLoading, isError, message } = useSelector(
+    (state) => state.company
+  );
+  const [business, setBusiness] = useState(false);
+  const biz = {
+    name: null,
+    url: null,
+    imgUrl: null,
+    contact: { phone: null, email: null },
+    regDate: null,
+    isVerified: false,
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (!company) {
+      dispatch(getCompanies());
+    }
+
+    if (isSuccess) {
+      setBusiness(company);
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [company, dispatch, isSuccess, isError, message]);
+
+  if (!dataset) {
+    console.log("Still getting the data...");
+    return <Loader />;
+  }
+
+  if (!business) {
+    console.log("Still getting the business data...");
+    return <Loader />;
+  }
+
+  const hotel = dataset.find((item) => {
+    return placeId === item._id;
+  });
+
+  // console.log("Business Data: ", business)
+  const businessData = business.find((item) => {
+    return hotel.company === item._id;
   });
 
   if (!hotel) {
@@ -54,47 +95,45 @@ function DetailPage() {
       <section className="catalogue-detail-section">
         <Header
           title={hotel.title}
-          rating={hotel.ratingAvg()}
-          reviews={hotel.reviewCount()}
+          rating={getRatingAvg(hotel.rating)}
+          reviews={hotel.review.length}
           isSuperHost={hotel.isSuperHost}
           address={hotel.address}
           hotelName={hotel.name}
           images={hotel.images}
         />
-        <Thumbnail images={hotel.images} title={catalogueItem.title} />
+        <Thumbnail images={hotel.images} title={hotel.title} />
         <ItemDetails
           hotelName={hotel.name}
           accomodation={hotel.accomodation}
-          company={hotel.company}
-          about={hotel.company.about}
+          company={business}
+          about={businessData.about}
           rating={hotel.rating}
-          ratingAvg={hotel.ratingAvg()}
+          ratingAvg={getRatingAvg(hotel.rating)}
           reviews={hotel.review}
-          reviewCount={hotel.reviewCount()}
+          reviewCount={hotel.review.length}
           rooms={hotel.room}
           pricing={hotel.price}
-          pageId={parseInt(placeId)}
+          pageId={placeId}
           minGuests={hotel.accomodation.guest}
           maxGuests={hotel.accomodation.max_guest}
         />
-        <Offers facility={hotel.facility} />
+        <Offers facility={0 ?? hotel.facility} />
         <Rating
           rating={hotel.rating}
-          ratingAvg={hotel.ratingAvg()}
+          ratingAvg={getRatingAvg(hotel.rating)}
           reviews={hotel.review}
-          reviewCount={hotel.reviewCount()}
+          reviewCount={hotel.review.length}
         />
         <Comments />
         <Location />
         <Additional
           isSuperHost={hotel.isSuperHost}
-          reviewCount={hotel.reviewCount()}
-          ratingAvg={hotel.ratingAvg()}
+          reviewCount={hotel.review.length}
+          ratingAvg={getRatingAvg(hotel.rating)}
           description={hotel.description}
           lang={hotel.language}
-          company={hotel.company}
-          established={hotel.company.regDate}
-          contact={hotel.company.contact}
+          company={businessData}
         />
         <Terms policies={hotel.policy} />
       </section>
@@ -379,7 +418,7 @@ function ItemDetails({
         <div className="catalogue-item-detail w-60-lg w-100-md">
           <div className="catalogue-item-detail--header btm-border">
             <div className="catalogue-item-detail--header_segment w-80-lg w-80-md">
-              <h3 className="item-detail-brand">{name}</h3>
+              <h3 className="item-detail-brand">{hotelName}</h3>
               <ul className="item-detail-extra-info">
                 <li className="extra-info-item">{guest} guests</li>
                 <li className="extra-info-item">{bedroom} bedroom</li>

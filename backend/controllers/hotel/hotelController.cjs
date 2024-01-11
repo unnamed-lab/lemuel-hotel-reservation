@@ -1,15 +1,11 @@
 const asyncHandlerSync = require("express-async-handler");
 const Hotel = require("../../models/hotel.model.cjs");
-const User = require("../../models/user.models.cjs");
 
 //  @desc       Get Hotel List
 //  @route      Get /api/hotel/
 //  @access     Private
 const getHotels = asyncHandlerSync(async (req, res) => {
-  const hotels = await Hotel.find({
-    owner: req.user.id,
-    // company: req.body.company,
-  });
+  const hotels = await Hotel.find({validated: true})
   res.status(200).json(hotels);
 });
 
@@ -23,8 +19,8 @@ const findMyHotel = asyncHandlerSync(async (req, res) => {
   res.status(200).json(hotels);
 });
 
-//  @desc       Get Hotel List
-//  @route      Get /api/hotel/new
+//  @desc       Create Hotel List
+//  @route      Create /api/hotel/new
 //  @access     Private
 const createHotel = asyncHandlerSync(async (req, res) => {
   const {
@@ -54,7 +50,7 @@ const createHotel = asyncHandlerSync(async (req, res) => {
   } = req.body;
 
   if (
-    (!name || !title || !description || !company || !price || !images, address)
+    (!name || !title || !description || !company || !price || !images || !address)
   ) {
     res.status(400);
     throw new Error("Please fill required input fields");

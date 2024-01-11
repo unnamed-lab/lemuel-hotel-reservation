@@ -57,11 +57,13 @@ const hotelSchema = new Schema(
     faves: [{ type: String }], //  Add User Schema
     isSuperHost: { type: Boolean, default: false },
     customerExp: [{ type: String }],
+    facilities: [{type: String}], 
     policy: {
       rules: [{ type: String }],
       safety: [{ type: String }],
       cancellation: [{ type: String }],
     },
+    validated: {type: Boolean, default: true}
   },
   {
     timestamps: true,
