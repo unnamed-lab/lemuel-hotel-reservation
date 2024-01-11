@@ -6,6 +6,11 @@
     scale: 100%;
   }
 }
+@keyframes beep {
+  to {
+    scale: 120%;
+  }
+}
 .btn {
   cursor: pointer;
   width: 156px;

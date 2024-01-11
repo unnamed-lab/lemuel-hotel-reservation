@@ -8,9 +8,7 @@ import { amtFormater, getRatingAvg, numToText } from "../utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { reset, getHotels } from "../utils/hotel/hotelSlice";
-// import { getCompanies, resetCompany:reset } from "../utils/company/companySlice";
-// import Loader from "../components/Loader";
-// import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 function Home() {
   const [dataset] = useOutletContext();

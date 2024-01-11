@@ -132,6 +132,19 @@
   stroke: #3bff38;
 }
 
+@keyframes fave_click {
+  0% {
+    scale: 70%;
+  }
+  100% {
+    scale: 100%;
+  }
+}
+@keyframes beep {
+  to {
+    scale: 120%;
+  }
+}
 * {
   font-family: "Poppins", "Roboto", sans-serif;
   font-size: 13px;
@@ -877,6 +890,63 @@
 }
 :root .btm-border {
   border-bottom: 1px solid #B8B8B8;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100lvh;
+  width: 100%;
+  background-color: #fff;
+}
+.loader .bubble {
+  --bubble-x: 9rem;
+  --bubble-y: 9rem;
+  position: relative;
+  width: var(--bubble-x);
+  height: var(--bubble-y);
+  border-radius: 50%;
+  background-color: #3D94FF;
+  animation: beep 2s ease-in-out alternate-reverse infinite;
+}
+@media (max-width: 1023px) {
+  .loader .bubble {
+    --bubble-x: 5rem;
+    --bubble-y: 5rem;
+  }
+}
+.loader .bubble::before {
+  content: "";
+  position: absolute;
+  display: flex;
+  top: 0%;
+  right: -50%;
+  transform: translate(-10%, -10%);
+  width: calc(var(--bubble-x) + 4rem);
+  height: calc(var(--bubble-y) + 4rem);
+  border-radius: 50%;
+  background-color: #3D94FF;
+  opacity: 20%;
+  animation: beep 1s 1.15s ease-in-out alternate-reverse infinite;
+}
+.loader .bubble::after {
+  content: "";
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--bubble-x) + 4rem);
+  height: calc(var(--bubble-y) + 4rem);
+  border-radius: 50%;
+  background-color: #3D94FF;
+  opacity: 20%;
+  animation: beep 1s 1s ease-in-out alternate-reverse infinite;
 }
 
 /*# sourceMappingURL=main.css.map */

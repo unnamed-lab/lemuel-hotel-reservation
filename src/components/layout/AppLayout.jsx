@@ -3,7 +3,7 @@ import Navbar from "./Navigation";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import "../../styles/css/main.css";
-// import { catalogue } from "../../utils/catalog";
+import { catalogue } from "../../utils/catalog";
 import { ScrollToTop } from "../../utils/component";
 
 import { ToastContainer } from "react-toastify";
@@ -14,8 +14,8 @@ import { getHotels, reset } from "../../utils/hotel/hotelSlice";
 import { toast } from "react-toastify";
 
 function AppLayout({ layout = true, footer = true }) {
-  const [dataset, setData] = useState(false);
-  // const hotelsData = JSON.parse(localStorage.getItem("hotels"));
+  const [dataset, setData] = useState(false); // Uncomment on push
+  // const [dataset, setData] = useState(catalogue); // For offline tests
   const [searchedData, setSearchData] = useState("");
   const [output, setOutput] = useState("");
   const dispatch = useDispatch();
@@ -30,13 +30,7 @@ function AppLayout({ layout = true, footer = true }) {
     }
     if (isSuccess && hotels) {
       setData(hotels);
-      console.log("Is successful!")
     }
-
-    return () => {
-      dispatch(reset());
-    };
-  }, [hotels, dataset, dispatch, isSuccess, isError, message]);
 
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
