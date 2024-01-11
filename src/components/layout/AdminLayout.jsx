@@ -6,14 +6,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userIcon from "../../assets/user.svg";
 
-// import "../../assets/admin/css/demo.css";
-// import "../../assets/admin/vendor/css/pages/page-icons.css";
-// import "../../assets/admin/vendor/css/core.css";
-// import "../../assets/admin/vendor/css/theme-default.css";
-// import "../../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css";
-// import "../../assets/admin/vendor/libs/apex-charts/apex-charts.css";
-// import "../../assets/admin/vendor/fonts/boxicons.css";
-
 function AdminLayout() {
   // const dispatch = useDispatch();
   // const { company } = useSelector((state) => state.company);
