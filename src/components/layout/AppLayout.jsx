@@ -26,17 +26,14 @@ function AppLayout({ layout = true, footer = true }) {
     sumTotal: "",
   });
   
-  console.log("Booking Data: ", booking);
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
   }, [dataset, searchedData]);
-  console.log(output)
 
   const dispatch = useDispatch();
   const { hotels, isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.hotel
   );
-
 
   useEffect(() => {
     if (isError) toast.error(message);
@@ -51,7 +48,6 @@ function AppLayout({ layout = true, footer = true }) {
       dispatch(reset());
     };
   }, [hotels, dataset, dispatch, isSuccess, isError, message]);
-
 
   if (isLoading) {
     return <Loader />;

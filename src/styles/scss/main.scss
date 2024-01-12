@@ -847,11 +847,11 @@
   background-color: $white;
 
   .bubble {
-    --bubble-x: 9rem;
-    --bubble-y: 9rem;
+    --bubble-x: 6.5rem;
+    --bubble-y: 6.5rem;
     @include responsive(mediadown) {
-      --bubble-x: 5rem;
-    --bubble-y: 5rem;
+      --bubble-x: 3.75rem;
+    --bubble-y: 3.75rem;
     }
     position: relative;
     width: var(--bubble-x);

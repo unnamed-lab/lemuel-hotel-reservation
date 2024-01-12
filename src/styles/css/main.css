@@ -905,8 +905,8 @@
   background-color: #fff;
 }
 .loader .bubble {
-  --bubble-x: 9rem;
-  --bubble-y: 9rem;
+  --bubble-x: 6.5rem;
+  --bubble-y: 6.5rem;
   position: relative;
   width: var(--bubble-x);
   height: var(--bubble-y);
@@ -916,8 +916,8 @@
 }
 @media (max-width: 1023px) {
   .loader .bubble {
-    --bubble-x: 5rem;
-    --bubble-y: 5rem;
+    --bubble-x: 3.75rem;
+    --bubble-y: 3.75rem;
   }
 }
 .loader .bubble::before {

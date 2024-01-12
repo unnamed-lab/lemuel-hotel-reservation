@@ -14,21 +14,20 @@ import {
   amtFormater,
   getDateTimestamp,
   getMonthTimestamp,
+  getRatingAvg,
   quoteFormater,
 } from "../utils/utils";
 // import { amtFormater, getCurDateFormat } from "../utils/utils";
 
 function Reservation() {
   const { placeId } = useParams();
-  const [, booking] = useOutletContext();
+  const [dataset, booking] = useOutletContext();
   const dispatch = useDispatch();
   const { company, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.company
   );
   const serviceFee = booking.sumTotal * 0.01;
   const overAllSum = booking.sumTotal + serviceFee;
-
-  console.log("Booking Details: ", booking);
   // const [business, setBusiness] = useState(false);
   // const biz = {
   //   name: null,
@@ -56,36 +55,32 @@ function Reservation() {
   //   };
   // }, [company, dispatch, isSuccess, isError, message]);
 
-  // if (!dataset) {
-  //   console.log("Still getting the data...");
-  //   return <Loader />;
-  // }
+  if (!dataset) {
+    console.log("Still getting the data...");
+    return <Loader />;
+  }
 
   // if (!business) {
   //   console.log("Still getting the business data...");
   //   return <Loader />;
   // }
 
-  // const hotel = dataset.find((item) => {
-  //   return placeId === item._id;
-  // });
+  const hotel = dataset.find((item) => {
+    return placeId === item._id;
+  });
 
   // // console.log("Business Data: ", business)
   // const businessData = business.find((item) => {
   //   return hotel.company === item._id;
   // });
 
-  // if (!hotel) {
-  //   return (
-  //     <>
-  //       <Error />
-  //     </>
-  //   );
-  // }
-
-  // const isMobile = window.screenX <= 425;
-  // const swapInfo = isMobile ? <BookingThumbnail /> : <BookingBubble />
-  // const removeThumb = isMobile ? "" : <BookingThumbnail />;
+  if (!hotel) {
+    return (
+      <>
+        <Error />
+      </>
+    );
+  }
 
   return (
     <>
@@ -205,7 +200,7 @@ function Reservation() {
           </div>
           <div className="reservation-section--body_summary w-50-lg w-100-md">
             <form className="booking-card">
-              <BookingThumbnail />
+              <BookingThumbnail hotel={hotel} />
               <div className={`booking-card--additional order`}>
                 <div className="booking-card--additional_quantity_summary">
                   <span className="quantity-label">
@@ -274,7 +269,7 @@ function BookingBubble({ booking }) {
       <div className="info-bubble">
         <p className="info-text">
           <strong className="fill">Good price</strong> Your dates are N
-          {quoteFormater(booking.sumTotal * 0.005)} less than the avg. nightly
+          {quoteFormater((booking.sumTotal *  booking.days / 120) * 0.005)} less than the avg. nightly
           rate over the last 3 months.
         </p>
         <svg
@@ -306,19 +301,19 @@ function BookingBubble({ booking }) {
   );
 }
 
-function BookingThumbnail() {
+function BookingThumbnail({hotel}) {
   return (
     <>
       <div className="booking-card--thumbnail">
         <div className="booking-card--thumbnail_section">
           <div className="thumbnail-container">
-            <img src="/beach-01.png" alt="" />
+            <img src={hotel.images[0]} alt={hotel.name} title={hotel.title} aria-description={hotel.description} />
           </div>
         </div>
         <div className="booking-card--thumbnail_section">
           <div className="booking-card-header_subtitle">
-            <p>Entire cabin</p>
-            <h6>Jorgan resort</h6>
+            <p>Overview</p>
+            <h6>{hotel.name}</h6>
           </div>
           <ul className="booking-card-header_rating">
             <li className="booking-card-header_rating-item item-rating">
@@ -334,10 +329,10 @@ function BookingThumbnail() {
                   fill="black"
                 />
               </svg>
-              3.2
+              {getRatingAvg(hotel.rating)}
             </li>
             <li className="booking-card-header_rating-item item-review">
-              {`${2} reviews`}
+              {`${hotel.review.length} reviews`}
             </li>
           </ul>
         </div>
