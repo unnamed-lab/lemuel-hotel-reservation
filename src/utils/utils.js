@@ -74,6 +74,31 @@ export const getMonthTimestamp = (time, abbr = false) => {
     : `${monthsInWords[date.getMonth()]}`;
 };
 
+export const getDateTimestamp = (time, abbr=false) => {
+  const date = new Date(time);
+  const monthsInWords = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const month = abbr
+    ? monthsInWords[date.getMonth()] === "September"
+      ? `${monthsInWords[date.getMonth()].slice(0, 4)}`
+      : `${monthsInWords[date.getMonth()].slice(0, 3)}`
+    : `${monthsInWords[date.getMonth()]}`;
+
+  return `${date.getDate()} ${month} ${date.getFullYear()}`;
+};
+
 export const makeArrayToString = (arr) => {
   return arr.join(", ");
 };
@@ -117,6 +142,15 @@ export const amtFormater = (value, decimal = false) => {
     return decimal ? value.toFixed(2).toString() : value.toString();
   }
 };
+
+export const quoteFormater = (value) => {
+  const valueStr = String(value).split("").reverse();
+  console.log(valueStr)
+  const result = valueStr.map((digit, index) => {
+    return (index >= 1 && index % 3 === 0) ?  digit + ',' : digit;
+  }).reverse().join('')
+  return result;
+}
 
 export const getDateDiff = (date1, date2) => {
   if (date1 === "") return 0;

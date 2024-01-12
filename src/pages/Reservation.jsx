@@ -1,39 +1,109 @@
-import { useParams } from "react-router-dom";
-import { catalogues } from "../utils/catalog";
+import { useEffect, useRef, useState } from "react";
+import {
+  // Link,
+  // useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
+import { toast } from "react-toastify";
 import Error from "../routes/error/Error";
-import { amtFormater, getCurDateFormat } from "../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { getCompanies, reset } from "../utils/company/companySlice";
+import Loader from "../components/Loader";
+import {
+  amtFormater,
+  getDateTimestamp,
+  getMonthTimestamp,
+  quoteFormater,
+} from "../utils/utils";
+// import { amtFormater, getCurDateFormat } from "../utils/utils";
 
 function Reservation() {
   const { placeId } = useParams();
-  const hotel = catalogues.find((item) => {
-    return parseInt(placeId) === item.id;
-  });
+  const [, booking] = useOutletContext();
+  const dispatch = useDispatch();
+  const { company, isSuccess, isLoading, isError, message } = useSelector(
+    (state) => state.company
+  );
+  const serviceFee = booking.sumTotal * 0.01;
+  const overAllSum = booking.sumTotal + serviceFee;
 
-  if (!hotel) {
-    return (
-      <>
-        <Error />
-      </>
-    );
-  }
+  console.log("Booking Details: ", booking);
+  // const [business, setBusiness] = useState(false);
+  // const biz = {
+  //   name: null,
+  //   url: null,
+  //   imgUrl: null,
+  //   contact: { phone: null, email: null },
+  //   regDate: null,
+  //   isVerified: false,
+  // };
 
-  const isMobile = window.screenX <= 425;
-  const swapInfo = isMobile ? <BookingThumbnail /> : <BookingBubble />
-  const removeThumb = isMobile ? "" : <BookingThumbnail />;
-  
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //   }
+
+  //   if (!company) {
+  //     dispatch(getCompanies());
+  //   }
+
+  //   if (isSuccess) {
+  //     setBusiness(company);
+  //   }
+  //   return () => {
+  //     dispatch(reset());
+  //   };
+  // }, [company, dispatch, isSuccess, isError, message]);
+
+  // if (!dataset) {
+  //   console.log("Still getting the data...");
+  //   return <Loader />;
+  // }
+
+  // if (!business) {
+  //   console.log("Still getting the business data...");
+  //   return <Loader />;
+  // }
+
+  // const hotel = dataset.find((item) => {
+  //   return placeId === item._id;
+  // });
+
+  // // console.log("Business Data: ", business)
+  // const businessData = business.find((item) => {
+  //   return hotel.company === item._id;
+  // });
+
+  // if (!hotel) {
+  //   return (
+  //     <>
+  //       <Error />
+  //     </>
+  //   );
+  // }
+
+  // const isMobile = window.screenX <= 425;
+  // const swapInfo = isMobile ? <BookingThumbnail /> : <BookingBubble />
+  // const removeThumb = isMobile ? "" : <BookingThumbnail />;
+
   return (
     <>
       <section className="reservation-section">
         <BookingNav />
         <div className="reservation-section--body">
           <div className="reservation-section--body_detail w-50-lg w-100-md">
-            {swapInfo}
+            <BookingBubble booking={booking} />
             <div className="reservation-body--container btm-border">
               <h3 className="reservation-body--header">Your Stay</h3>
               <div className="reservation-body--sub_container">
                 <div className="sub-container_segment">
                   <h6 className="segment-header">Dates</h6>
-                  <p className="segment-info">Dec 15 – 22</p>
+                  <p className="segment-info">
+                    {`${getDateTimestamp(booking.checkIn, true)}`} -
+                    {`${getDateTimestamp(booking.checkOut, true)}`}
+                    {/* Dec 15 – 22 */}
+                  </p>
                 </div>
                 <div className="sub-container_segment aln-left">
                   <a href="#" className="property-edit">
@@ -44,7 +114,9 @@ function Reservation() {
               <div className="reservation-body--sub_container">
                 <div className="sub-container_segment">
                   <h6 className="segment-header">Guests</h6>
-                  <p className="segment-info">1 guest</p>
+                  <p className="segment-info">
+                    {booking.guests} guest{booking.guests > 1 ? "s" : ""}
+                  </p>
                 </div>
                 <div className="sub-container_segment aln-left">
                   <a href="#" className="property-edit">
@@ -59,7 +131,9 @@ function Reservation() {
                 <li className="reservation-body--sub_container selector ">
                   <div className="sub-container_segment">
                     <h6 className="segment-header">Pay with card</h6>
-                    <p className="segment-info">Pay the total (N 20,000).</p>
+                    <p className="segment-info">
+                      Pay the total (N{quoteFormater(booking.sumTotal, true)}).
+                    </p>
                   </div>
                   <div className="sub-container_segment aln-left">
                     <div className="input-radio-group">
@@ -105,7 +179,7 @@ function Reservation() {
                   <div className="sub-container_segment">
                     <h6 className="segment-header">Pay at hotel</h6>
                     <p className="segment-info">
-                      Interest may apply.{" "}
+                      Interest may apply.
                       <a href="#" className="property-edit">
                         More info
                       </a>
@@ -131,11 +205,13 @@ function Reservation() {
           </div>
           <div className="reservation-section--body_summary w-50-lg w-100-md">
             <form className="booking-card">
-              {removeThumb}
+              <BookingThumbnail />
               <div className={`booking-card--additional order`}>
                 <div className="booking-card--additional_quantity_summary">
-                  <span className="quantity-label">N 10,000 x 2 nights</span>
-                  <span>N 20,000</span>
+                  <span className="quantity-label">
+                    N {quoteFormater(booking.sumTotal / booking.days, true)}{" "}x{" "}{booking.days} nights
+                  </span>
+                  <span>N {amtFormater(booking.sumTotal, true)}</span>
                 </div>
                 <div className="booking-card--additional_quantity_summary">
                   <span className="quantity-label">Weekly stay discount</span>
@@ -143,11 +219,11 @@ function Reservation() {
                 </div>
                 <div className="booking-card--additional_quantity_summary btm-border">
                   <span className="quantity-label">Rock service fee</span>
-                  <span>N 1000</span>
+                  <span>N {quoteFormater(serviceFee)}</span>
                 </div>
                 <div className="booking-card--additional_total">
                   <span className="total-label">Total(NGN)</span>
-                  <span>N 10K</span>
+                  <span>N {quoteFormater(overAllSum)}</span>
                 </div>
               </div>
 
@@ -163,7 +239,6 @@ function Reservation() {
     </>
   );
 }
-
 
 function BookingNav() {
   return (
@@ -193,14 +268,14 @@ function BookingNav() {
   );
 }
 
-function BookingBubble() {
-
+function BookingBubble({ booking }) {
   return (
     <>
       <div className="info-bubble">
         <p className="info-text">
-          <strong className="fill">Good price</strong> Your dates are $27 less
-          than the avg. nightly rate over the last 3 months.
+          <strong className="fill">Good price</strong> Your dates are N
+          {quoteFormater(booking.sumTotal * 0.005)} less than the avg. nightly
+          rate over the last 3 months.
         </p>
         <svg
           width="32"

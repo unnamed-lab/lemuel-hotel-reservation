@@ -12,14 +12,15 @@ import Loader from "../components/Loader";
 
 function Home() {
   const [dataset] = useOutletContext();
+  let display;
+  if (!dataset) display = <NoCatalogue />;
+  else display = <Catalogue data={dataset} />;
 
   return (
     <>
       <main>
         <CategoryCarousel />
-        {dataset 
-        ? <Catalogue data={dataset} /> 
-        : <NoCatalogue />}
+        {display}
       </main>
     </>
   );

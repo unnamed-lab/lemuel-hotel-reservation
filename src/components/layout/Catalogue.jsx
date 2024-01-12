@@ -176,7 +176,7 @@ function CatalogueItem({
         <Link to={`/place/${url}`} className="card-redirect">
           <div className="card-details">
             <h3 className="card-details--title">{title}</h3>
-            <p className="card-details--distance">{distance} kilometers away</p>
+            {/* <p className="card-details--distance">{distance} kilometers away</p> */}
             <p className="card-details--availability">{available}</p>
             <p className="card-details--pricing">
               <span className="pricing-amount">N{price}</span>/night
