@@ -269,7 +269,7 @@ function BookingBubble({ booking }) {
       <div className="info-bubble">
         <p className="info-text">
           <strong className="fill">Good price</strong> Your dates are N
-          {quoteFormater((booking.sumTotal *  booking.days / 120) * 0.005)} less than the avg. nightly
+          {quoteFormater((booking.sumTotal *  (booking.days / 120)).toFixed(0) * 0.005)} less than the avg. nightly
           rate over the last 3 months.
         </p>
         <svg

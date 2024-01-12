@@ -144,7 +144,7 @@ export const amtFormater = (value, decimal = false) => {
 };
 
 export const quoteFormater = (value) => {
-  const valueStr = String(value).split("").reverse();
+  const valueStr = String(value.toFixed(0)).split("").reverse();
   const result = valueStr.map((digit, index) => {
     return (index >= 1 && index % 3 === 0) ?  digit + ',' : digit;
   }).reverse().join('')
