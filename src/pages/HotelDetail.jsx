@@ -27,6 +27,7 @@ import Error from "../routes/error/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompanies, reset } from "../utils/company/companySlice";
 import Loader from "../components/Loader";
+import { catalogueItem } from "../utils/catalog";
 // import MapComponent from "../utils/Maps";/
 
 function DetailPage() {
@@ -37,14 +38,15 @@ function DetailPage() {
     (state) => state.company
   );
   const [business, setBusiness] = useState(false);
-  const biz = {
-    name: null,
-    url: null,
-    imgUrl: null,
-    contact: { phone: null, email: null },
-    regDate: null,
-    isVerified: false,
-  };
+
+  // const biz = {
+  //   name: null,
+  //   url: null,
+  //   imgUrl: null,
+  //   contact: { phone: null, email: null },
+  //   regDate: null,
+  //   isVerified: false,
+  // };
 
   useEffect(() => {
     if (isError) {
@@ -74,13 +76,14 @@ function DetailPage() {
   }
 
   const hotel = dataset.find((item) => {
-    return placeId === item._id;
+    return placeId === item._id; // Uncomment on push
   });
 
-  // console.log("Business Data: ", business)
   const businessData = business.find((item) => {
     return hotel.company === item._id;
   });
+
+  // const businessData = business // Just for test purposes
 
   if (!hotel) {
     return (
@@ -116,7 +119,7 @@ function DetailPage() {
           pricing={hotel.price}
           pageId={placeId}
           minGuests={hotel.accomodation.guest}
-          maxGuests={hotel.accomodation.max_guest}
+          maxGuests={hotel.accomodation.max_guest} 
         />
         <Offers facility={0 ?? hotel.facility} />
         <Rating
@@ -125,7 +128,7 @@ function DetailPage() {
           reviews={hotel.review}
           reviewCount={hotel.review.length}
         />
-        <Comments />
+        <Comments review={hotel.review} />
         <Location />
         <Additional
           isSuperHost={hotel.isSuperHost}
@@ -135,7 +138,7 @@ function DetailPage() {
           lang={hotel.language}
           company={businessData}
         />
-        <Terms policies={hotel.policy} />
+        <Terms policies={hotel.policy} hotelName={hotel.name} />
       </section>
     </>
   );
@@ -367,8 +370,9 @@ function ItemDetails({
   pricing,
   pageId,
   minGuests,
-  maxGuests,
+  maxGuests, 
 }) {
+  const [dataset, booking, setBooking] = useOutletContext();
   const { guest, bed, bedroom, bath } = accomodation;
   const { name, url, imgUrl, contact } = company;
   const fiveStarRating = getStarRating(5, rating, true);
@@ -383,9 +387,17 @@ function ItemDetails({
   const [numGuest, setNumGuest] = useState(0);
   const [dateDiff, setDateDiff] = useState(0);
   let numGuestRender = numGuest === 0 ? 1 : numGuest;
-  let dataDiffRender = dateDiff === "NaN" ? 0 : dateDiff;
+  let dateDiffRender = dateDiff === "NaN" ? 0 : dateDiff;
+  let sumTotal = pricing * numGuestRender * dateDiffRender;
   const checkInRef = useRef(null);
   const checkOutRef = useRef(null);
+  let submitData = {
+    checkIn: checkInValue,
+    checkOut: checkOutValue,
+    days: dateDiffRender,
+    guests: numGuestRender,
+    sumTotal: sumTotal,
+  };
 
   useEffect(() => {
     setDateDiff(getDateDiff(checkInValue, checkOutValue));
@@ -409,6 +421,7 @@ function ItemDetails({
 
   const createReservation = (e) => {
     e.preventDefault();
+    setBooking(submitData);
     navigate(`/place/${pageId}/reserve`);
   };
 
@@ -612,7 +625,7 @@ function ItemDetails({
                     ref={checkOutRef}
                     min={getCurDateFormat(1)}
                     placeholder={getCurDateFormat(1)}
-                    // value={}
+                    value={submitData.checkOut}
                     pattern="\d{4}-\d{2}-\d{2}"
                     onChange={changeCheckOut}
                     required
@@ -631,6 +644,7 @@ function ItemDetails({
                   className="guest-number-input"
                   placeholder={`${minGuests} guest`}
                   onChange={changeGuestNumber}
+                  value={submitData.guests}
                   required
                 />
               </div>
@@ -650,20 +664,14 @@ function ItemDetails({
               </p>
               <div className="booking-card--additional_quantity btm-border">
                 <span className="quantity-label">
-                  N {amtFormater(pricing * numGuestRender)} x {dataDiffRender}{" "}
+                  N {amtFormater(pricing * numGuestRender)} x {dateDiffRender}{" "}
                   nights
                 </span>
-                <span>
-                  N{" "}
-                  {amtFormater(pricing * numGuestRender * dataDiffRender, true)}
-                </span>
+                <span>N {amtFormater(sumTotal, true)}</span>
               </div>
               <div className="booking-card--additional_total">
                 <span className="total-label">Total before taxes</span>
-                <span>
-                  N{" "}
-                  {amtFormater(pricing * numGuestRender * dataDiffRender, true)}
-                </span>
+                <span>N {amtFormater(sumTotal, true)}</span>
               </div>
             </div>
           </form>
@@ -674,6 +682,10 @@ function ItemDetails({
 }
 
 function Offers({ facility }) {
+  if (!facility) {
+    return <></>;
+  }
+
   return (
     <>
       <section className="catalogue-detail--offer btm-border">
@@ -970,32 +982,11 @@ function RatingItem({ type, value, reviews }) {
   );
 }
 
-function Comments() {
-  const reviewCount = numToText(13);
-  const review = [
-    {
-      name: "Mikasa",
-      tags: [
-        "communication",
-        "clean",
-        "location",
-        "frontdesk",
-        "accuracy",
-        "value",
-      ],
-      message:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi harum quas animi minima fugit natus assumenda fugiat iusto?",
-      timestamp: "May 21, 2023",
-    },
-    {
-      name: "Eren",
-      tags: ["communication", "clean", "location", "accuracy", "value"],
-      message:
-        "Illo iusto consequatur hic ad incidunt veniam facilis necessitatibus doloribus quaerat explicabo, nihil fuga earum voluptate fugit blanditiis numquam neque ab.",
-      timestamp: "August 2, 2023",
-    },
-  ];
-
+function Comments({ review }) {
+  const reviewCount = numToText(review.length);
+  if (review.length === 0) {
+    return <></>;
+  }
   return (
     <>
       <section className="catalogue-detail--comments btm-border">
@@ -1185,49 +1176,67 @@ function Additional({
   );
 }
 
-function Terms({ policies }) {
+function Terms({ policies, hotelName }) {
   const { rules, safety, cancellation } = policies;
+
+  const outputRule = rules ===true ? (
+    <li className="policy-list-item">
+      <h6 className="policy-list-item--heading">House rules</h6>
+      <ul className="policy-list-item--mini_list">
+        {rules.map((el, key) => {
+          return (
+            <>
+              <PolicyItem key={key} text={el} />
+            </>
+          );
+        })}
+      </ul>
+    </li>
+  ) : (
+    ""
+  );
+
+  const outputSafety = safety ? (
+    <li className="policy-list-item">
+      <h6 className="policy-list-item--heading">Safety & Property</h6>
+      <ul className="policy-list-item--mini_list">
+        {safety.map((el, key) => {
+          return (
+            <>
+              <PolicyItem key={key} text={el} />
+            </>
+          );
+        })}
+      </ul>
+    </li>
+  ) : (
+    ""
+  );
+
+  const outputCancel = cancellation ? (
+    <li className="policy-list-item">
+      <h6 className="policy-list-item--heading">Cancellation policy</h6>
+      <ul className="policy-list-item--mini_list">
+        {cancellation.map((el, key) => {
+          return (
+            <>
+              <PolicyItem key={key} text={el} />
+            </>
+          );
+        })}
+      </ul>
+    </li>
+  ) : (
+    ""
+  );
   return (
     <>
       <section className="catalogue-detail--terms">
-        <h3 className="terms-heading">Jorgan Resort & Hotel</h3>
+        <h3 className="terms-heading">{hotelName}</h3>
         <ul className="policy-list">
-          <li className="policy-list-item">
-            <h6 className="policy-list-item--heading">House rules</h6>
-            <ul className="policy-list-item--mini_list">
-              {rules.map((el, key) => {
-                return (
-                  <>
-                    <PolicyItem key={key} text={el} />
-                  </>
-                );
-              })}
-            </ul>
-          </li>
-          <li className="policy-list-item">
-            <h6 className="policy-list-item--heading">Safety & Property</h6>
-            <ul className="policy-list-item--mini_list">
-              {safety.map((el, key) => {
-                return (
-                  <>
-                    <PolicyItem key={key} text={el} />
-                  </>
-                );
-              })}
-            </ul>
-          </li>
-          <li className="policy-list-item">
-            <h6 className="policy-list-item--heading">Cancellation policy</h6>
-            <ul className="policy-list-item--mini_list">
-              {cancellation.map((el, key) => {
-                return (
-                  <>
-                    <PolicyItem key={key} text={el} />
-                  </>
-                );
-              })}
-            </ul>
-          </li>
+          {outputRule}
+          {outputSafety}
+          {outputCancel}
         </ul>
       </section>
     </>

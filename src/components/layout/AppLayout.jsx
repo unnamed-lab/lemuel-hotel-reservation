@@ -18,10 +18,25 @@ function AppLayout({ layout = true, footer = true }) {
   // const [dataset, setData] = useState(catalogue); // For offline tests
   const [searchedData, setSearchData] = useState("");
   const [output, setOutput] = useState("");
+  const [booking, setBooking] = useState({
+    checkIn: "",
+    checkOut: "",
+    days: "",
+    guests: "",
+    sumTotal: "",
+  });
+  
+  console.log("Booking Data: ", booking);
+  useEffect(() => {
+    searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
+  }, [dataset, searchedData]);
+  console.log(output)
+
   const dispatch = useDispatch();
   const { hotels, isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.hotel
   );
+
 
   useEffect(() => {
     if (isError) toast.error(message);
@@ -37,9 +52,6 @@ function AppLayout({ layout = true, footer = true }) {
     };
   }, [hotels, dataset, dispatch, isSuccess, isError, message]);
 
-  useEffect(() => {
-    searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
-  }, [dataset, searchedData]);
 
   if (isLoading) {
     return <Loader />;
@@ -49,36 +61,40 @@ function AppLayout({ layout = true, footer = true }) {
       footerType={footer}
       dataset={output}
       setData={setSearchData}
+      booking={booking}
+      setBooking={setBooking}
     />
   ) : (
     <DetailLayout
       footerType={footer}
       dataset={output}
       setData={setSearchData}
+      booking={booking}
+      setBooking={setBooking}
     />
   );
 
   return <>{layoutSwitch}</>;
 }
 
-function NormalLayout({ footerType, dataset, setData }) {
+function NormalLayout({ footerType, dataset, setData, booking, setBooking }) {
   return (
     <>
       <InfoBanner />
       <Navbar setData={setData} data={dataset} />
-      <Outlet context={[dataset]} />
+      <Outlet context={[dataset, booking, setBooking]} />
       <Footer footerType={footerType} />
       <ToastContainer />
     </>
   );
 }
 
-function DetailLayout({ footerType, dataset, setData }) {
+function DetailLayout({ footerType, dataset, setData, booking, setBooking }) {
   return (
     <>
       <ScrollToTop />
       <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
-      <Outlet context={[dataset]} />
+      <Outlet context={[dataset, booking, setBooking]} />
       <Footer footerType={footerType} />
       <ToastContainer />
     </>

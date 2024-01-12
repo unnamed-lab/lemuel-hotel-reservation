@@ -126,7 +126,7 @@ import brandImg from "../assets/brand.svg";
 
 //  The schema blue print of a hotel
 export const catalogueItem = {
-  id: 1,
+  _id: 1,
   name: "Jorgan Hotel",
   title: "Beautiful Hotel on the edge of iterigbi river",
   description: `A passionate host, who loves to welcome guest from all over the world and share the beauty of this amazing natural spot that is Blue Lagoon`,
