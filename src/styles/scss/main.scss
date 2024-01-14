@@ -140,6 +140,7 @@
     @include responsive(mobile) {
       width: max-content;
       position: absolute;
+      top: 0.5rem;
       left: 50%;
       transform: translate(-50%, 5%);
       padding: 0.5rem;
@@ -151,10 +152,10 @@
 
     .info-text {
       margin: 0 auto;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       @include responsive(mobile) {
-        font-size: 12px;
+        font-size: 10px;
       }
     }
 
@@ -851,7 +852,7 @@
     --bubble-y: 6.5rem;
     @include responsive(mediadown) {
       --bubble-x: 3.75rem;
-    --bubble-y: 3.75rem;
+      --bubble-y: 3.75rem;
     }
     position: relative;
     width: var(--bubble-x);
@@ -888,6 +889,83 @@
       background-color: $primary;
       opacity: 20%;
       animation: beep 1s 1s ease-in-out alternate-reverse infinite;
+    }
+  }
+}
+
+.component {
+  position: relative;
+  display: block;
+  width: 100dvw;
+  height: 75dvh;
+  overflow: hidden;
+
+  .component-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 12vh;
+    justify-content: center;
+    @include responsive(mediadown) {
+      margin-top: 10vh;
+    }
+
+    .icon {
+      --icon-x: 7rem;
+      --icon-y: 7rem;
+
+      @include responsive(mediadown) {
+        --icon-x: 8rem;
+        --icon-y: 8rem;
+      }
+      position: relative;
+      margin: 0 auto;
+
+      &.big {
+        min-width: calc(var(--icon-x) + 2rem);
+        min-height: calc(var(--icon-y) + 2rem);
+
+        svg {
+          width: 30rem;
+          height: 18rem;
+
+          @include responsive(mediadown) {
+            width: 20rem;
+            height: 16rem;
+          }
+        }
+      }
+      svg {
+        width: var(--icon-x);
+        height: var(--icon-y);
+
+        path {
+          width: inherit;
+          height: inherit;
+        }
+      }
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      text-align: center;
+      margin-block-start: 0.2em;
+      margin-block-end: 0.2em;
+
+      @include responsive(mediadown) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      text-align: center;
+      margin-block-start: 0.25em;
+      margin-block-end: 0.25em;
+
+      a {
+        color: $g-100;
+        text-decoration: underline;
+      }
     }
   }
 }
