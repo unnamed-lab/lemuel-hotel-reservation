@@ -15,6 +15,7 @@ import CompanyForm from "../pages/admin/components/CompanyForm";
 import AdminLayout from "../components/layout/AdminLayout";
 import CompanyDetail from "../pages/admin/CompanyDetail";
 import HotelForm from "../pages/admin/components/HotelForm";
+import Success from "../components/Success";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,10 @@ const routes = createBrowserRouter(
       <Route element={<AppLayout layout={true} />} errorElement={<Error />}>
         <Route index path="/" element={<Home />} />
       </Route>
-      <Route element={<AppLayout layout={false} footer={false} />} errorElement={<Error />}>
+      <Route
+        element={<AppLayout layout={false} footer={false} />}
+        errorElement={<Error />}
+      >
         <Route path="auth/login" element={<Login />} />
         <Route path="auth/register" element={<Register />} />
       </Route>

@@ -13,7 +13,7 @@ import Loader from "../Loader";
 import { getHotels, reset } from "../../utils/hotel/hotelSlice";
 import { toast } from "react-toastify";
 
-function AppLayout({ layout = true, footer = true }) {
+function AppLayout({ layout = true, footer = true, children }) {
   const [dataset, setData] = useState(false); // Uncomment on push
   // const [dataset, setData] = useState(catalogue); // For offline tests
   const [searchedData, setSearchData] = useState("");
@@ -59,6 +59,7 @@ function AppLayout({ layout = true, footer = true }) {
       setData={setSearchData}
       booking={booking}
       setBooking={setBooking}
+      children={children}
     />
   ) : (
     <DetailLayout
@@ -67,17 +68,19 @@ function AppLayout({ layout = true, footer = true }) {
       setData={setSearchData}
       booking={booking}
       setBooking={setBooking}
+      children={children}
     />
   );
 
   return <>{layoutSwitch}</>;
 }
 
-function NormalLayout({ footerType, dataset, setData, booking, setBooking }) {
+function NormalLayout({ footerType, dataset, setData, booking, setBooking, children }) {
   return (
     <>
       <InfoBanner />
       <Navbar setData={setData} data={dataset} />
+      {children}
       <Outlet context={[dataset, booking, setBooking]} />
       <Footer footerType={footerType} />
       <ToastContainer />
@@ -85,11 +88,12 @@ function NormalLayout({ footerType, dataset, setData, booking, setBooking }) {
   );
 }
 
-function DetailLayout({ footerType, dataset, setData, booking, setBooking }) {
+function DetailLayout({ footerType, dataset, setData, booking, setBooking, children }) {
   return (
     <>
       <ScrollToTop />
       <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
+      {children}
       <Outlet context={[dataset, booking, setBooking]} />
       <Footer footerType={footerType} />
       <ToastContainer />

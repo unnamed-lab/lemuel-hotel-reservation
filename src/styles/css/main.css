@@ -254,6 +254,7 @@
   :root .info-banner {
     width: max-content;
     position: absolute;
+    top: 0.5rem;
     left: 50%;
     transform: translate(-50%, 5%);
     padding: 0.5rem;
@@ -264,12 +265,12 @@
 }
 :root .info-banner .info-text {
   margin: 0 auto;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 @media (max-width: 767px) {
   :root .info-banner .info-text {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 :root .info-banner .icon-btn {
@@ -947,6 +948,80 @@
   background-color: #3D94FF;
   opacity: 20%;
   animation: beep 1s 1s ease-in-out alternate-reverse infinite;
+}
+
+.component {
+  position: relative;
+  display: block;
+  width: 100dvw;
+  height: 75dvh;
+  overflow: hidden;
+}
+.component .component-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-top: 12vh;
+  justify-content: center;
+}
+@media (max-width: 1023px) {
+  .component .component-container {
+    margin-top: 10vh;
+  }
+}
+.component .component-container .icon {
+  --icon-x: 7rem;
+  --icon-y: 7rem;
+  position: relative;
+  margin: 0 auto;
+}
+@media (max-width: 1023px) {
+  .component .component-container .icon {
+    --icon-x: 8rem;
+    --icon-y: 8rem;
+  }
+}
+.component .component-container .icon.big {
+  min-width: calc(var(--icon-x) + 2rem);
+  min-height: calc(var(--icon-y) + 2rem);
+}
+.component .component-container .icon.big svg {
+  width: 30rem;
+  height: 18rem;
+}
+@media (max-width: 1023px) {
+  .component .component-container .icon.big svg {
+    width: 20rem;
+    height: 16rem;
+  }
+}
+.component .component-container .icon svg {
+  width: var(--icon-x);
+  height: var(--icon-y);
+}
+.component .component-container .icon svg path {
+  width: inherit;
+  height: inherit;
+}
+.component .component-container h1 {
+  font-size: 2.6rem;
+  text-align: center;
+  margin-block-start: 0.2em;
+  margin-block-end: 0.2em;
+}
+@media (max-width: 1023px) {
+  .component .component-container h1 {
+    font-size: 2rem;
+  }
+}
+.component .component-container p {
+  text-align: center;
+  margin-block-start: 0.25em;
+  margin-block-end: 0.25em;
+}
+.component .component-container p a {
+  color: #999999;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=main.css.map */
