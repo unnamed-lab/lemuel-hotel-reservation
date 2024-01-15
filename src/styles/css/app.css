@@ -144,6 +144,29 @@
   stroke: #3bff38;
 }
 
+.form-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 15px;
+  padding: 0.5rem;
+  font-size: 16px;
+  border: none;
+  background-color: #3D94FF;
+  color: #fff;
+  font-weight: 600;
+  line-height: 28px;
+}
+.form-btn.outline {
+  background-color: #fff;
+  color: #3D94FF;
+  outline: 1px solid #3D94FF;
+}
+
 .category-carousel {
   display: flex;
   flex-wrap: wrap;

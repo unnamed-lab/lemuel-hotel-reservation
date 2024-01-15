@@ -168,3 +168,26 @@
     }
   }
 }
+
+.form-btn {
+  cursor: pointer;display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 15px;
+  padding: 0.5rem;
+  font-size: 16px;
+  border: none;
+  background-color: $primary;
+  color: $white;
+  font-weight: 600;
+  line-height: 28px;
+
+  &.outline {
+    background-color: $white;
+    color: $primary;
+    outline: 1px solid $primary;
+  }
+}

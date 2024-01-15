@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../../utils/auth/authSlice";
 import Loader from "../../components/Loader";
@@ -46,36 +46,43 @@ function Login() {
 
   return (
     <>
-      <section>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
+      <section className="form-modal">
+        <div className="form-modal-header">
+          <h2 className="form-modal-header__title">Log in or sign up</h2>
+        </div>
+        <form className="form-modal-container" onSubmit={onSubmit}>
+          <div className="form-group input-group input-curve">
             <input
               type="email"
               name="email"
               id="email"
               value={email}
-              placeholder="Enter a valid email address"
+              placeholder="Email"
               onChange={onChange}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
+          <div className="form-group input-group input-curve">
             <input
               type="password"
               name="password"
               id="password"
               value={password}
-              placeholder="Enter a secured password"
+              placeholder="Password"
               onChange={onChange}
             />
           </div>
 
-          <div className="form-group">
-            <button type="submit">Submit</button>
+          <div className="form-group btn-group">
+            <button className="form-btn" type="submit">Sign In</button>
           </div>
         </form>
+        <div className="form-modal-divider">Or</div>
+        <div className="form-modal-container">
+          <Link to={"/auth/register"}>
+            <button className="form-btn outline" type="button">Sign Up</button>
+          </Link>
+        </div>
       </section>
     </>
   );

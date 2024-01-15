@@ -28,7 +28,7 @@ function Register() {
   useEffect(() => {
     if (isError) toast.error(message);
     if (isSuccess || user) navigate("/admin/");
-    dispatch(reset())
+    dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
@@ -49,12 +49,17 @@ function Register() {
     }
   };
 
-  if (isLoading) {return <Loader />}
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
-      <section>
-        <form onSubmit={onSubmit}>
+      <section className="form-modal">
+        <div className="form-modal-header">
+          <h2 className="form-modal-header__title">Register or Create an account</h2>
+        </div>
+        <form className="form-modal-container" onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -127,8 +132,10 @@ function Register() {
             />
           </div>
 
-          <div className="form-group">
-            <button type="submit">Submit</button>
+          <div className="form-group btn-group">
+            <button className="form-btn" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </section>
