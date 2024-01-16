@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  // Link,
-  // useNavigate,
+  Link,
+  useNavigate,
   useOutletContext,
   useParams,
 } from "react-router-dom";
@@ -22,6 +22,7 @@ import {
 function Reservation() {
   const { placeId } = useParams();
   const [dataset, booking] = useOutletContext();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { company, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.company
@@ -79,6 +80,10 @@ function Reservation() {
         <Error />
       </>
     );
+  }
+
+  const submitReserve = () => {
+    navigate(`/place/${placeId}/reserve/success`);
   }
 
   return (
@@ -202,7 +207,11 @@ function Reservation() {
               <BookingThumbnail hotel={hotel} />
               <BookingCard booking={booking} />
               <div className="booking-card--order">
-                <button type="submit" className="btn-submit-reserve">
+                <button
+                  onClick={submitReserve}
+                  type="submit"
+                  className="btn-submit-reserve"
+                >
                   Reserve
                 </button>
               </div>
