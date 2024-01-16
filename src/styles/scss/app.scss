@@ -621,6 +621,7 @@
       margin: 0;
       display: flex;
       aspect-ratio: 43/35;
+      border-radius: 0;
     }
 
     .thumbnail--main {
@@ -633,8 +634,13 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 100%;
+        width: inherit;
         height: auto;
+        aspect-ratio: 11/9;
+
+        @include responsive(mobile) {
+          aspect-ratio: 11/9;
+        }
       }
     }
 
@@ -655,14 +661,17 @@
         width: 100%;
         height: auto;
         overflow: hidden;
-        background-color: $g-50;
         img {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 100%;
+          width: inherit;
           height: auto;
+          aspect-ratio: 11/9;
+          @include responsive(mobile) {
+            aspect-ratio: 11/9;
+          }
         }
       }
     }
@@ -676,7 +685,7 @@
 
     @include responsive(mobile) {
       flex-wrap: wrap;
-      padding: 0 2rem;
+      padding: 0 1.25rem;
     }
 
     .catalogue-item-detail {
@@ -738,6 +747,7 @@
             height: 5.5rem;
             border-radius: 50%;
             border: 1px solid $white;
+            overflow: hidden;
 
             @include responsive(mobile) {
               width: 4rem;
@@ -1107,6 +1117,7 @@
       .brand-logo {
         width: 6rem;
         height: 6rem;
+        border-radius: 50%;
         margin-right: 1.5rem;
 
         @include responsive(mobile) {
@@ -1323,7 +1334,7 @@
           border-right: 2px solid $g-50;
 
           @include responsive(mobile) {
-            padding: .5rem 0.75rem;
+            padding: 0.5rem 0.75rem;
           }
 
           &:nth-child(1) {

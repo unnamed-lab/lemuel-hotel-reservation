@@ -6,7 +6,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import brandImg from "../assets/brand.svg";
+import noImg from "../assets/no_image.png";
 import userImg from "../assets/user.svg";
 import {
   amtFormater,
@@ -27,7 +27,7 @@ import Error from "../routes/error/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompanies, reset } from "../utils/company/companySlice";
 import Loader from "../components/Loader";
-import { catalogueItem } from "../utils/catalog";
+// import { catalogueItem } from "../utils/catalog";
 // import MapComponent from "../utils/Maps";/
 
 function DetailPage() {
@@ -81,7 +81,7 @@ function DetailPage() {
 
   const businessData = business.find((item) => {
     return hotel.company === item._id;
-  }); 
+  });
 
   if (!hotel) {
     return (
@@ -91,7 +91,6 @@ function DetailPage() {
     );
   }
 
-  console.log(hotel);
   return (
     <>
       <section className="catalogue-detail-section">
@@ -118,7 +117,7 @@ function DetailPage() {
           pricing={hotel.price}
           pageId={placeId}
           minGuests={hotel.accomodation.guest}
-          maxGuests={hotel.accomodation.max_guest} 
+          maxGuests={hotel.accomodation.max_guest}
         />
         <Offers facility={0 ?? hotel.facility} />
         <Rating
@@ -128,7 +127,7 @@ function DetailPage() {
           reviewCount={hotel.review.length}
         />
         <Comments review={hotel.review} />
-        <Location />
+        {/* <Location /> */}
         <Additional
           isSuperHost={hotel.isSuperHost}
           reviewCount={hotel.review.length}
@@ -369,7 +368,7 @@ function ItemDetails({
   pricing,
   pageId,
   minGuests,
-  maxGuests, 
+  maxGuests,
 }) {
   const [dataset, booking, setBooking] = useOutletContext();
   const { guest, bed, bedroom, bath } = accomodation;
@@ -441,7 +440,7 @@ function ItemDetails({
             <div className="catalogue-item-detail--header_segment w-20-lg w-20-md">
               <div className="item-brand-logo">
                 <img
-                  src={imgUrl}
+                  src={noImg}
                   alt={`${hotelName} by ${name}`}
                   title={`${hotelName} by ${name}`}
                   className="brand-logo"
@@ -1108,7 +1107,7 @@ function Additional({
     <>
       <section className="catalogue-detail--additional">
         <div className="additional-header">
-          <img src={imgUrl} alt="" className="brand-logo" />
+          <img src={noImg} alt="" className="brand-logo" />
           <div className="company-info">
             <h3 className="company-info--name">{name}</h3>
             <h6 className="company-info--established">
@@ -1178,22 +1177,23 @@ function Additional({
 function Terms({ policies, hotelName }) {
   const { rules, safety, cancellation } = policies;
 
-  const outputRule = rules ===true ? (
-    <li className="policy-list-item">
-      <h6 className="policy-list-item--heading">House rules</h6>
-      <ul className="policy-list-item--mini_list">
-        {rules.map((el, key) => {
-          return (
-            <>
-              <PolicyItem key={key} text={el} />
-            </>
-          );
-        })}
-      </ul>
-    </li>
-  ) : (
-    ""
-  );
+  const outputRule =
+    rules === true ? (
+      <li className="policy-list-item">
+        <h6 className="policy-list-item--heading">House rules</h6>
+        <ul className="policy-list-item--mini_list">
+          {rules.map((el, key) => {
+            return (
+              <>
+                <PolicyItem key={key} text={el} />
+              </>
+            );
+          })}
+        </ul>
+      </li>
+    ) : (
+      ""
+    );
 
   const outputSafety = safety ? (
     <li className="policy-list-item">
