@@ -35,8 +35,7 @@ const getCompany = async (token) => {
 
 // Get all company data
 const getAllCompanies = async () => {
-  const response = await axios.get(API_URL + "all");
-  console.log("All Company: ",response.data)
+  const response = await axios.get(API_URL + "all"); 
   if (response.data) {
     localStorage.setItem("companies", JSON.stringify(response.data));
   }

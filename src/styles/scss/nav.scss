@@ -266,7 +266,7 @@
   box-sizing: border-box;
   display: flex;
   width: -webkit-fill-available;
-  padding: 10px 20px;
+  padding: 5px 20px;
   background-color: $white;
   transition: bottom 1s ease 200ms;
 
@@ -280,14 +280,15 @@
 
   .menu-list {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     width: -webkit-fill-available;
-    padding: 0 24px;
+    padding: 0 20px;
 
     .menu-item {
-      width: 2rem;
+      width: 2.33rem;
+      margin-block-start: 0.2rem;
+      margin-block-end: .2rem;
 
       a {
         display: flex;

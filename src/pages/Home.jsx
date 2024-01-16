@@ -5,10 +5,6 @@ import { useEffect, useRef } from "react";
 import CatalogueItem from "../components/layout/Catalogue";
 import { amtFormater, getRatingAvg, numToText } from "../utils/utils";
 
-import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import { reset, getHotels } from "../utils/hotel/hotelSlice";
-import Loader from "../components/Loader";
 
 function Home() {
   const [dataset] = useOutletContext();
@@ -19,7 +15,7 @@ function Home() {
   return (
     <>
       <main>
-        <CategoryCarousel />
+        {/* <CategoryCarousel /> */}
         {display}
       </main>
     </>

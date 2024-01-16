@@ -53,17 +53,24 @@ const hotelSchema = new Schema(
       bath: { type: Number, min: 1, default: 1 },
     },
     rating: [{ type: Number }],
-    review: [{ type: String }], //  Add User Schema
+    review: [
+      {
+        name: String,
+        tags: [],
+        message: String,
+        timestamp: { type: Date, default: Date.now },
+      },
+    ], //  Add User Schema
     faves: [{ type: String }], //  Add User Schema
     isSuperHost: { type: Boolean, default: false },
     customerExp: [{ type: String }],
-    facilities: [{type: String}], 
+    facilities: [{ type: String }],
     policy: {
       rules: [{ type: String }],
       safety: [{ type: String }],
       cancellation: [{ type: String }],
     },
-    validated: {type: Boolean, default: true}
+    validated: { type: Boolean, default: true },
   },
   {
     timestamps: true,

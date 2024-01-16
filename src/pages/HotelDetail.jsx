@@ -81,9 +81,7 @@ function DetailPage() {
 
   const businessData = business.find((item) => {
     return hotel.company === item._id;
-  });
-
-  // const businessData = business // Just for test purposes
+  }); 
 
   if (!hotel) {
     return (
@@ -93,6 +91,7 @@ function DetailPage() {
     );
   }
 
+  console.log(hotel);
   return (
     <>
       <section className="catalogue-detail-section">
