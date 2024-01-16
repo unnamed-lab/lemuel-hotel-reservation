@@ -43,6 +43,7 @@ const routes = createBrowserRouter(
       >
         <Route path=":placeId" element={<DetailPage />} />
         <Route path=":placeId/reserve" element={<Reservation />} />
+        <Route path=":placeId/reserve/success" element={<Success />} />
       </Route>
     </Route>
   ),
