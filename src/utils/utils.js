@@ -23,12 +23,12 @@ export const getRatingAvg = (arr) => {
 };
 
 export const getRatingDecimal = (value, arr) => {
-  const output = ((value / arr) * 5).toFixed(2);
+  const output = ((value / arr.length) * 5).toFixed(2);
   return isNaN(output) ? (0).toFixed(2) : output.toFixed(2);
 };
 
 export const getRatingPercent = (value, arr) => {
-  const output = (value / arr) * 100;
+  const output = (value / arr.length) * 100;
   return isNaN(output) ? (0).toFixed(2) : output.toFixed(2);
 };
 
