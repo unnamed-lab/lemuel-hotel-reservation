@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 import CatalogueItem from "../components/layout/Catalogue";
 import { amtFormater, getRatingAvg, numToText } from "../utils/utils";
 
-
 function Home() {
   const [dataset] = useOutletContext();
   let display;
@@ -15,7 +14,7 @@ function Home() {
   return (
     <>
       <main>
-        {/* <CategoryCarousel /> */}
+        <CategoryCarousel />
         {display}
       </main>
     </>
