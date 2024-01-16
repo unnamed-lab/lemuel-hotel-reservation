@@ -26,8 +26,7 @@ function Reservation() {
   const { company, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.company
   );
-  const serviceFee = booking.sumTotal * 0.01;
-  const overAllSum = booking.sumTotal + serviceFee;
+  
   // const [business, setBusiness] = useState(false);
   // const biz = {
   //   name: null,
@@ -216,6 +215,8 @@ function Reservation() {
 }
 
 function BookingCard({booking}) {
+  const serviceFee = booking.sumTotal * 0.01;
+  const overAllSum = booking.sumTotal + serviceFee;
 
   return (
     <>
