@@ -169,7 +169,6 @@
 
 .category-carousel {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   max-height: 80px;
   padding: 6px 3rem;
@@ -246,7 +245,6 @@
   }
 }
 .category-carousel .category-carousel-box .carousel-box-list {
-  overflow: hidden;
   display: flex;
   margin-block-end: 0.2em;
   margin-block-start: 0.2em;
@@ -260,11 +258,9 @@
   color: #B8B8B8;
   font-size: 9px;
   font-weight: 400;
-  padding: 4px 3px;
-  margin: 0 1rem;
+  padding: 10px 3px;
   text-transform: capitalize;
-  width: 120px;
-  height: 80px;
+  width: 80px;
   text-align: center;
   transition: all 1s ease;
 }
