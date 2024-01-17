@@ -74,7 +74,7 @@ export const getMonthTimestamp = (time, abbr = false) => {
     : `${monthsInWords[date.getMonth()]}`;
 };
 
-export const getDateTimestamp = (time, abbr=false) => {
+export const getDateTimestamp = (time, abbr = false) => {
   const date = new Date(time);
   const monthsInWords = [
     "January",
@@ -145,11 +145,14 @@ export const amtFormater = (value, decimal = false) => {
 
 export const quoteFormater = (value) => {
   const valueStr = String(value.toFixed(0)).split("").reverse();
-  const result = valueStr.map((digit, index) => {
-    return (index >= 1 && index % 3 === 0) ?  digit + ',' : digit;
-  }).reverse().join('')
+  const result = valueStr
+    .map((digit, index) => {
+      return index >= 1 && index % 3 === 0 ? digit + "," : digit;
+    })
+    .reverse()
+    .join("");
   return result;
-}
+};
 
 export const getDateDiff = (date1, date2) => {
   if (date1 === "") return 0;
@@ -190,4 +193,12 @@ export const sharePage = (title, text, url, img) => {
   } else {
     console.log("Web Share API not supported.");
   }
+};
+
+export const sortData = (data, tags) => {
+  if (!data) return false;
+  const sortData = data.filter((el) => {
+    return tags.some((words) => el.tags.includes(words.toLowerCase()));
+  })
+  return sortData.length === 0 ? false : sortData;
 };
