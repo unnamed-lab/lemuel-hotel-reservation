@@ -7,7 +7,6 @@ const hotelSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
-      unique: true,
     },
     name: {
       type: String,
