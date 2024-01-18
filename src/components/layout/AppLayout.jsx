@@ -18,14 +18,6 @@ function AppLayout({ layout = true, footer = true, children }) {
   // const [dataset, setData] = useState(catalogue); // For offline tests
   const [searchedData, setSearchData] = useState("");
   const [output, setOutput] = useState("");
-  const [booking, setBooking] = useState({
-    checkIn: "",
-    checkOut: "",
-    days: "",
-    guests: "",
-    sumTotal: "",
-  });
-
   
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
@@ -58,8 +50,6 @@ function AppLayout({ layout = true, footer = true, children }) {
       footerType={footer}
       dataset={output}
       setData={setSearchData}
-      booking={booking}
-      setBooking={setBooking}
       children={children}
     />
   ) : (
@@ -67,8 +57,6 @@ function AppLayout({ layout = true, footer = true, children }) {
       footerType={footer}
       dataset={output}
       setData={setSearchData}
-      booking={booking}
-      setBooking={setBooking}
       children={children}
     />
   );
@@ -76,26 +64,26 @@ function AppLayout({ layout = true, footer = true, children }) {
   return <>{layoutSwitch}</>;
 }
 
-function NormalLayout({ footerType, dataset, setData, booking, setBooking, children }) {
+function NormalLayout({ footerType, dataset, setData, children }) {
   return (
     <>
       <InfoBanner />
       <Navbar setData={setData} data={dataset} />
       {children}
-      <Outlet context={[dataset, booking, setBooking]} />
+      <Outlet context={[dataset]} />
       <Footer footerType={footerType} />
       <ToastContainer />
     </>
   );
 }
 
-function DetailLayout({ footerType, dataset, setData, booking, setBooking, children }) {
+function DetailLayout({ footerType, dataset, setData,  children }) {
   return (
     <>
       <ScrollToTop />
       <Navbar noNavMobile={"no-nav-mobile"} setData={setData} />
       {children}
-      <Outlet context={[dataset, booking, setBooking]} />
+      <Outlet context={[dataset]} />
       <Footer footerType={footerType} />
       <ToastContainer />
     </>

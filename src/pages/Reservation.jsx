@@ -21,58 +21,23 @@ import {
 
 function Reservation() {
   const { placeId } = useParams();
-  const [dataset, booking] = useOutletContext();
+  const [dataset] = useOutletContext();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { company, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.company
   );
-  
-  // const [business, setBusiness] = useState(false);
-  // const biz = {
-  //   name: null,
-  //   url: null,
-  //   imgUrl: null,
-  //   contact: { phone: null, email: null },
-  //   regDate: null,
-  //   isVerified: false,
-  // };
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   }
-
-  //   if (!company) {
-  //     dispatch(getCompanies());
-  //   }
-
-  //   if (isSuccess) {
-  //     setBusiness(company);
-  //   }
-  //   return () => {
-  //     dispatch(reset());
-  //   };
-  // }, [company, dispatch, isSuccess, isError, message]);
+  const booking = JSON.parse(sessionStorage.getItem(`item-${placeId}`));
+  console.log(booking);
 
   if (!dataset) {
     console.log("Still getting the data...");
     return <Loader />;
   }
-
-  // if (!business) {
-  //   console.log("Still getting the business data...");
-  //   return <Loader />;
-  // }
-
   const hotel = dataset.find((item) => {
     return placeId === item._id;
   });
-
-  // // console.log("Business Data: ", business)
-  // const businessData = business.find((item) => {
-  //   return hotel.company === item._id;
-  // });
 
   if (!hotel) {
     return (
@@ -84,12 +49,12 @@ function Reservation() {
 
   const submitReserve = () => {
     navigate(`/place/${placeId}/reserve/success`);
-  }
+  };
 
   return (
     <>
       <section className="reservation-section">
-        <BookingNav />
+        <BookingNav pageId={placeId} navigate={navigate} />
         <div className="reservation-section--body">
           <div className="reservation-section--body_detail w-50-lg w-100-md">
             <BookingBubble booking={booking} />
@@ -99,16 +64,16 @@ function Reservation() {
                 <div className="sub-container_segment">
                   <h6 className="segment-header">Dates</h6>
                   <p className="segment-info">
-                    {`${getDateTimestamp(booking.checkIn, true)}`} -
-                    {`${getDateTimestamp(booking.checkOut, true)}`}
+                    {`${getDateTimestamp(booking.checkIn, true)}`}
+                    {` - ${getDateTimestamp(booking.checkOut, true)}`}
                     {/* Dec 15 – 22 */}
                   </p>
                 </div>
-                <div className="sub-container_segment aln-left">
+                {/* <div className="sub-container_segment aln-left">
                   <a href="#" className="property-edit">
                     Edit
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="reservation-body--sub_container">
                 <div className="sub-container_segment">
@@ -117,11 +82,11 @@ function Reservation() {
                     {booking.guests} guest{booking.guests > 1 ? "s" : ""}
                   </p>
                 </div>
-                <div className="sub-container_segment aln-left">
+                {/* <div className="sub-container_segment aln-left">
                   <a href="#" className="property-edit">
                     Edit
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="reservation-body--container">
@@ -137,14 +102,15 @@ function Reservation() {
                   <div className="sub-container_segment aln-left">
                     <div className="input-radio-group">
                       <label
-                        htmlFor="btn3"
+                        htmlFor="btn1"
                         className="reserve-radio-icon"
                       ></label>
                       <input
                         type="radio"
                         className="reserve-radio-btn"
                         name="paymentType"
-                        id="btn3"
+                        id="btn1"
+                        defaultChecked
                       />
                     </div>
                   </div>
@@ -223,16 +189,14 @@ function Reservation() {
   );
 }
 
-function BookingCard({booking}) {
-  const serviceFee = booking.sumTotal * 0.025;
-  const overAllSum = booking.sumTotal + serviceFee;
-
+function BookingCard({ booking }) {
+  const overAllSum = booking.sumTotal + booking.fee;
   return (
     <>
       <div className={`booking-card--additional order`}>
         <div className="booking-card--additional_quantity_summary">
           <span className="quantity-label">
-            N {quoteFormater(booking.sumTotal / booking.days, true)} x{" "}
+            N {quoteFormater(booking.sumTotal / booking.days)} x{" "}
             {booking.days} nights
           </span>
           <span>N {amtFormater(booking.sumTotal, true)}</span>
@@ -243,7 +207,7 @@ function BookingCard({booking}) {
         </div>
         <div className="booking-card--additional_quantity_summary btm-border">
           <span className="quantity-label">Rock service fee</span>
-          <span>N {quoteFormater(serviceFee)}</span>
+          <span>N {quoteFormater(booking.fee)}</span>
         </div>
         <div className="booking-card--additional_total">
           <span className="total-label">Total(NGN)</span>
@@ -254,11 +218,15 @@ function BookingCard({booking}) {
   );
 }
 
-function BookingNav() {
+function BookingNav({pageId, navigate}) {
   return (
     <>
       <div className="reservation-section--nav">
-        <button type="button" className="reservation-section--nav_redirect">
+        <button
+          type="button"
+          className="reservation-section--nav_redirect"
+          onClick={() => navigate(`/place/${pageId}`)}
+        >
           <svg
             width="18"
             height="16"
@@ -288,8 +256,10 @@ function BookingBubble({ booking }) {
       <div className="info-bubble">
         <p className="info-text">
           <strong className="fill">Good price</strong> Your dates are N
-          {quoteFormater((booking.sumTotal *  (booking.days / 120)).toFixed(0) * 0.005)} less than the avg. nightly
-          rate over the last 3 months.
+          {quoteFormater(
+            (booking.sumTotal * (booking.days / 120)).toFixed(0) * 0.005
+          )}{" "}
+          less than the avg. nightly rate over the last 3 months.
         </p>
         <svg
           width="32"
@@ -320,13 +290,18 @@ function BookingBubble({ booking }) {
   );
 }
 
-function BookingThumbnail({hotel}) {
+function BookingThumbnail({ hotel }) {
   return (
     <>
       <div className="booking-card--thumbnail">
         <div className="booking-card--thumbnail_section">
           <div className="thumbnail-container">
-            <img src={hotel.images[0]} alt={hotel.name} title={hotel.title} aria-description={hotel.description} />
+            <img
+              src={hotel.images[0]}
+              alt={hotel.name}
+              title={hotel.title}
+              aria-description={hotel.description}
+            />
           </div>
         </div>
         <div className="booking-card--thumbnail_section">

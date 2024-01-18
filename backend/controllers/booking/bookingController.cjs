@@ -76,6 +76,7 @@ const getOrder = asyncHandlerSync(async (req, res) => {
   const order = Booking.findOne({
     customer: req.user.id,
     hotel: req.params.id,
+    validated: true
   });
   res.status(200).json(order);
 });
