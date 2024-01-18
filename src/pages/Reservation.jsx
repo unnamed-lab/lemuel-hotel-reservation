@@ -224,7 +224,7 @@ function Reservation() {
 }
 
 function BookingCard({booking}) {
-  const serviceFee = booking.sumTotal * 0.01;
+  const serviceFee = booking.sumTotal * 0.025;
   const overAllSum = booking.sumTotal + serviceFee;
 
   return (

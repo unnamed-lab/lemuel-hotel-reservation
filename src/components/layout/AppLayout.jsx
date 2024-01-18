@@ -25,6 +25,7 @@ function AppLayout({ layout = true, footer = true, children }) {
     guests: "",
     sumTotal: "",
   });
+
   
   useEffect(() => {
     searchedData !== "" ? setOutput(searchedData) : setOutput(dataset);
