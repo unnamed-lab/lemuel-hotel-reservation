@@ -14,6 +14,9 @@ const userSchema = new Schema(
     firstname: { type: String, required: [true, "Please add your firstname"] },
     lastname: { type: String, required: [true, "Please add your lastname"] },
     password: { type: String, required: [true, "Please add a password"] },
+    premium: { type: Boolean, default: false },
+    business: { type: Boolean, default: false },
+    validated: { type: Boolean, default: true },
   },
   {
     timestamps: true,

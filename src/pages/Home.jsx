@@ -50,10 +50,12 @@ function CategoryCarousel({ data, setOutput }) {
   }
 
   function prevSlide() {
-    currentIndex =
-      (currentIndex - 1 + carouselItems.current.length) %
-      carouselItems.current.length;
-    updateCarousel();
+    if (currentIndex >= 1 && currentIndex <= carouselItems.current.length) {
+      currentIndex =
+        (currentIndex - 1 + carouselItems.current.length) %
+        carouselItems.current.length;
+      updateCarousel();
+    }
   }
 
   return (

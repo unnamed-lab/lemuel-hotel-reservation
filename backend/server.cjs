@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/user/", require("./routes/user.route.cjs"));
 app.use("/api/hotel/", require("./routes/hotel.route.cjs"));
 app.use("/api/business/", require("./routes/company.route.cjs"));
+app.use("/api/booking/", require('./routes/booking.route.cjs'));
 
 app.use(errorHandler);
 

@@ -395,6 +395,7 @@ function ItemDetails({
     days: dateDiffRender,
     guests: numGuestRender,
     sumTotal: sumTotal,
+    fee: sumTotal * 0.025
   };
 
   useEffect(() => {
@@ -419,6 +420,7 @@ function ItemDetails({
 
   const createReservation = (e) => {
     e.preventDefault();
+    sessionStorage.setItem(`item-${pageId}`, JSON.stringify(submitData))
     setBooking(submitData);
     navigate(`/place/${pageId}/reserve`);
   };
