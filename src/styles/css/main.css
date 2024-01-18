@@ -349,7 +349,7 @@
   border-radius: 10px;
 }
 :root .info-bubble .info-text {
-  max-width: 95%;
+  max-width: 85%;
 }
 :root .info-bubble .info-text strong {
   display: block;

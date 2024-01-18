@@ -7,13 +7,11 @@ const orderSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
-      unique: true,
     },
     hotel: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Hotel",
-      unique: true,
     },
     checkIn: { type: Date, required: true },
     checkOut: { type: Date, required: true },
@@ -21,7 +19,7 @@ const orderSchema = new Schema(
     guests: { type: Number, required: true, min: 1, default: 1 },
     price: { type: Number, required: true },
     fee: { type: Number, required: true },
-    validated: {type: Boolean, default: true},
+    validated: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

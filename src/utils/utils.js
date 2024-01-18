@@ -151,7 +151,7 @@ export const quoteFormater = (value) => {
     })
     .reverse()
     .join("");
-  return result;
+  return result + ".00";
 };
 
 export const getDateDiff = (date1, date2) => {

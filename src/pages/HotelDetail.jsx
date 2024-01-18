@@ -39,15 +39,6 @@ function DetailPage() {
   );
   const [business, setBusiness] = useState(false);
 
-  // const biz = {
-  //   name: null,
-  //   url: null,
-  //   imgUrl: null,
-  //   contact: { phone: null, email: null },
-  //   regDate: null,
-  //   isVerified: false,
-  // };
-
   useEffect(() => {
     if (isError) {
       toast.error(message);
@@ -65,13 +56,8 @@ function DetailPage() {
     };
   }, [company, dispatch, isSuccess, isError, message]);
 
-  if (!dataset) {
+  if (!dataset || !business) {
     console.log("Still getting the data...");
-    return <Loader />;
-  }
-
-  if (!business) {
-    console.log("Still getting the business data...");
     return <Loader />;
   }
 
@@ -370,7 +356,9 @@ function ItemDetails({
   minGuests,
   maxGuests,
 }) {
-  const [dataset, booking, setBooking] = useOutletContext();
+  const [dataset] = useOutletContext();
+  const [numGuest, setNumGuest] = useState(0);
+  const [dateDiff, setDateDiff] = useState(0);
   const { guest, bed, bedroom, bath } = accomodation;
   const { name, url, imgUrl, contact } = company;
   const fiveStarRating = getStarRating(5, rating, true);
@@ -378,38 +366,41 @@ function ItemDetails({
     findReview("frontdesk", reviews, true).length,
     reviews.length
   );
+
+  const orderHistory = JSON.parse(sessionStorage.getItem(`item-${pageId}`));
   let ratingQuote = ratingText(fiveStarRating);
   let reviewQuote = ratingText(fiveCheckInRating);
-  const [checkInValue, setCheckIn] = useState("");
-  const [checkOutValue, setCheckOut] = useState("");
-  const [numGuest, setNumGuest] = useState(0);
-  const [dateDiff, setDateDiff] = useState(0);
   let numGuestRender = numGuest === 0 ? 1 : numGuest;
   let dateDiffRender = dateDiff === "NaN" ? 0 : dateDiff;
   let sumTotal = pricing * numGuestRender * dateDiffRender;
-  const checkInRef = useRef(null);
-  const checkOutRef = useRef(null);
-  let submitData = {
-    checkIn: checkInValue,
-    checkOut: checkOutValue,
-    days: dateDiffRender,
-    guests: numGuestRender,
-    sumTotal: sumTotal,
-    fee: sumTotal * 0.025
-  };
+
+  const [formData, setFormData] = useState({
+    checkIn: orderHistory?.checkIn ?? "",
+    checkOut: orderHistory?.checkOut ?? "",
+    days: orderHistory?.days ?? dateDiffRender,
+    guests: orderHistory?.guests ?? numGuestRender,
+    sumTotal: orderHistory?.sumTotal ?? sumTotal,
+    fee: orderHistory?.fee ?? sumTotal * 0.025,
+  });
+
+  useEffect(()=> {
+    setFormData((prevState) => ({
+      ...prevState,
+      days: dateDiffRender,
+      sumTotal,
+      fee: sumTotal * 0.025,
+    }));
+  }, [dateDiffRender, sumTotal])
 
   useEffect(() => {
-    setDateDiff(getDateDiff(checkInValue, checkOutValue));
-  }, [checkInValue, checkOutValue]);
+    setDateDiff(getDateDiff(formData.checkIn, formData.checkOut));
+  }, [formData]);
 
-  const changeCheckIn = (e) => {
-    setCheckIn(e.target.value);
-  };
-  const changeCheckOut = (e) => {
-    setCheckOut(e.target.value);
-  };
-  const changeGuestNumber = (e) => {
-    setNumGuest(e.target.value);
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const [makeReserve, setReserve] = useState(false);
@@ -420,8 +411,7 @@ function ItemDetails({
 
   const createReservation = (e) => {
     e.preventDefault();
-    sessionStorage.setItem(`item-${pageId}`, JSON.stringify(submitData))
-    setBooking(submitData);
+    sessionStorage.setItem(`item-${pageId}`, JSON.stringify(formData));
     navigate(`/place/${pageId}/reserve`);
   };
 
@@ -607,12 +597,11 @@ function ItemDetails({
                     type="date"
                     name="checkIn"
                     id="checkIn"
-                    ref={checkInRef}
                     min={getCurDateFormat()}
                     placeholder={getCurDateFormat()}
-                    // value={}
+                    value={formData.checkIn}
                     pattern="\d{4}-\d{2}-\d{2}"
-                    onChange={changeCheckIn}
+                    onChange={onChange}
                     required
                   />
                 </div>
@@ -622,12 +611,11 @@ function ItemDetails({
                     type="date"
                     name="checkOut"
                     id="checkOut"
-                    ref={checkOutRef}
                     min={getCurDateFormat(1)}
                     placeholder={getCurDateFormat(1)}
-                    value={submitData.checkOut}
+                    value={formData.checkOut}
                     pattern="\d{4}-\d{2}-\d{2}"
-                    onChange={changeCheckOut}
+                    onChange={onChange}
                     required
                   />
                 </div>
@@ -640,11 +628,10 @@ function ItemDetails({
                   id="guestCount"
                   min={minGuests}
                   max={maxGuests}
-                  defaultValue={minGuests}
                   className="guest-number-input"
                   placeholder={`${minGuests} guest`}
-                  onChange={changeGuestNumber}
-                  value={submitData.guests}
+                  onChange={onChange}
+                  value={formData?.guests ?? minGuests}
                   required
                 />
               </div>
@@ -664,7 +651,7 @@ function ItemDetails({
               </p>
               <div className="booking-card--additional_quantity btm-border">
                 <span className="quantity-label">
-                  N {amtFormater(pricing * numGuestRender)} x {dateDiffRender}{" "}
+                  N {amtFormater(pricing * formData.guests)} x {dateDiffRender}{" "}
                   nights
                 </span>
                 <span>N {amtFormater(sumTotal, true)}</span>
