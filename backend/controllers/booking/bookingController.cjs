@@ -1,11 +1,17 @@
 const asyncHandlerSync = require("express-async-handler");
 const Booking = require("../../models/booking.model.cjs");
 const Hotel = require("../../models/hotel.model.cjs");
+const User = require("../../models/user.models.cjs");
 
 //  @desc       Get Bookings List
 //  @route      Get /api/booking/
 //  @access     Private
 const getBookings = asyncHandlerSync(async (req, res) => {
+  const isAdmin = User.findOne({ _id: req.user.id, admin: true });
+  if (!isAdmin) {
+    res.status(400);
+    throw new Error("Please fill required input fields");
+  }
   const bookings = Booking.find();
   res.status(200).json(bookings);
 });
@@ -185,7 +191,7 @@ const approveOrder = asyncHandlerSync(async (req, res) => {
       guests: updateOrder.guests,
       price: updateOrder.price,
       fee: updateOrder.fee,
-      approved: updateOrder.approved
+      approved: updateOrder.approved,
     });
     console.log("Order data updated");
   } else {

@@ -34,6 +34,6 @@ router.route("/:id/approve").put(orderAccess, approveOrder);
 router.route("/:id/reject").put(orderAccess, declineOrder);
 
 // Deletes a booking order
-router.route("/:id/delete").delete(protect, deleteOrder);
+router.route("/:id").delete(protect, deleteOrder);
 
 module.exports = router;
