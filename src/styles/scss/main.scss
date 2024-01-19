@@ -421,7 +421,7 @@
         display: none;
 
         &.show {
-          display: block;
+          display: flex;
           order: 3;
           margin-top: 2rem;
         }
@@ -432,7 +432,8 @@
         grid-template-columns: repeat(2, 1fr);
         width: 100%;
         background-color: $white;
-        max-width: inherit;
+        max-width: 100%;
+        overflow: hidden;
 
         .check-date-selector {
           width: -webkit-fill-available;
@@ -476,7 +477,7 @@
       }
       .booking-card--appointment_guest {
         position: relative;
-        width: 100%;
+        width: -webkit-fill-available;
         display: flex;
         flex-wrap: wrap;
         padding: 1.15rem 1.5rem;
@@ -517,6 +518,7 @@
 
       @include responsive(mobile) {
         display: none;
+        margin-top: 0.1rem;
 
         &.order {
           display: block;
@@ -590,7 +592,8 @@
 
     @include responsive(mobile) {
       display: flex;
-      margin-bottom: 3rem;
+      margin-top: 1.15rem;
+      margin-bottom: 1.15rem;
     }
 
     .booking-card--thumbnail_section {

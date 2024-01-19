@@ -545,7 +545,7 @@
     display: none;
   }
   :root .booking-card .booking-card--appointment.show {
-    display: block;
+    display: flex;
     order: 3;
     margin-top: 2rem;
   }
@@ -556,7 +556,8 @@
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   background-color: #fff;
-  max-width: inherit;
+  max-width: 100%;
+  overflow: hidden;
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_check .check-date-selector {
   width: -webkit-fill-available;
@@ -594,7 +595,7 @@
 }
 :root .booking-card .booking-card--appointment .booking-card--appointment_guest {
   position: relative;
-  width: 100%;
+  width: -webkit-fill-available;
   display: flex;
   flex-wrap: wrap;
   padding: 1.15rem 1.5rem;
@@ -631,6 +632,7 @@
 @media (max-width: 767px) {
   :root .booking-card .booking-card--additional {
     display: none;
+    margin-top: 0.1rem;
   }
   :root .booking-card .booking-card--additional.order {
     display: block;
@@ -691,7 +693,8 @@
 @media (max-width: 767px) {
   :root .booking-card--thumbnail {
     display: flex;
-    margin-bottom: 3rem;
+    margin-top: 1.15rem;
+    margin-bottom: 1.15rem;
   }
 }
 :root .booking-card--thumbnail .booking-card--thumbnail_section:nth-child(1) {
