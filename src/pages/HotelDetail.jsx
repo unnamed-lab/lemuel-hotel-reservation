@@ -382,6 +382,9 @@ function ItemDetails({
     sumTotal: orderHistory?.sumTotal ?? sumTotal,
     fee: orderHistory?.fee ?? sumTotal * 0.025,
   });
+  
+  // console.log(dateDiffRender, sumTotal);
+  console.log(formData);
 
   useEffect(()=> {
     setFormData((prevState) => ({

@@ -1,5 +1,6 @@
 const asyncHandlerSync = require("express-async-handler");
 const Booking = require("../../models/booking.model.cjs");
+const Hotel = require("../../models/hotel.model.cjs");
 
 //  @desc       Get Bookings List
 //  @route      Get /api/booking/
@@ -30,7 +31,7 @@ const createOrder = asyncHandlerSync(async (req, res) => {
 
   const hasOrder = await Booking.findOne({
     customer: req.user.id,
-    hotel: company,
+    hotel: hotel,
   });
 
   if (hasOrder) {
@@ -76,7 +77,7 @@ const getOrder = asyncHandlerSync(async (req, res) => {
   const order = Booking.findOne({
     customer: req.user.id,
     hotel: req.params.id,
-    validated: true
+    validated: true,
   });
   res.status(200).json(order);
 });
@@ -98,7 +99,7 @@ const updateOrder = asyncHandlerSync(async (req, res) => {
 
   const { checkIn, checkOut, days, guests, total, fee } = req.body;
 
-  const updateOrder = await Booking.findByIdAndUpdate(req.parrams.id, {
+  const updateOrder = await Booking.findByIdAndUpdate(req.params.id, {
     checkIn,
     checkOut,
     days,
@@ -142,7 +143,101 @@ const deleteOrder = asyncHandlerSync(async (req, res) => {
   }
 
   Booking.findByIdAndDelete(req.params.id);
-  res.status(200).json({ message: `Booking Order(${req.params.id}) data deleted!` });
+  res
+    .status(200)
+    .json({ message: `Booking Order(${req.params.id}) data deleted!` });
+});
+
+//  @desc        Approve Booking Order
+//  @route       PUT /api/booking/:id/approve
+//  @access      Private
+
+const approveOrder = asyncHandlerSync(async (req, res) => {
+  const hasOrder = await Booking.findById(req.params.id);
+  if (!hasOrder) {
+    res.status(400);
+    throw new Error("Order not found");
+  }
+  if (!req.user.id) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+  const getHotel = await Hotel.findOne({
+    owner: req.user.id,
+    _id: hasOrder.hotel,
+  });
+  if (!getHotel) {
+    res.status(401);
+    throw new Error("Not valid admin");
+  }
+  const updateOrder = await Booking.findByIdAndUpdate(req.params.id, {
+    approved: true,
+  });
+
+  if (updateOrder) {
+    res.status(201).json({
+      _id: updateOrder.id,
+      customer: updateOrder.customer,
+      hotel: updateOrder.hotel,
+      checkIn: updateOrder.checkIn,
+      checkOut: updateOrder.checkOut,
+      days: updateOrder.days,
+      guests: updateOrder.guests,
+      price: updateOrder.price,
+      fee: updateOrder.fee,
+      approved: updateOrder.approved
+    });
+    console.log("Order data updated");
+  } else {
+    res.status(400);
+    throw new Error("Invalid hotel data");
+  }
+});
+
+//  @desc        Reject Booking Order
+//  @route       PUT /api/booking/:id/reject
+//  @access      Private
+
+const declineOrder = asyncHandlerSync(async (req, res) => {
+  const hasOrder = await Booking.findById(req.params.id);
+  if (!hasOrder) {
+    res.status(400);
+    throw new Error("Order not found");
+  }
+  if (!req.user.id) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+  const getHotel = await Hotel.findOne({
+    owner: req.user.id,
+    _id: hasOrder.hotel,
+  });
+  if (!getHotel) {
+    res.status(401);
+    throw new Error("Not valid admin");
+  }
+  const updateOrder = await Booking.findByIdAndUpdate(req.params.id, {
+    validated: false,
+    approved: false,
+  });
+
+  if (updateOrder) {
+    res.status(201).json({
+      _id: updateOrder.id,
+      customer: updateOrder.customer,
+      hotel: updateOrder.hotel,
+      checkIn: updateOrder.checkIn,
+      checkOut: updateOrder.checkOut,
+      days: updateOrder.days,
+      guests: updateOrder.guests,
+      price: updateOrder.price,
+      fee: updateOrder.fee,
+    });
+    console.log("Order data updated");
+  } else {
+    res.status(400);
+    throw new Error("Invalid hotel data");
+  }
 });
 
 module.exports = {
@@ -152,4 +247,6 @@ module.exports = {
   getOrder,
   updateOrder,
   deleteOrder,
+  approveOrder,
+  declineOrder,
 };

@@ -19,6 +19,7 @@ const orderSchema = new Schema(
     guests: { type: Number, required: true, min: 1, default: 1 },
     price: { type: Number, required: true },
     fee: { type: Number, required: true },
+    approved: { type: Boolean, default: false },
     validated: { type: Boolean, default: true },
   },
   { timestamps: true }
