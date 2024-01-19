@@ -1026,6 +1026,7 @@
 }
 @media (max-width: 767px) {
   .catalogue-detail-section .catalogue-detail-rating .item-rating-list .rating-item .rating-item--title {
+    font-size: 15.25px;
     margin-block-end: 0.25rem;
     margin-block-start: 0.25rem;
   }
@@ -1033,7 +1034,6 @@
 .catalogue-detail-section .catalogue-detail-rating .item-rating-list .rating-item .rating-loader {
   width: 50%;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   margin-left: auto;
 }
@@ -1277,6 +1277,7 @@
 }
 @media (max-width: 767px) {
   .catalogue-detail-section .catalogue-detail--terms .policy-list {
+    width: 100%;
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
