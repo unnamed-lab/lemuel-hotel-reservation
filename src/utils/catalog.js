@@ -237,4 +237,13 @@ export const catalogue = [catalogueItem];
 
 export const catalogues = [catalogueItem];
 
-// {"_id":{"$oid":"659de12584233cfac0df3d46"},"owner":{"$oid":"659c016f73a80d7789891b78"},"name":"Jorgan Resort & Hotel","title":"Beautiful Hotel on the edge of iterigbi river","description":"A passionate host, who loves to welcome guest from all over the world and share the beauty of this amazing natural spot that is Blue Lagoon","language":["中文","English","Brazil","Français"],"company":{"$oid":"659c01be73a80d7789891b82"},"images":["https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","https://images.unsplash.com/photo-1542314831-068cd1dbfeeb","https://images.unsplash.com/photo-1618773928121-c32242e63f39","https://images.unsplash.com/photo-1564501049412-61c2a3083791"],"address":"Jorgan hotel, Delta, Iterigbi","tags":["hotel","resort","vacation"],"room":{"available":{"$numberInt":"1"},"total":{"$numberInt":"1"}},"price":{"$numberInt":"15000"},"accomodation":{"guest":{"$numberInt":"1"},"max_guest":{"$numberInt":"20"},"bed":{"$numberInt":"1"},"bedroom":{"$numberInt":"1"},"bath":{"$numberInt":"1"}},"rating":[],"review":[{"name":"Mikasa","message":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi harum quas animi minima fugit natus assumenda fugiat iusto?","tags":["communication","clean","location","accuracy"],"timestamp":"May 21, 2023"}],"faves":[],"isSuperHost":true,"customerExp":[],"policy":{"rules":["Check-in after 2:00 PM","Checkout before 12:00 PM","2 guests maximum"],"cancellation":["Free cancellation for 48 hours.","Review the Host’s full cancellation policy which applies even if you cancel for illness or disruptions caused by COVID-19."],"safety":["Carbon monoxide alarm","Smoke alarm"]},"validated":true,"createdAt":{"$date":{"$numberLong":"1704845606047"}},"updatedAt":{"$date":{"$numberLong":"1704845606047"}},"__v":{"$numberInt":"0"}}
+/* 
+{
+  "checkIn": "2024-01-19",
+  "checkOut": "2024-01-31",
+  "days": 12,
+  "guests": 1,
+  "sumTotal": 420000,
+  "fee": 10500
+}
+*/

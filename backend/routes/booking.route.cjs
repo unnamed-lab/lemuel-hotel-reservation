@@ -7,8 +7,10 @@ const {
   getOrder,
   updateOrder,
   deleteOrder,
+  approveOrder,
+  declineOrder,
 } = require("../controllers/booking/bookingController.cjs");
-const { protect } = require("../middleware/authMiddleware.cjs");
+const { protect, orderAccess } = require("../middleware/authMiddleware.cjs");
 
 // Get all bookings from the database
 router.route("/").get(getBookings);
@@ -24,6 +26,12 @@ router.route("/:id").get(protect, getOrder);
 
 // Update a booking order
 router.route("/:id").put(protect, updateOrder);
+
+// Approve booking order
+router.route("/:id/approve").put(orderAccess, approveOrder);
+
+// Reject booking order
+router.route("/:id/reject").put(orderAccess, declineOrder);
 
 // Deletes a booking order
 router.route("/:id/delete").delete(protect, deleteOrder);

@@ -17,6 +17,7 @@ const userSchema = new Schema(
     premium: { type: Boolean, default: false },
     business: { type: Boolean, default: false },
     validated: { type: Boolean, default: true },
+    admin: { type: Boolean, default: false },
   },
   {
     timestamps: true,
