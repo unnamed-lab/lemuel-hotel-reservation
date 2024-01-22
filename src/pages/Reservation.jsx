@@ -23,10 +23,11 @@ function Reservation() {
   const { placeId } = useParams();
   const [dataset] = useOutletContext();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { company, isSuccess, isLoading, isError, message } = useSelector(
-    (state) => state.company
-  );
+  const [payment, setPayment] = useState("card");
+  // const dispatch = useDispatch();
+  // const { company, isSuccess, isLoading, isError, message } = useSelector(
+  //   (state) => state.company
+  // );
 
   const booking = JSON.parse(sessionStorage.getItem(`item-${placeId}`));
   console.log(booking);
@@ -47,8 +48,32 @@ function Reservation() {
     );
   }
 
-  const submitReserve = () => {
+  const configMethod = (key) => {
+    switch (key) {
+      case "card":
+        return "Card Transfer";
+      case "bank":
+        return "Bank Transfer";
+      case "hotel":
+        return "In-Person Payment";
+      default:
+        break;
+    }
+  };
+  const submitReserve = (e) => {
+    e.preventDefault()
+    booking.method = configMethod(payment);
+
+    console.log("Updated Booking: ", booking);
+    if (sessionStorage.getItem(`item-${placeId}`))
+      sessionStorage.clear(`item-${placeId}`);
+    JSON.stringify(sessionStorage.setItem(`item-${placeId}`, JSON.stringify(booking)));
+
     navigate(`/place/${placeId}/reserve/success`);
+  };
+
+  const onBtnChange = (e) => {
+    setPayment(e.target.name);
   };
 
   return (
@@ -66,14 +91,8 @@ function Reservation() {
                   <p className="segment-info">
                     {`${getDateTimestamp(booking.checkIn, true)}`}
                     {` - ${getDateTimestamp(booking.checkOut, true)}`}
-                    {/* Dec 15 – 22 */}
                   </p>
                 </div>
-                {/* <div className="sub-container_segment aln-left">
-                  <a href="#" className="property-edit">
-                    Edit
-                  </a>
-                </div> */}
               </div>
               <div className="reservation-body--sub_container">
                 <div className="sub-container_segment">
@@ -82,11 +101,6 @@ function Reservation() {
                     {booking.guests} guest{booking.guests > 1 ? "s" : ""}
                   </p>
                 </div>
-                {/* <div className="sub-container_segment aln-left">
-                  <a href="#" className="property-edit">
-                    Edit
-                  </a>
-                </div> */}
               </div>
             </div>
             <div className="reservation-body--container">
@@ -108,8 +122,9 @@ function Reservation() {
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="paymentType"
+                        name="card"
                         id="btn1"
+                        onChange={onBtnChange}
                         defaultChecked
                       />
                     </div>
@@ -134,8 +149,9 @@ function Reservation() {
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="paymentType"
+                        name="bank"
                         id="btn2"
+                        onChange={onBtnChange}
                       />
                     </div>
                   </div>
@@ -159,8 +175,9 @@ function Reservation() {
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="paymentType"
+                        name="hotel"
                         id="btn3"
+                        onChange={onBtnChange}
                       />
                     </div>
                   </div>
@@ -196,8 +213,8 @@ function BookingCard({ booking }) {
       <div className={`booking-card--additional order`}>
         <div className="booking-card--additional_quantity_summary">
           <span className="quantity-label">
-            N {quoteFormater(booking.sumTotal / booking.days)} x{" "}
-            {booking.days} nights
+            N {quoteFormater(booking.sumTotal / booking.days)} x {booking.days}{" "}
+            nights
           </span>
           <span>N {amtFormater(booking.sumTotal, true)}</span>
         </div>
@@ -218,7 +235,7 @@ function BookingCard({ booking }) {
   );
 }
 
-function BookingNav({pageId, navigate}) {
+function BookingNav({ pageId, navigate }) {
   return (
     <>
       <div className="reservation-section--nav">

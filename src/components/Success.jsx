@@ -1,6 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function Success() {
+  const { placeId } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const redirect = setTimeout(() => {
+      navigate(`/place/${placeId}/reserve/receipt`);
+    }, 30000);
+    return () => {
+      clearTimeout(redirect);
+    }
+  }, [])
   return (
     <>
       <section className="component">

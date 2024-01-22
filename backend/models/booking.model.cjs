@@ -8,6 +8,7 @@ const orderSchema = new Schema(
       required: true,
       ref: "User",
     },
+    fullname: { type: String },
     hotel: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -19,6 +20,8 @@ const orderSchema = new Schema(
     guests: { type: Number, required: true, min: 1, default: 1 },
     price: { type: Number, required: true },
     fee: { type: Number, required: true },
+    method: { type: String },
+    time: { type: Date, default: Date.now },
     approved: { type: Boolean, default: false },
     validated: { type: Boolean, default: true },
   },

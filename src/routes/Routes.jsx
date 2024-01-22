@@ -16,6 +16,7 @@ import AdminLayout from "../components/layout/AdminLayout";
 import CompanyDetail from "../pages/admin/CompanyDetail";
 import HotelForm from "../pages/admin/components/HotelForm";
 import Success from "../components/Success";
+import Receipt from "../pages/Receipt";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ const routes = createBrowserRouter(
         <Route path=":placeId" element={<DetailPage />} />
         <Route path=":placeId/reserve" element={<Reservation />} />
         <Route path=":placeId/reserve/success" element={<Success />} />
+        <Route path=":placeId/reserve/receipt" element={<Receipt />} />
       </Route>
     </Route>
   ),
