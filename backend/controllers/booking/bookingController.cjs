@@ -45,8 +45,12 @@ const createOrder = asyncHandlerSync(async (req, res) => {
     throw new Error("Order already exists");
   }
 
+  const customer = await User.findById(req.user.id);
+  const customerName = `${customer.firstname} ${customer.lastname}`;
+
   const order = await Booking.create({
     customer: req.user.id,
+    fullname: customerName,
     hotel,
     checkIn,
     checkOut,
@@ -60,6 +64,7 @@ const createOrder = asyncHandlerSync(async (req, res) => {
     res.status(201).json({
       _id: order.id,
       customer: order.customer,
+      fullname: order.fullname,
       hotel: order.hotel,
       checkIn: order.checkIn,
       checkOut: order.checkOut,
@@ -118,6 +123,7 @@ const updateOrder = asyncHandlerSync(async (req, res) => {
     res.status(201).json({
       _id: updateOrder.id,
       customer: updateOrder.customer,
+      fullname: updateOrder.fullname,
       hotel: updateOrder.hotel,
       checkIn: updateOrder.checkIn,
       checkOut: updateOrder.checkOut,

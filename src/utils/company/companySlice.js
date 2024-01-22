@@ -28,7 +28,7 @@ export const createCompany = createAsyncThunk(
   }
 );
 
-// Get coompany
+// Get company
 export const getCompany = createAsyncThunk(
   "business/mine",
   async (_, thunkAPI) => {
@@ -45,7 +45,7 @@ export const getCompany = createAsyncThunk(
   }
 );
 
-// Get coompany
+// Get company
 export const getCompanies = createAsyncThunk(
   "business/all",
   async (_, thunkAPI) => {
