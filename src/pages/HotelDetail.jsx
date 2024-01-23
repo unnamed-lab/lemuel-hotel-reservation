@@ -1170,9 +1170,10 @@ function Additional({
 
 function Terms({ policies, hotelName }) {
   const { rules, safety, cancellation } = policies;
+  console.log("Policies: \n", rules, safety, cancellation);
 
   const outputRule =
-    rules === true ? (
+    rules ? (
       <li className="policy-list-item">
         <h6 className="policy-list-item--heading">House rules</h6>
         <ul className="policy-list-item--mini_list">
@@ -1206,22 +1207,23 @@ function Terms({ policies, hotelName }) {
     ""
   );
 
-  const outputCancel = cancellation ? (
-    <li className="policy-list-item">
-      <h6 className="policy-list-item--heading">Cancellation policy</h6>
-      <ul className="policy-list-item--mini_list">
-        {cancellation.map((el, key) => {
-          return (
-            <>
-              <PolicyItem key={key} text={el} />
-            </>
-          );
-        })}
-      </ul>
-    </li>
-  ) : (
-    ""
-  );
+  const outputCancel =
+    cancellation ? (
+      <li className="policy-list-item">
+        <h6 className="policy-list-item--heading">Cancellation policy</h6>
+        <ul className="policy-list-item--mini_list">
+          {cancellation.map((el, key) => {
+            return (
+              <>
+                <PolicyItem key={key} text={el} />
+              </>
+            );
+          })}
+        </ul>
+      </li>
+    ) : (
+      ""
+    );
   return (
     <>
       <section className="catalogue-detail--terms">

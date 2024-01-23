@@ -105,7 +105,6 @@ export const makeArrayToString = (arr) => {
 
 export const getStarRating = (value, rating = [], percentage = false) => {
   const lookUpStar = rating.filter((item) => item === value);
-  console.log(lookUpStar, rating);
   const diff = lookUpStar.length / rating.length;
   let output = diff;
   if (percentage) output = percentage ? diff * 100 : diff;
