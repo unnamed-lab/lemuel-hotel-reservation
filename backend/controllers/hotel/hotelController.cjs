@@ -45,7 +45,7 @@ const createHotel = asyncHandlerSync(async (req, res) => {
     rating,
     review,
     rules,
-    saftey,
+    safety,
     cancellation,
   } = req.body;
 
@@ -90,7 +90,7 @@ const createHotel = asyncHandlerSync(async (req, res) => {
     review,
     policy: {
       rules,
-      saftey,
+      safety,
       cancellation,
     },
   });
