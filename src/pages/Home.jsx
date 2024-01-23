@@ -35,27 +35,22 @@ function CategoryCarousel({ data, setOutput }) {
   }, []);
 
   function updateCarousel() {
-    const itemWidth = carouselItems.current[0].clientWidth + 26;
-    // console.log(`${-currentIndex * itemWidth}px`);
+    const itemWidth = carouselItems.current[0].clientWidth + 26; 
     carouselBody.current.style.transform = `translateX(${
       -currentIndex * itemWidth
     }px)`;
   }
 
-  function nextSlide() {
-    if (currentIndex <= carouselItems.current.length) {
-      currentIndex = (currentIndex + 1) % carouselItems.current.length; // Get the index of the next item.
-      updateCarousel();
-    }
+  function nextSlide() { 
+    currentIndex = (currentIndex + 1) % carouselItems.current.length; // Get the index of the next item.
+    updateCarousel();
   }
 
-  function prevSlide() {
-    if (currentIndex >= 1 && currentIndex <= carouselItems.current.length) {
-      currentIndex =
-        (currentIndex - 1 + carouselItems.current.length) %
-        carouselItems.current.length;
-      updateCarousel();
-    }
+  function prevSlide() { 
+    currentIndex =
+      (currentIndex - 1 + carouselItems.current.length) %
+      carouselItems.current.length;
+    updateCarousel();
   }
 
   return (

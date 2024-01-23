@@ -174,6 +174,7 @@
   padding: 6px 3rem;
   background-color: #fff;
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 @media (max-width: 767px) {
   .category-carousel {
@@ -249,6 +250,8 @@
   margin-block-end: 0.2em;
   margin-block-start: 0.2em;
   transition: transform 1s ease;
+  min-width: -webkit-fill-available;
+  justify-content: space-evenly;
 }
 .category-carousel .category-carousel-box .carousel-box-list .box-item {
   display: flex;
@@ -261,6 +264,7 @@
   padding: 10px 3px;
   text-transform: capitalize;
   width: 80px;
+  margin: 0 1.15rem;
   text-align: center;
   transition: all 1s ease;
 }
