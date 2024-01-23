@@ -24,13 +24,9 @@ function Reservation() {
   const [dataset] = useOutletContext();
   const navigate = useNavigate();
   const [payment, setPayment] = useState("card");
-  // const dispatch = useDispatch();
-  // const { company, isSuccess, isLoading, isError, message } = useSelector(
-  //   (state) => state.company
-  // );
 
   const booking = JSON.parse(sessionStorage.getItem(`item-${placeId}`));
-  console.log(booking);
+  // console.log(booking);
 
   if (!dataset) {
     console.log("Still getting the data...");
@@ -63,8 +59,6 @@ function Reservation() {
   const submitReserve = (e) => {
     e.preventDefault()
     booking.method = configMethod(payment);
-
-    console.log("Updated Booking: ", booking);
     if (sessionStorage.getItem(`item-${placeId}`))
       sessionStorage.clear(`item-${placeId}`);
     JSON.stringify(sessionStorage.setItem(`item-${placeId}`, JSON.stringify(booking)));
@@ -73,7 +67,7 @@ function Reservation() {
   };
 
   const onBtnChange = (e) => {
-    setPayment(e.target.name);
+    setPayment(e.target.id);
   };
 
   return (
@@ -116,14 +110,14 @@ function Reservation() {
                   <div className="sub-container_segment aln-left">
                     <div className="input-radio-group">
                       <label
-                        htmlFor="btn1"
+                        htmlFor="card"
                         className="reserve-radio-icon"
                       ></label>
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="card"
-                        id="btn1"
+                        name="paymentbtn"
+                        id="card"
                         onChange={onBtnChange}
                         defaultChecked
                       />
@@ -143,14 +137,14 @@ function Reservation() {
                   <div className="sub-container_segment aln-left">
                     <div className="input-radio-group">
                       <label
-                        htmlFor="btn2"
+                        htmlFor="bank"
                         className="reserve-radio-icon"
                       ></label>
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="bank"
-                        id="btn2"
+                        name="paymentbtn"
+                        id="bank"
                         onChange={onBtnChange}
                       />
                     </div>
@@ -169,14 +163,14 @@ function Reservation() {
                   <div className="sub-container_segment aln-left">
                     <div className="input-radio-group">
                       <label
-                        htmlFor="btn3"
+                        htmlFor="hotel"
                         className="reserve-radio-icon"
                       ></label>
                       <input
                         type="radio"
                         className="reserve-radio-btn"
-                        name="hotel"
-                        id="btn3"
+                        name="paymentbtn"
+                        id="hotel"
                         onChange={onBtnChange}
                       />
                     </div>
