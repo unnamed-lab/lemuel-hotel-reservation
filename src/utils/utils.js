@@ -10,7 +10,7 @@ export const numToText = (num) => {
 export const findReview = (tag = "", reviews = [], getArr = false) => {
   const reviewType = reviews.filter((item) => {
     return item.tags.some(() => item.tags.includes(tag.toLowerCase()));
-  });
+  }); 
   if (getArr === true) {
     return reviewType;
   }
@@ -24,12 +24,12 @@ export const getRatingAvg = (arr) => {
 
 export const getRatingDecimal = (value, arr) => {
   const output = ((value / arr.length) * 5).toFixed(2);
-  return isNaN(output) ? (0).toFixed(2) : output.toFixed(2);
+  return isNaN(output) ? (0).toFixed(2) : output;
 };
 
 export const getRatingPercent = (value, arr) => {
   const output = (value / arr.length) * 100;
-  return isNaN(output) ? (0).toFixed(2) : output.toFixed(2);
+  return isNaN(output) ? (0).toFixed(2) : output;
 };
 
 export const getTimestamp = (time) => {
@@ -105,9 +105,11 @@ export const makeArrayToString = (arr) => {
 
 export const getStarRating = (value, rating = [], percentage = false) => {
   const lookUpStar = rating.filter((item) => item === value);
-  const output = lookUpStar.length / rating.length;
-  const outputPercent = percentage ? output * 100 : output;
-  return isNaN(outputPercent) ? (0).toFixed(2) : output.toFixed(2);
+  console.log(lookUpStar, rating);
+  const diff = lookUpStar.length / rating.length;
+  let output = diff;
+  if (percentage) output = percentage ? diff * 100 : diff;
+  return isNaN(output) ? (0).toFixed(2) : output.toFixed(2);
 };
 
 export const ratingText = (input) => {

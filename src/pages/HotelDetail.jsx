@@ -364,7 +364,7 @@ function ItemDetails({
   const fiveStarRating = getStarRating(5, rating, true);
   const fiveCheckInRating = getRatingPercent(
     findReview("frontdesk", reviews, true).length,
-    reviews.length
+    reviews
   );
 
   const orderHistory = JSON.parse(sessionStorage.getItem(`item-${pageId}`));
@@ -384,7 +384,7 @@ function ItemDetails({
   });
   
   // console.log(dateDiffRender, sumTotal);
-  console.log(formData);
+  // console.log(formData);
 
   useEffect(()=> {
     setFormData((prevState) => ({
@@ -855,37 +855,37 @@ function Offers({ facility }) {
 
 function Rating({ rating, ratingAvg, reviews, reviewCount }) {
   const reviewTotal = reviewCount;
-  const reviewTotalText = numToText(reviewTotal);
+  const reviewTotalText = numToText(reviewTotal); 
   const ratingObj = [
     {
       type: "communication",
       value: findReview("communication", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
     {
       type: "clean",
       value: findReview("clean", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
     {
       type: "location",
       value: findReview("location", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
     {
       type: "checkin",
       value: findReview("frontdesk", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
     {
       type: "accuracy",
       value: findReview("accuracy", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
     {
       type: "value",
       value: findReview("value", reviews, true).length,
-      reviews: reviewTotal,
+      reviews: reviews,
     },
   ];
   return (
@@ -953,6 +953,8 @@ function RatingItem({ type, value, reviews }) {
 
   const ratingValue = getRatingDecimal(value, reviews);
   const ratingPercent = getRatingPercent(value, reviews);
+  // console.log(type, value, reviews);
+  // console.log(ratingValue, ratingPercent);
 
   return (
     <>
