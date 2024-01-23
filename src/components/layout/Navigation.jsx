@@ -286,11 +286,11 @@ function NavMenuListLoggedOut() {
     <>
       <ul className="menu-list">
         <li className="menu-item">
-          <Link to={"auth/login"}>Log in</Link>
+          <Link to={"/auth/login"}>Log in</Link>
         </li>
         <hr />
         <li className="menu-item">
-          <Link to={"auth/register"}>Register</Link>
+          <Link to={"/auth/register"}>Register</Link>
         </li>
       </ul>
     </>
