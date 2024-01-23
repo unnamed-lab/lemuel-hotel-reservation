@@ -193,7 +193,7 @@
   height: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #F8F8F8;
+  background-color: #fff;
 }
 :root header {
   position: relative;
