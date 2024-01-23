@@ -110,8 +110,8 @@ const createHotel = asyncHandlerSync(async (req, res) => {
   }
 });
 
-//  @desc       Get Hotel List
-//  @route      Get /api/hotel/:id/update
+//  @desc       Update Hotel 
+//  @route      PUT /api/hotel/:id/update
 //  @access     Private
 const updateHotel = asyncHandlerSync(async (req, res) => {
   const hasHotel = await Hotel.findById(req.params.id);
@@ -141,7 +141,7 @@ const updateHotel = asyncHandlerSync(async (req, res) => {
     rating,
     review,
     rules,
-    saftey,
+    safety,
     cancellation,
   } = req.body;
 
@@ -181,7 +181,7 @@ const updateHotel = asyncHandlerSync(async (req, res) => {
       review,
       policy: {
         rules,
-        saftey,
+        safety,
         cancellation,
       },
     },
@@ -204,8 +204,8 @@ const updateHotel = asyncHandlerSync(async (req, res) => {
   }
 });
 
-//  @desc       Get Hotel List
-//  @route      Get /api/hotel/:id/delete
+//  @desc       Delete Hotel 
+//  @route      DELETE /api/hotel/:id/delete
 //  @access     Private
 const deleteHotel = asyncHandlerSync(async (req, res) => {
   const hotel = await Hotel.findById(req.params.id);
